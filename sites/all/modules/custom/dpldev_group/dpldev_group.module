@@ -1,0 +1,35 @@
+<?php
+//implement hook_menu
+function dpldev_group_menu() {
+$items = array();
+$items['khachhang/khoangoai'] = array(
+  'title' => t('Khách hàng', array(), 'vi'),
+  'page callback' => 'dpldev_group_get_khoangoai',
+  'page arguments' => array(1),
+  'access arguments' => array('access content'),
+  'type' => MENU_CALLBACK,
+  );
+return $items;
+}
+
+//get field_khoangoai_value from arg(1)
+function dpldev_group_get_khoangoai($nid) {
+   $result = db_query("SELECT nid FROM {content_type_khachhang} where  field_khoangoai_value = '%s'",$nid);
+  if(db_affected_rows($result) == 0)
+    $result = db_query("SELECT nid FROM {content_type_khachhang} where  nid = '%s'",$nid);
+  $nidAl = '(';
+  $i = 0;
+while($row = db_fetch_object($result)) {
+  if($i ==0){
+    $nidAl .= $row->nid;
+  }
+  else
+  {
+    $nidAl .= ",";
+    $nidAl .= $row->nid;
+  }
+  $i++;
+}
+ $nidAl .= ')';
+  return $nidAl;
+}

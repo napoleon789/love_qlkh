@@ -1,0 +1,122 @@
+<?php
+/**
+ * Implements hook_menu().
+ */
+function dpldev_marketing_menu() {
+  $weight = 0;
+  $items = array();
+  $items['marketing'] = array(
+    'title' => t('Marketing', array(), 'vi'),
+    'page callback' => 'dpldev_marketing_page',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+function dpldev_marketing_page($op = 'view') {
+  switch ($op) {
+    case 'email':
+      $title = t('Email', array(), 'vi');
+      $output = drupal_get_form('dpldev_marketing_email');
+      break;
+    case 'thutay':
+      $title = t('Thư tay', array(), 'vi');
+      $output = drupal_get_form('dpldev_marketing_letter');
+      drupal_set_message(t('Chỉ có Admin mới được trang <strong>Thư tay</strong>.', array(), 'vi'), 'warning');
+     // drupal_goto('marketing');
+      break;
+    case 'membercard':
+      $title = t('Member Card', array(), 'vi');
+      $output = drupal_get_form('dpldev_marketing_membercard');
+      drupal_set_message(t('Chỉ có Admin mới được trang <strong>Member Card</strong>.', array(), 'vi'), 'warning');
+      drupal_goto('marketing');
+      break;
+    default:
+      $title = t('SMS', array(), 'vi');
+      $output = drupal_get_form('dpldev_marketing_sms');
+      break;
+  }
+
+  drupal_set_title($title);
+  return $output;
+}
+
+function dpldev_marketing_sms() {
+  $form = array();
+    $max_length = 240;
+  $form['body'] = array(
+    '#type' => 'textarea',
+    '#title' => NULL,
+    '#cols' => 10,
+    '#rows' => 4,
+    '#maxlength' => 240,
+    '#default_value' => t('Nội dung (Tiếng Việt Không Dấu)'),
+    '#description' => t('Còn %limit ký tự.', array('%limit'=>$max_length)),
+      '#attributes'=>array('onkeyup'=>"countCharDown(this);",'class' => 'inputfocus formsms'),
+
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Gửi', array(), 'vi')
+  );
+  return $form;
+}
+
+function dpldev_marketing_email() {
+  $form = array();
+  $form['body'] = array(
+    '#type' => 'textarea',
+    '#title' => NULL,
+    '#cols' => 10,
+    '#rows' => 4,
+    '#default_value' => t('Nội dung (Tiếng Việt Không Dấu)'),
+    '#attributes' => array(
+      '#class' => 'inputfocus',
+    ),
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Gửi', array(), 'vi')
+  );
+  return $form;
+}
+
+function dpldev_marketing_letter() {
+  $form = array();
+  $form['body'] = array(
+    '#type' => 'textarea',
+    '#title' => NULL,
+    '#cols' => 10,
+    '#rows' => 4,
+    '#default_value' => t('Nội dung (Tiếng Việt Không Dấu)'),
+    '#attributes' => array(
+      '#class' => 'inputfocus',
+    ),
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Gửi', array(), 'vi')
+  );
+  return $form;
+}
+
+function dpldev_marketing_membercard() {
+  $form = array();
+  $form['body'] = array(
+    '#type' => 'textarea',
+    '#title' => NULL,
+    '#cols' => 10,
+    '#rows' => 4,
+    '#default_value' => t('Nội dung (Tiếng Việt Không Dấu)'),
+    '#attributes' => array(
+      '#class' => 'inputfocus',
+    ),
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Gửi', array(), 'vi')
+  );
+  return $form;
+}

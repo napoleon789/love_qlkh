@@ -1,0 +1,226 @@
+<?php
+
+/**
+ * Implements hook_init().
+ */
+function dpldev_control_init() {
+  global $user;
+  if (!$user->uid) {
+    if (arg(1) != 'login') {
+      drupal_goto('user/login');  
+    }
+  }
+}
+
+
+/**
+ * Implements hook_menu().
+ */
+function dpldev_control_menu() {
+  $weight = 0;
+  $items = array();  
+  $items['homepage'] = array(
+    'title' => t('Trang chủ', array(), 'vi'),
+    'page callback' => 'dpldev_control_front_page',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implementation of hook_mail().
+ */
+function dpldev_control_mail($key, &$message, $params) {
+  //$language = $message['language'];
+  switch ($key) {
+    case 'khachhang_vip_xuong_hang':
+      $message['subject'] = $params['subject'];
+      $message['body'][] = $params['body'];
+      break;
+    case 'khachhang_vip_len_hang':
+      $message['subject'] = $params['subject'];
+      $message['body'][] = $params['body'];
+      break;
+  }
+}
+
+function dpldev_control_front_page() {
+  $output = '';
+  return $output;
+}
+
+function dpldev_control_number_fix($number = 0, $min = -3267) {
+  $number = preg_replace('|[^0-9\.\-]|i', '', $number);
+  
+  if (!is_numeric($number)) {
+    $number = str_replace('-', '', $number);
+    $number = trim($number);  
+  }   
+    
+  if (!is_numeric($number)) {
+    $number = 0;  
+  }
+  
+  if ($number < $min) {
+    $number = $min;
+  }
+
+  return $number;   
+}
+
+function dpldev_control_round($arr = array(), $division = 1000000, $precision = 2, $first_column_ignore = TRUE) {
+  foreach ($arr as $k=>$v) {
+    if ($first_column_ignore) {
+      $first_column_ignore = FALSE;
+      continue;
+    }
+    if (is_numeric($v)) {
+      $arr[$k] = round($v/$division, $precision);  
+    }
+  }
+  return $arr;
+}
+
+function dpldev_control_convert_date($date, $format) {
+  $array = date_format_patterns();
+  foreach ($array as $key => $value) {
+    $patterns[] = "`(^|[^\\\\\\\\])". $key ."`"; // the letter with no preceding '\'
+    $repl1[] = '${1}(.)';                  // a single character
+    $repl2[] = '${1}('. $value .')';       // the
+  }
+  $patterns[] = "`\\\\\\\\([". implode(array_keys($array)) ."])`";
+  $repl1[] = '${1}';
+  $repl2[] = '${1}';
+
+  $format_regexp = preg_quote($format);
+
+  // extract letters
+  $regex1 = preg_replace($patterns, $repl1, $format_regexp, 1);
+  $regex1 = str_replace('A', '(.)', $regex1);
+  $regex1 = str_replace('a', '(.)', $regex1);
+  preg_match('`^'. $regex1 .'$`', stripslashes($format), $letters);
+  array_shift($letters);
+
+  // extract values
+  $regex2 = preg_replace($patterns, $repl2, $format_regexp, 1);
+  $regex2 = str_replace('A', '(AM|PM)', $regex2);
+  $regex2 = str_replace('a', '(am|pm)', $regex2);
+  preg_match('`^'. $regex2 .'$`', $date, $values);
+  array_shift($values);
+
+  // if we did not find all the values for the patterns in the format, abort
+  if (count($letters) != count($values)) {
+    return  NULL;
+  }
+  $final_date = array('hour' => 0, 'minute' => 0, 'second' => 0,
+    'month' => 0, 'day' => 0, 'year' => 0);
+  foreach ($letters as $i => $letter) {
+    $value = $values[$i];
+    switch ($letter) {
+      case 'd':
+      case 'j':
+        $final_date['day'] = intval($value);
+        break;
+      case 'n':
+      case 'm':
+        $final_date['month'] = intval($value);
+        break;
+      case 'F':
+        $array_month_long = array_flip(date_month_names());
+        $final_date['month'] = $array_month_long[$value];
+        break;
+      case 'M':
+        $array_month = array_flip(date_month_names_abbr());
+        $final_date['month'] = $array_month[$value];
+        break;
+      case 'Y':
+      case 'y':
+        $year = $value;
+        // if no century, we add the current one ("06" => "2006")
+        $final_date['year'] = str_pad($year, 4, drupal_substr(date("Y"), 0, 2), STR_PAD_LEFT);
+        break;
+      case 'a':
+      case 'A':
+        $ampm = strtolower($value);
+        break;
+      case 'g':
+      case 'h':
+      case 'G':
+      case 'H':
+        $final_date['hour'] = intval($value);
+        break;
+      case 'i':
+        $final_date['minute'] = intval($value);
+        break;
+      case 's':
+        $final_date['second'] = intval($value);
+        break;
+      case 'U':
+        return date_convert($value, DATE_UNIX, DATE_DATETIME);
+        break;
+    }
+  }
+  if (isset($ampm) && $ampm == 'pm' && $final_date['hour'] < 12) {
+    $final_date['hour'] += 12;
+  }
+  elseif (isset($ampm) && $ampm == 'am' && $final_date['hour'] == 12) {
+    $final_date['hour'] -= 12;
+  }
+
+  return date_convert($final_date, DATE_ARRAY, DATE_DATETIME);
+}
+
+/**
+* Generic sorting mechanism.
+*
+* @param $array
+*   The array to sort.
+* @param $key
+*   The index to retrieve. Child keys are passed by comma-seperated values ('item,#weight').
+*/
+function dpldev_control_array_sort(&$array, $key = '#weight') {
+  static $weightsort = array();
+  if (!isset($weightsort[$key])) {
+    $weightsort[$key] = create_function('$a,$b', '$keys = explode(",","'.$key.'");
+      foreach ($keys as $key) {
+        $a = is_array($a) && isset($a[$key]) ? $a[$key] : 0;
+        $b = is_array($b) && isset($b[$key]) ? $b[$key] : 0;
+      }
+      if ($a == $b) {
+        return 0;
+      }
+      return ($a < $b) ? -1 : 1;');
+  }
+  return uasort($array, $weightsort[$key]);
+}
+
+function dpldev_control_fresh_page($title = 'Fresh', $content = NULL, $s = 1) {
+  $output = '
+    <!DOCTYPE HTML>
+    <html>
+    <head>
+    	<meta http-equiv="content-type" content="text/html" />
+    	<meta name="author" content="Thai Van An" />
+      <meta http-equiv="refresh" content="' . $s . '"> 
+    	<title>' . $title . '</title>
+    </head>
+    <body>
+    ' . $content . '
+    </body>
+    </html>  
+  ';
+  return $output;
+}
+
+function dpldev_control_stream_download($data, $filename) {
+  header('Content-Description: File Transfer');
+  header('Content-Type: application/octet-stream');
+  header('Content-Disposition: attachment; filename=' . $filename);
+  header('Content-Transfer-Encoding: binary');
+  header('Expires: 0');
+  header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+  header('Pragma: public');
+  echo "\xEF\xBB\xBF"; // UTF-8 BOM  
+  print $data;exit;
+}

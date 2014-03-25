@@ -1,0 +1,210 @@
+<?php
+include_once('dpldev_import_mssql.inc');
+
+/**
+ * Implements hook_menu().
+ */
+function dpldev_import_menu() {
+  $items = array();
+  $items['admin/capnhap'] = array(
+    'title' => t('Cập nhập dữ liệu', array(), 'vi'),
+    'page callback' => 'dpldev_import_pmkt',
+    'page arguments' => array(1),
+    'access arguments' => array('administer nodes'),
+    'weight' => 10,
+  );
+  $items['admin/capnhap/khachhang'] = array(
+    'title' => t('4.Cập nhật dữ liệu khách hàng', array(), 'vi'),
+    'page callback' => 'dpldev_import_khachhang',
+    'page arguments' => array(1),
+    'access arguments' => array('administer nodes'),
+  );
+  $items['admin/capnhap/pmkt'] = array(
+    'title' => t('1.Cập nhật dữ sql->pmkt', array(), 'vi'),
+    'page callback' => 'dpldev_import_mssql',
+    'page arguments' => array(1),
+    'access arguments' => array('administer nodes'),
+  );
+  return $items;
+}
+/**
+ * Implementation of hook_cron().
+ */
+function dpldev_import_cron() {
+  //dpldev_import_pmkt();
+  dpldev_import_mssql();
+  dpldev_import_khachhang();
+}
+
+/**
+* Cap nhap tu phan mem ke toan
+*/
+function dpldev_import_pmkt() {
+  
+  $list_files = glob('import_pmkt/*.txt');
+  $filepath = array_shift($list_files);
+  $customers = explode("\n", file_get_contents($filepath));
+  $rows = array();
+
+  foreach ($customers as $key=>$customer) {
+    $info = explode("\t", $customer);
+    $row = array();
+
+    if (!isset($keys)) {
+      $t = strtolower(trim(utf8_decode($info[0])));
+      if ($t != 'makh') {
+        break;
+      }
+
+      $keys = array();
+
+      foreach ($info as $v) {
+        $keys[] = drupal_strtolower(trim(trim($v, "\n")));
+      }
+
+      continue;
+    }
+
+    foreach ($info as $k=>$v) {
+      $v = trim(trim($v, "\n"));
+      $row[$keys[$k]] = $v;
+      if ($keys[$k] == 'ngay_ban') {
+        $row['ngayban'] = strtotime(dpldev_control_convert_date($v, 'd/m/Y'));
+      }
+    }
+
+    $row['data'] = serialize($info);
+    $rows[] = $row;
+    //print_r($node);die;
+    //die(dpldev_control_fresh_page(t('Nhập từ phần mềm kế toán', array(), 'vi')));
+  }
+
+  dpldev_control_array_sort($rows, 'ngayban');
+
+  foreach ($rows as $node) {
+    drupal_write_record('pmkt', $node);
+  }
+
+  $message = t('Cập nhập dữ liệu từ phần mềm kế toán vào cơ sở dữ liệu của hệ thống thành công!', array(), 'vi');
+  watchdog('import_pmkt', $message);
+  return $message;
+}
+
+
+/**
+ * Import data from ms sql server
+ */
+function dpldev_import_mssql() {
+	// HCM
+	$latestDate = dpldev_get_latest_record_from_pmkt(AREA_HCM);
+	dpldev_import_getData(SVR_DB_HCM, $latestDate);
+	
+	// HN
+	$latestDate = dpldev_get_latest_record_from_pmkt(AREA_HN);
+	dpldev_import_getData(SVR_DB_HN, $latestDate);	
+	
+	$message = t('Cập nhập dữ liệu từ mssql server vào cơ sở dữ liệu của hệ thống thành công!', array(), 'vi');
+  	watchdog('import_pmkt', $message);
+  	return $message;
+}
+
+/**
+* Cap nhat thong tin khach hang
+*/
+function dpldev_import_khachhang() {
+  dpldev_content_get_table_values('cuahang');
+  dpldev_content_get_table_values('khohang');
+  dpldev_content_get_table_values('loaisanpham');
+  dpldev_content_get_table_values('tapkhachhang');
+  dpldev_content_get_table_values('thuonghieu');
+  dpldev_content_get_table_values('nhanvien');
+
+  $result = db_query_range('SElECT * FROM {pmkt_chuan} WHERE status != 1 ORDER BY ngayban ASC', 0, 100);
+  
+  while ($obj = db_fetch_object($result)) {
+    //Khach hang
+    $khachhang = new stdClass;
+    $khachhang->type = 'khachhang';
+    $khachhang->title = 'kh';
+    $khachhang->format = 2;
+    $khachhang->uid = 1;
+    $khachhang->status = 1;
+    $khachhang->field_makh[0]['value'] = $obj->makh;
+    $khachhang->field_hovaten[0]['value'] = $obj->hoten;
+    $khachhang->field_gioitinh[0]['value'] = dpldev_khachhang_content_get_gioitinh($obj->hoten);
+    $khachhang->field_diachi[0]['value'] = $obj->diachi;
+    $khachhang->field_mobile[0]['value'] = $obj->mobile;
+    $khachhang->field_phone[0]['value'] = $obj->phone;
+    $khachhang->field_email[0]['email'] = $obj->email;
+	$khachhang->field_area[0]['value'] = $obj->area;
+	
+    if ($obj->cuahang && !empty($obj->cuahang)) {
+      $khachhang->field_quan_ly[0]['value'] = dpldev_content_get_id('cuahang', array('name'=>$obj->cuahang));
+    }
+
+    $khachhang_nid = dpldev_khachhang_content_get_khachhang_nid($khachhang);
+
+    if (!$khachhang_nid) {
+      node_save($khachhang);
+      $khachhang_nid = $khachhang->vid;
+    }
+
+    //Don hang
+    $donhang = new stdClass;
+    $donhang->type = 'donhang';
+    $donhang->title = 'dh';
+    $donhang->format = 2;
+    $donhang->uid = 1;
+    $donhang->status = 1;
+    $donhang->field_khachhang_nid[0]['value'] = $khachhang_nid;
+    $donhang->field_sohoadon[0]['value'] = $obj->sohd;
+    $donhang->field_ngayban[0]['value'] = $obj->ngayban;
+    $donhang->field_masanpham[0]['value'] = $obj->masp;
+    $donhang->field_tensanpham[0]['value'] = $obj->sanpham;
+    $donhang->field_soluong[0]['value'] = dpldev_control_number_fix($obj->soluong, 1);
+    $donhang->field_donvi[0]['value'] = $obj->donvi;
+    $donhang->field_giaban[0]['value'] = dpldev_control_number_fix($obj->giatri, 0);
+    $donhang->field_giamgia[0]['value'] = dpldev_control_number_fix($obj->chietkhau, 0);
+    $donhang->field_thuonghieu[0]['value'] = dpldev_khachhang_content_get_thuonghieu($khachhang);	
+	
+    if ($obj->loaisan_pham && !empty($obj->loaisan_pham)) {
+      $donhang->field_loaisanpham[0]['value'] = dpldev_content_get_id('loaisanpham', array('name'=>$obj->loaisan_pham));
+    }
+    if ($obj->cuahang && !empty($obj->cuahang)) {
+      $donhang->field_cuahang[0]['value'] = dpldev_content_get_id('cuahang', array('name'=>$obj->cuahang));
+    }
+    if ($obj->ten_kho && !empty($obj->ten_kho)) {
+      $donhang->field_khohang[0]['value'] = dpldev_content_get_id('khohang', array('name'=>$obj->ten_kho));
+    }
+    if ($obj->manv && !empty($obj->manv)) {
+      $donhang->field_nhanvien[0]['value'] = dpldev_content_get_id('nhanvien', array('name'=>$obj->nhanvien, 'manv'=>$obj->manv), 'manv');
+    }
+
+    node_save($donhang);
+
+    //Log saved
+    $data = new stdClass;
+    $data->nid = $khachhang_nid;
+    $data->did = $donhang->nid;
+    $data->pid = $obj->id;
+    drupal_write_record('khachhang_pmkt', $data);
+    db_query('UPDATE {pmkt} SET status=1 WHERE id=%d', $obj->id);
+    unset($khachhang, $donhang);
+  }
+
+  $message = t('Cập nhập dữ liệu khách hàng từ phần mềm kế toán thành công!', array(), 'vi');
+  watchdog('import_khachhang', $message);
+  die(dpldev_control_fresh_page($message));
+  return $message;
+}
+
+// get latest date from table pmkt
+function dpldev_get_latest_record_from_pmkt($area) {
+	//$result = db_query("SELECT DISTINCT ngay_ban FROM pmkt WHERE ngayban = (SELECT MAX(ngayban) FROM pmkt WHERE area=" . $area .")");
+	$result = db_query("SELECT DISTINCT ngay_capnhat FROM pmkt WHERE ngay_capnhat = (SELECT MAX(ngay_capnhat) FROM pmkt WHERE area=" . $area .")");
+
+	if ($result)
+		$result = db_fetch_object($result);
+	return ($result ? $result->ngay_capnhat : "");
+}
+

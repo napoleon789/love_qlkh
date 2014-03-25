@@ -1,0 +1,260 @@
+<?php
+
+/**
+ * Get ID
+ * @param table
+ * @param values : name|[weight]|[manv]
+ * @return id
+ * 
+**/
+function dpldev_content_get_id($table, $values = array(), $fieldname = 'name') {
+  static $cached;
+  $key = drupal_strtolower(trim(trim($values[$fieldname], "\n")));
+
+  if (!isset($cached[$table][$key])) {
+    foreach ($values as $k=>$v) {
+      $values[$k] = trim(trim($values[$k], "\n"));
+    }
+
+    $obj = (object)$values;
+
+    if (isset($obj->id)) {
+      unset($obj->id);
+    }
+
+    $items = dpldev_content_get_table_values($table);
+
+    foreach ($items as $item) {
+      $name = drupal_strtolower(trim($item->{"$fieldname"}));
+      if ($key == $name) {
+        $cached[$table][$key] = $item->id; 
+      }
+      if (isset($item->weight)) {
+        if (!isset($obj->weight)) {
+          $obj->weight = 0;
+        }
+        if ($obj->weight <= $item->weight) {
+          $obj->weight = $item->weight + 1;
+        }
+      }
+    }
+
+    if (!isset($cached[$table][$key])) {
+      drupal_write_record($table, $obj);
+
+      if (!isset($obj->id)) {
+        dpldev_content_get_table_values($table, TRUE);
+        return dpldev_content_get_id($table, $values);
+      }
+
+      $cached[$table][$key] = $obj->id;
+    }
+  }
+
+  return $cached[$table][$key];
+}
+
+/**
+ * Get ID and NAME
+ * @param table
+ * @param fieldsort
+ * @return array
+ * 
+**/
+function dpldev_content_get_id_names($table = NULL, $fieldsort = 'weight') {
+  static $items;
+
+  if (!isset($items[$table][$fieldsort])) {
+    $result = db_query('
+      SELECT * 
+      FROM {%s} 
+      ORDER BY %s ASC
+    ', $table, $fieldsort);
+  
+    while ($node = db_fetch_object($result)) {
+      $items[$table][$fieldsort][$node->id] = $node->name;
+    }
+  }
+
+  return $items[$table][$fieldsort];
+}
+
+/**
+ * Get content field options
+ */
+function dpldev_content_filed_options($type = 'khachhang', $in_fields = array()) {
+  static $options;
+  $fields = content_fields(NULL, $type);
+  
+  if (!count($in_exclude)) {
+    $in_fields = array_keys($fields);
+  }
+  
+  foreach ($in_fields as $field_name) {
+    if (isset($fields[$field_name])) {
+      $options[$type][$field_name] = $fields[$field_name]['widget']['label'];
+    }  
+  }
+
+  return $options;
+}
+
+/**
+ * Get countries
+ */
+function dpldev_content_get_countries() {
+  static $countries;
+  if (!isset($countries)) {
+    $countries =  array_merge(array('' => t('- Chọn -', array(), 'vi'), 'xx' => t('Địa chỉ khác', array(), 'vi')), location_get_iso3166_list()); 
+  }
+  return $countries;
+}
+
+function dpldev_content_get_procinces_vn() {
+  return array(
+    'AG' => 'An Giang',
+    'BV' => 'Bà Rịa-Vũng Tàu',
+    'BK' => 'Bắc Cạn',
+    'BG' => 'Bắc Giang',
+    'BL' => 'Bạc Liêu',
+    'BN' => 'Bắc Ninh',
+    'BR' => 'Bến Tre',
+    'BD' => 'Bình Định',
+    'BI' => 'Bình Dương',
+    'BP' => 'Bình Phước',
+    'BU' => 'Bình Thuận',
+    'CM' => 'Cà Mau',
+    'CN' => 'Cần Thơ',
+    'CB' => 'Cao Bằng',
+    'DA' => 'Đà Nẵng',
+    'DC' => 'Đắc Lắc',
+    'DO' => 'Đắc Nông',
+    'DB' => 'Điện Biên',
+    'DN' => 'Đồng Nai',
+    'DT' => 'Đồng Tháp',
+    'GL' => 'Gia Lai',
+    'HG' => 'Hà Giang',
+    'HM' => 'Hà Nam',
+    'HA' => 'Hà Tây',
+    'HT' => 'Hà Tĩnh',
+    'HD' => 'Hải Dương',
+    'HP' => 'Hải Phòng',
+    'HN' => 'Hà Nội',
+    'HU' => 'Hậu Giang',
+    'HC' => 'Hồ Chí Minh',
+    'HO' => 'Hòa Bình',
+    'HY' => 'Hưng Yên',
+    'KH' => 'Khánh Hòa',
+    'KG' => 'Kiên Giang',
+    'KT' => 'Kon Tum',
+    'LI' => 'Lai Châu',
+    'LD' => 'Lâm Đồng',
+    'LS' => 'Lạng Sơn',
+    'LO' => 'Lào Cai',
+    'LA' => 'Long An',
+    'ND' => 'Nam Định',
+    'NA' => 'Nghệ An',
+    'NB' => 'Ninh Bình',
+    'NT' => 'Ninh Thuận',
+    'PT' => 'Phú Thọ',
+    'PY' => 'Phú Yên',
+    'QB' => 'Quảng Bình',
+    'QM' => 'Quảng Nam',
+    'QG' => 'Quảng Ngãi',
+    'QN' => 'Quảng Ninh',
+    'QT' => 'Quảng Trị',
+    'ST' => 'Sóc Trăng',
+    'SL' => 'Sơn La',
+    'TN' => 'Tây Ninh',
+    'TB' => 'Thái Bình',
+    'TY' => 'Thái Nguyên',
+    'TH' => 'Thanh Hóa',
+    'TT' => 'Thừa Thiên-Huế',
+    'TG' => 'Tiền Giang',
+    'TV' => 'Trà Vinh',
+    'TQ' => 'Tuyên Quang',
+    'VL' => 'Vĩnh Long',
+    'VC' => 'Vĩnh Phúc',
+    'YB' => 'Yên Bái',
+  );
+}
+
+/**
+ * Get provinces
+ */
+function dpldev_content_get_provinces($country = 'vn') {
+  static $provinces, $js_set;
+  drupal_add_js(drupal_get_path('module', 'location') .'/location_autocomplete.js');
+
+  if (!isset($js_set)) {
+    drupal_add_js(array(
+      'location_fetch_provinces_url' => 'location/fetch_provinces',
+      'please_select' => t('- Chọn -', array(), 'vi'),
+      'not_listed' => t('Địa chỉ khác', array(), 'vi'),
+    ), 'setting');
+    $js_set = TRUE;
+  }
+  
+  if (!isset($provinces[$country])) {
+    if ($country == 'vn') {
+      $provinces[$country] = dpldev_content_get_procinces_vn();
+    }
+    else {
+      $provinces[$country] = location_get_provinces($country);  
+    }
+
+    $provinces[$country] =  array_merge(array('' => t('- Chọn -', array(), 'vi'), 'xx' => t('Địa chỉ khác', array(), 'vi')), $provinces[$country]); 
+  }
+  return $provinces[$country];
+}
+
+/**
+ * Get Table Values
+ * @param table
+ * @return array
+ * 
+**/
+function dpldev_content_get_table_values($table = NULL, $reset = FALSE) {
+  static $items;
+  if (!isset($items[$table]) || $reset) {
+    $result = db_query('
+      SELECT * 
+      FROM {%s} 
+    ', $table);
+    $items = array();
+
+    while ($node = db_fetch_object($result)) {
+      $items[$table][] = $node;
+    }
+  }
+
+  return $items[$table];
+}
+
+/**
+ * Get Table Field Value By ID
+ * @param table
+ * @param id
+ * @param $output
+ * @return text
+ * 
+**/
+function dpldev_content_get_table_field_value($table = NULL, $id = NULL, $output = '-') {
+  $items = dpldev_content_get_id_names($table);
+  
+  if (isset($items[$id])) {
+    $output = $items[$id];
+  }
+
+  return $output;
+}
+
+/**
+ * Render content field
+ * 
+**/
+function dpldev_content_render_field($field_name, $node) {
+  $field = content_fields($field_name, $node->type);
+  $output = content_view_field($field, $node);
+  return $output;
+}

@@ -1,0 +1,1692 @@
+array(
+  array(
+    'nid' => '74',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856056',
+    'changed' => '1349252742',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '74',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp DOJI - Phú Đô Thanh Hóa ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252742',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-phú-đô-thanh-hóa',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => '221 Trần Phú, Phường Ba Đình, TP Thanh Hoá',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '(37) 3734 0251',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => NULL,
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'TH',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eb6167d5-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '01a133c3-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '61',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252742',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '61',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp DOJI - Parkson Hùng Vương ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252742',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-parkson-hùng-vương',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => 'Tầng trệt, TTTM Parkson, 126 Hùng Vương',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '+84 8 2222 0288 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => '5',
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'HC',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eb5ccaa5-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '01680e11-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '60',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252742',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '60',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp DOJI - Parkson Saigon Tourist Plaza ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252742',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-parkson-saigon-tourist-plaza',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => 'Tầng 2, Parkson Saigon Tourist Plaza, 35Bis-45, Lê Thánh Tôn',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '(08) 3832 9025',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => '1',
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'HC',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eb46fc0e-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '01637e57-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '59',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252742',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '59',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Vàng bạc đá quý SJC-DOJI Huế ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252742',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-vàng-bạc-đá-quý-sjc-doji-huế',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => '161 Trần Hưng Đạo, phường Phú Hòa',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '(054)3599 222 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => NULL,
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'TT',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eb411bba-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '0153ec2e-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '58',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252742',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '58',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp DOJI - Big C Đà Nẵng ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252742',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-big-c-đà-nẵng',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => 'Tầng trệt, Siêu thị Big C Đà Nẵng, Vĩnh Trung Plaza, 255-257 Hùng Vương',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '(0511) 3849 466 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => 'Thanh Khê',
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'DA',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eb395555-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '014eba27-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '57',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252742',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '57',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp DOJI - Riverside Mall ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252742',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-riverside-mall',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => 'Tầng trệt, Indochina Riverside Tower, 74 Bạch Đằng',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '(0511) 3849 066 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => 'Hải Châu',
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'DA',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eb33f774-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '0148259c-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '56',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252742',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '56',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp DOJI - Khu quốc nội sân bay Tân Sơn Nhất ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252742',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-khu-quốc-nội-sân-bay-tân-sơn-nhất',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => 'Khu quốc nội sân bay Tân Sơn Nhất, đường Trường Sơn',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '+84 83 962 0503',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => 'Tân Bình',
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'HC',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eb2e40f2-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '01417e73-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '70',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252741',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '70',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp DOJI - Quang Hạnh Hải Phòng',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252741',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-quang-hạnh-hải-phòng',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => '96 - 98 Cầu Đất, TP. Hải Phòng',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '+84 31 3855 850 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => NULL,
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'HP',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eb003f86-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '0191b5eb-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '71',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252741',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '71',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp DOJI - Yên Bái 2 ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252741',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-yên-bái-2',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => '71 Đinh Tiên Hoàng, TP. Yên Bái',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '+84 29 389 3545 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => NULL,
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'YB',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eb049856-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '019580ff-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '72',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856056',
+    'changed' => '1349252741',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '72',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Vàng bạc Đá quý DOJI - Yên Bái 1 ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252741',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-vàng-bạc-đá-quý-doji-yên-bái-1',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => '41 Yên Thịnh, Km 8,',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '(029) 3852 410 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => NULL,
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'YB',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eb093fea-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '01993800-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '73',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856056',
+    'changed' => '1349252741',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '73',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp DOJI - Big C Huế ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252741',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-big-c-huế',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => 'Tầng trệt, Siêu thị Big C Huế, Bà Triệu',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '(054) 3883976 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => NULL,
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'TT',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eb0db1d7-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '019d44d3-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '69',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252741',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '69',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp DOJI - Nam Thành Phú Thọ ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252741',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-nam-thành-phú-thọ',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => '1809 Hùng Vương, TP.Việt Trì',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '+84 210 3842 999 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => NULL,
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'PT',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eafb3778-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '018df79e-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '68',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252741',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '68',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp DOJI - Quý Tùng 1 Thái Nguyên ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252741',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-quý-tùng-1-thái-nguyên',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => '19 Lương Ngọc Quyến, TP. Thái Nguyên',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '+84 280 3855 682 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => NULL,
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'TY',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eaf610c1-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '0189b537-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '67',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252741',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '67',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp DOJI - Quý Tùng 2 Thái Nguyên ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252741',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-quý-tùng-2-thái-nguyên',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => 'Số 8 Đường Hoàng Văn Thụ, TP. Thái Nguyên',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '+84 280 3856 472',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => NULL,
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'TY',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eadb9cbc-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '018243e4-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '66',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252741',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '66',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp SJC - DOJI Phan Đình Phùng ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252741',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-sjc-doji-phan-đình-phùng',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => '27B Phan Đình Phùng',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '+84 4 3734 0251 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => 'Ba Đình',
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'HN',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'ead73135-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '017e6ece-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '65',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252741',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '65',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp DOJI - Hàm Nghi ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252741',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-hàm-nghi',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => '161 Hàm Nghi',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '(08) 3821 5666 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => '1',
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'HC',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'ead29abd-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '017ac510-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '64',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252741',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '64',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp DOJI - Maximark 3-2 ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252741',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-maximark-3-2',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => 'Tầng 1 Maximark Ba tháng Hai, 3-3C đường Ba tháng Hai',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '(08) 3832 9025 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => '10',
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'HC',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eacd802a-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '017575ad-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '63',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252741',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '63',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp DOJI - Vincom HCM ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252741',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-vincom-hcm',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => 'Tầng 1 Vincom Center, số 70-72 Lê Thánh Tôn',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '(08) 3936 9039 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => '1',
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'HC',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eb127226-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '0170c08a-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '62',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252741',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '62',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp DOJI - Parkson Flemington ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252741',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-parkson-flemington',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => 'Tầng trệt, TTTM Parkson Flemington, 184 Lê Đại Hành',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '+84 83 962 0503 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => '11',
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'HC',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eb1719ab-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '016c9346-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '55',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252741',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '55',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp SJC - DOJI 171 Xã Đàn ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252741',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-sjc-doji-171-xã-đàn',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => '171 Xã Đàn',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '+84 4 3573 8482 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => 'Đống Đa',
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'HN',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eb2948d9-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '013d9419-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '54',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252741',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '54',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm trang sức cao cấp DOJI - Keangnam Landmark ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252741',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-keangnam-landmark',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => 'Tầng 2, Keangnam Landmark Tower, Đường Phạm Hùng',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '(04) 2220 6688',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => 'Từ Liêm',
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'HN',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eb248391-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '013988a3-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '53',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252741',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '53',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm trang sức cao cấp DOJI - Tràng Tiền ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252741',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-tràng-tiền',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => '56 Tràng Tiền',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '(04) 3937 8019 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => 'Hoàn Kiếm',
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'HN',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eb200cac-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '01353668-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '52',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252741',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '52',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Vàng bạc đá quý SJC - DOJI Hà Đông ',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252741',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-vàng-bạc-đá-quý-sjc-doji-hà-đông',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => '80 Quang Trung',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '(04) 33117 975 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => 'Hà Đông',
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'HN',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eb1b7539-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '0131426c-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+    array(
+    'nid' => '51',
+    'type' => 'cuahang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1347856055',
+    'changed' => '1349252741',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '51',
+    'revision_uid' => '1',
+    'title' => 'Trung tâm Trang sức cao cấp DOJI - Ruby Plaza',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252741',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/trung-tâm-trang-sức-cao-cấp-doji-ruby-plaza',
+    'field_cuahang_diachi' => array(
+      '0' => array(
+        'value' => 'TTTM Ruby Plaza, 44 Lê Ngọc Hân',
+      ),
+    ),
+    'field_cuahang_phone' => array(
+      '0' => array(
+        'value' => '(04) 2220 6688 ',
+      ),
+    ),
+    'field_cuahang_quanhuyen' => array(
+      '0' => array(
+        'value' => 'Hai Bà Trưng',
+      ),
+    ),
+    'field_cuahang_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'HN',
+      ),
+    ),
+    'taxonomy' => array(),
+    'uuid' => 'eabbe840-0d33-11e2-9f7a-005056c00001',
+    'revision_uuid' => '0122f778-0080-11e2-904f-c86000432c1b',
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+)<div class="dev-query">Executed 18 queries in 30.01 milliseconds.</div><textarea rows=30 style="width: 100%;">
+Array
+(
+    [0] =&gt; Array
+        (
+            [0] =&gt; module_list
+/* admin : module_list */ SELECT name, filename, throttle FROM system WHERE type = &#039;module&#039; AND status = 1 AND bootstrap = 1 ORDER BY weight ASC, filename ASC
+            [1] =&gt; 0.000401973724365
+        )
+
+    [1] =&gt; Array
+        (
+            [0] =&gt; drupal_get_filename
+/* admin : drupal_get_filename */ SELECT filename FROM system WHERE name = &#039;user&#039; AND type = &#039;module&#039;
+            [1] =&gt; 0.000342845916748
+        )
+
+    [2] =&gt; Array
+        (
+            [0] =&gt; drupal_lookup_path
+/* admin : drupal_lookup_path */ SELECT COUNT(pid) FROM url_alias
+            [1] =&gt; 0.000310182571411
+        )
+
+    [3] =&gt; Array
+        (
+            [0] =&gt; drupal_lookup_path
+/* admin : drupal_lookup_path */ SELECT src FROM url_alias WHERE dst = &#039;admin/content/node_export&#039; AND language IN(&#039;en&#039;, &#039;&#039;) ORDER BY language DESC, pid DESC
+            [1] =&gt; 0.000242948532104
+        )
+
+    [4] =&gt; Array
+        (
+            [0] =&gt; module_list
+/* admin : module_list */ SELECT name, filename, throttle FROM system WHERE type = &#039;module&#039; AND status = 1 ORDER BY weight ASC, filename ASC
+            [1] =&gt; 0.000701904296875
+        )
+
+    [5] =&gt; Array
+        (
+            [0] =&gt; drupal_lookup_path
+/* admin : drupal_lookup_path */ SELECT dst FROM url_alias WHERE src = &#039;admin/content/node_export&#039; AND language IN(&#039;en&#039;, &#039;&#039;) ORDER BY language DESC, pid DESC
+            [1] =&gt; 0.000429153442383
+        )
+
+    [6] =&gt; Array
+        (
+            [0] =&gt; menu_get_item
+/* admin : menu_get_item */ SELECT * FROM menu_router WHERE path IN (&#039;admin/content/node_export&#039;,&#039;admin/content/%&#039;,&#039;admin/%/node_export&#039;,&#039;admin/%/%&#039;,&#039;admin/content&#039;,&#039;admin/%&#039;,&#039;admin&#039;) ORDER BY fit DESC LIMIT 0, 1
+            [1] =&gt; 0.000417947769165
+        )
+
+    [7] =&gt; Array
+        (
+            [0] =&gt; cache_get
+/* admin : cache_get */ SELECT data, created, headers, expire, serialized FROM cache_form WHERE cid = &#039;form_form-9c8e42b64bce412726cd20180396dba7&#039;
+            [1] =&gt; 0.000209093093872
+        )
+
+    [8] =&gt; Array
+        (
+            [0] =&gt; _node_types_build
+/* admin : _node_types_build */ SELECT nt.type, nt.* FROM node_type nt ORDER BY nt.type ASC
+            [1] =&gt; 0.00037693977356
+        )
+
+    [9] =&gt; Array
+        (
+            [0] =&gt; menu_get_menus
+/* admin : menu_get_menus */ SELECT * FROM menu_custom ORDER BY title
+            [1] =&gt; 0.000418901443481
+        )
+
+    [10] =&gt; Array
+        (
+            [0] =&gt; uuid_uuid
+/* admin : uuid_uuid */ SELECT UUID()
+            [1] =&gt; 0.000143051147461
+        )
+
+    [11] =&gt; Array
+        (
+            [0] =&gt; cache_get
+/* admin : cache_get */ SELECT data, created, headers, expire, serialized FROM cache_menu WHERE cid = &#039;links:navigation:page-cid:admin/content/node_export:1&#039;
+            [1] =&gt; 0.000274896621704
+        )
+
+    [12] =&gt; Array
+        (
+            [0] =&gt; cache_get
+/* admin : cache_get */ SELECT data, created, headers, expire, serialized FROM cache_menu WHERE cid = &#039;links:navigation:tree-data:5e1604028fe5e405d1f5c798ba6a864c&#039;
+            [1] =&gt; 0.000645160675049
+        )
+
+    [13] =&gt; Array
+        (
+            [0] =&gt; user_load
+/* admin : user_load */ SELECT * FROM users u WHERE uid = 1
+            [1] =&gt; 0.000281095504761
+        )
+
+    [14] =&gt; Array
+        (
+            [0] =&gt; user_load
+/* admin : user_load */ SELECT r.rid, r.name FROM role r INNER JOIN users_roles ur ON ur.rid = r.rid WHERE ur.uid = 1
+            [1] =&gt; 0.000167846679688
+        )
+
+    [15] =&gt; Array
+        (
+            [0] =&gt; uuid_user
+/* admin : uuid_user */ SELECT uuid FROM uuid_users WHERE uid = 1
+            [1] =&gt; 0.000117063522339
+        )
+
+    [16] =&gt; Array
+        (
+            [0] =&gt; cache_get
+/* admin : cache_get */ SELECT data, created, headers, expire, serialized FROM cache_content WHERE cid = &#039;content_type_info:en&#039;
+            [1] =&gt; 0.000434875488281
+        )
+
+    [17] =&gt; Array
+        (
+            [0] =&gt; sess_write
+/* admin : sess_write */ UPDATE sessions SET uid = 1, cache = 0, hostname = &#039;127.0.0.1&#039;, session = &#039;hsid|i:8;node_overview_filter|a:1:{i:0;a:2:{i:0;s:4:\&quot;type\&quot;;i:1;s:7:\&quot;cuahang\&quot;;}}updates_remaining|a:0:{}node_export|a:0:{}messages|a:1:{s:7:\&quot;warning\&quot;;a:1:{i:0;s:20:\&quot;No content selected.\&quot;;}}&#039;, timestamp = 1349252924 WHERE sid = &#039;2292ff15c24ef848e47a98d4a1bf5d9e&#039;
+            [1] =&gt; 0.0240960121155
+        )
+
+)
+</textarea>

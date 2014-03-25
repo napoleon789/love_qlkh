@@ -1,0 +1,5 @@
+name = DPLDEV Khach Hang VIP
+description = Cung cap chuc nang de quan li khach hang VIP
+core = 6.x
+package = DPLDEV
+dependencies[] = dpldev_control

@@ -1,0 +1,27 @@
+<?php
+
+include_once('dpldev_conf.features.inc');
+
+/**
+ * Implements hook_menu().
+ */
+function dpldev_conf_menu() {
+  $weight = 0;
+  $items = array();  
+  $items['admin/caidat'] = array(
+    'title' => t('Cài đặt', array(), 'vi'),
+    'page callback' => 'dpldev_conf_page',
+    'access arguments' => array('access administration pages'),
+    'weight' => 9,
+  );
+  $items['admin/caidat/hethong'] = array(
+    'title' =>  t('Cài đặt', array(), 'vi'),
+    'type' => MENU_DEFAULT_LOCAL_TASK,      
+  );  
+  return $items;
+}
+
+function dpldev_conf_page() {
+  $output = t('Cài đặt hệ thống', array(), 'vi');
+  return $output;
+}

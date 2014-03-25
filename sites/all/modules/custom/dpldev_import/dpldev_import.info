@@ -1,0 +1,5 @@
+name = DPLDEV Import
+description = Import Tools
+core = 6.x
+package = DPLDEV
+dependencies[] = dpldev_control

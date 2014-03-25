@@ -1,0 +1,4 @@
+name = dpldev_khachhang
+description = Khach hang
+core = 6.x
+package = DPLDEV

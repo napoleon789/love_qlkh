@@ -1,0 +1,39 @@
+name = dpldev
+description = dpldev Base Theme.
+
+core = 6.x
+engine = phptemplate
+
+stylesheets[screen,projection][] = css/normalize.css
+stylesheets[screen,projection][] = style.css
+
+scripts[] = scripts/jquery.url.js
+scripts[] = scripts/jquery.qtip-1.0.0-rc3.min.js
+scripts[] = scripts/script.js
+
+screenshot = screenshot.png
+
+regions[left] = First sidebar
+regions[right] = Second sidebar
+regions[content_top] = Content Top
+regions[content] = Content
+regions[inner_page_title] = Inner Page Title
+regions[footer] = Footer
+
+; Let's enable some features
+features[] = logo
+features[] = name
+features[] = slogan
+features[] = mission
+features[] = node_user_picture
+features[] = comment_user_picture
+features[] = search
+features[] = favicon
+features[] = primary_links
+features[] = secondary_links
+
+; Set the default settings to be used in theme-settings.php
+settings[dpldev_block_edit_links]        = 1
+settings[dpldev_rebuild_registry]        = 0
+settings[dpldev_showgrid]                = 0
+settings[dpldev_animated_submit]         = 1

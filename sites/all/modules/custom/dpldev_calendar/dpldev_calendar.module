@@ -1,0 +1,242 @@
+<?php
+/**
+ * Implementation of hook_menu().
+ */
+function dpldev_calendar_menu() {
+  $items['dpldev_calendar_callback'] = array(
+    'page callback' => 'dpldev_calendar_callback',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Calendar days in month
+ *
+ * Some PHP versions don't have cal_days_in_month(), this accounts for that.
+ */
+if (!function_exists('cal_days_in_month')) {
+  function cal_days_in_month($calendar, $month, $year) {
+    // $calendar just gets ignored, assume gregorian
+    // calculate number of days in a month
+    return $month == 2 ? ($year % 4 ? 28 : ($year % 100 ? 29 : ($year % 400 ? 28 : 29))) : (($month - 1) % 7 % 2 ? 30 : 31);
+  }
+}
+
+/**
+ * Implementation of hook_block().
+ */
+function dpldev_calendar_block($op = 'list', $delta = 0, $edit = array()) {
+  switch ($op) {
+    case 'list':
+      $blocks['lienhethangtoi']['info'] = t('liên hệ tháng tới', array(), 'vi');
+      return $blocks;
+    case 'view':
+      switch ($delta) {
+        case 'lienhethangtoi':
+          drupal_add_js(drupal_get_path('module', 'dpldev_calendar') . '/js/script.js');
+          $block['subject'] = t('liên hệ tháng tới', array(), 'vi');
+          $content = dpldev_calendar_callback();
+          $block['content'] = '<div id="dpldev_calendar_container">' . $content . '</div>';
+          return $block;        
+      }
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function dpldev_calendar_theme() {
+  return array(
+    'dpldev_calendar' => array(
+      'arguments' => array('day' => NULL, 'op' => NULL),
+    ),
+  );
+}
+
+/**
+ * Respose for the AJAX request
+ */
+function dpldev_calendar_callback($return = FALSE) {
+  $calendar = array();
+  $timenow = time();
+  $calendar = new stdClass;
+  $calendar->month = format_date($timenow, 'custom', 'm');
+  $calendar->year = format_date($timenow, 'custom', 'Y');
+ 
+  if (arg(3) == 'json' && is_numeric(arg(2)) && is_numeric(arg(1))) {
+    $calendar->month = arg(1);
+    $calendar->year = arg(2);
+  }
+
+  $form = array();
+  $form['year'] = array(
+    '#title' => NULL,
+    '#type' => 'select',
+    '#options' => drupal_map_assoc(range(1900, 2050)),
+    '#value' => $calendar->year,
+    '#prefix' => '<div class="years select-focus"><span class="curr">' . $calendar->year . '</span>',
+    '#suffix' => '<span class="background"></span></div>',
+  );
+  $year_select = drupal_render($form);
+  $months = drupal_map_assoc(range(1, 12));
+  $items = array();
+
+  foreach ($months as $month) {
+    $class = 'month';
+    
+    if ($calendar->month == $month) {
+      $class .= ' active';
+    }
+    $items[] = '<span class="' . $class . '" value="' . $month . '"><span class="text">' . t('Tháng', array(), 'vi'). ' </span>' . $month . '</span>';   
+  }
+
+  $calendar->topnav = '<div class="topnav"><h3>' . t('Liên hệ tháng tới', array(), 'vi') . '</h3>' . theme('item_list', $items) . $year_select . '</div>';
+  $calendar->weekdays = '{"mo":"Thứ hai","tu":"Thứ ba","we":"Thứ tư","th":"Thứ năm","fr":"Thứ sáu","sa":"Thứ bảy","su":"Chủ nhật"}';
+  $curr_date = ($calendar->year && $calendar->month) ? mktime(1, 1, 1, $calendar->month, 1, $calendar->year) : time();
+  $calendar->weekdays = json_decode($calendar->weekdays, TRUE);
+  $weekdays = array_keys($calendar->weekdays);
+  $calendar->month = date('m', $curr_date); // The numeric current month (09)
+  $calendar->year = date('Y', $curr_date); // The numeric current year (2008)
+
+  // If the month is equal to the current month, get the current day
+  if (date('Y-m', $curr_date) == date('Y-m')) {
+    $calendar->day = date('d', time()); // The numeric current day (20)
+  }
+
+  $calendar->month_str = date('F', $curr_date); // The current month (September)
+  $calendar->days_in_month = cal_days_in_month(0, $calendar->month, $calendar->year); // The number of days in this month (31)
+  $calendar->first_day_of_month = drupal_substr(drupal_strtolower(date('D', mktime(0, 0, 0, $calendar->month, 1, $calendar->year))), 0, 2); // The first week day of this month (mo, tu, we ....)
+
+  // If the first day of the month is not the same as the first day in the weekdays, set in the configuration settings,
+  // we need to set the last days of the previous month first
+  if ($calendar->first_day_of_month !== $weekdays[0]) {
+    $prev_month = ($calendar->month > 1) ? $calendar->month -1 : 12;
+    $prev_year = ($calendar->month > 1) ? $calendar->year : $calendar->year - 1;
+
+    $tmp_array = $weekdays;
+    $tmp_array = array_flip($tmp_array);
+    $calendar->previous_days_offset = $tmp_array[$calendar->first_day_of_month];
+    $calendar->days_in_previous_month = cal_days_in_month(0, $prev_month, $prev_year);
+
+    for ($i = $calendar->previous_days_offset - 1; $i > -1; $i--) {
+      $calendar->dates[] = (object)array(
+        'year' => $prev_year,
+        'month' => intval($prev_month),
+        'day' => $calendar->days_in_previous_month - $i
+      );
+    }
+  }
+
+  // Here we'll set the days for the month we're viewing
+  for ($i = $calendar->days_in_month - 1; $i > -1; $i--) {
+    $calendar->dates[] = (object)array(
+      'year' => $calendar->year,
+      'month' => intval($calendar->month),
+      'day' => $calendar->days_in_month - $i
+    );
+  }
+
+  // If the number of added dates is not dividable by 7, we need to add some more dates for the next month
+  while ((count($calendar->dates)) / 7 < ceil(count($calendar->dates) / 7)) {
+    $counter = ($counter) ? $counter + 1 : 1;
+    if (!isset($next_month)) {
+      $next_month = ($calendar->month < 12) ? $calendar->month + 1 : 1;
+    }
+    $calendar->dates[] = (object)array(
+      'year' => ($calendar->month < 12 ? $calendar->year : $calendar->year + 1),
+      'month' => intval($next_month),
+      'day' => $counter
+    );
+  }
+  $output = theme('dpldev_calendar', $calendar);
+  
+  if (arg(3) == 'json') {
+    $json_data = new stdClass;
+    $json_data->status = 1;
+    $json_data->content = $output;
+    drupal_json($json_data);
+    exit;
+  }
+  return $output;
+}
+
+/**
+ * Theme the calendar.
+ */
+function theme_dpldev_calendar($calendar) {
+  $row_counter = 0;
+  $num_rows = (count($calendar->dates) / 7);
+  $weekdays = array_values($calendar->weekdays);
+
+  $output[] = '  <div id="calendar">';
+  $output[] = '      <div id="nav" class="clear-block">';
+  $output[] = $calendar->topnav;
+  $output[] = '      </div>';
+
+  // Create the month and year row
+  $output[] = '    <div class="month-days"><div id="calendar_row'. $row_counter .'" class="clear-block">';
+
+  // Create the weekdays row
+  foreach ($weekdays as $key => $day) {
+    $class = (isset($class)) ? ($key == 6 ? ' last' : '') : ' first';
+    $output[] = "      <div class=\"hok top $class\"><span class=\"day\">". t($day) ."</span></div>";
+  }
+  $output[] = "    </div>";
+  $row_counter++;
+
+  $day_counter = 0;
+
+  // Create the days rows
+  $output[] = "    <div class=\"week\" id=\"calendar_row$row_counter\">";
+  foreach ($calendar->dates as $date) {
+    // Create an easy readable date for modules which use hook_calendar_block().
+    $date->date = (drupal_strlen($date->month) == 1 ? "0$date->month" : $date->month) ."-$date->day-$date->year";
+
+    $class = ($day_counter == 0) ? ' first' : ($day_counter == 6 ? ' last' : '');
+    if ($date->month !== intval($calendar->month)) {
+      $class .= ' disabled';
+    }
+    if ($calendar->day && $date->day == $calendar->day) {
+      $class .= ' today';
+    }
+    // Create a variable for day, so other modules can't interfere in hook_calendar_get_content
+    $current_day = $date->day;
+
+    // Create a variable for the weekday as a reference for ather modules
+    $date->weekday = $weekdays[$day_counter];
+
+    // Give other modules the opportunity to change the content for each date
+    foreach (module_implements('calendar_get_content') as $module) {
+      $function = $module .'calendar_get_contact';
+      $function($calendar, $date, 'alter');
+    }
+
+    $day_counter = ($day_counter < 6) ? $day_counter + 1: 0;
+    $output[] = "      <div class=\"hok $class $date->date\">";
+    $output[] = "        <span  class=\"wday\">". $current_day ."</span>";
+
+    if (isset($date->content)) {
+      $output[] = "<span  class=\"content\">". $date->content ."</span>"; 
+    }
+    if ($day_counter > 0) {
+      $output[] = "        <div class=\"border_right\"></div>";
+    }
+    if ($row_counter < $num_rows) {
+      $output[] = "        <div class=\"border_bottom\"></div>";
+    }
+    $output[] = "      </div>";
+
+    if ($row_counter < $num_rows && $day_counter == 0) {
+      $row_counter++;
+      $output[] = "    </div>";
+      $output[] = "    <div class=\"week\" id=\"calendar_row$row_counter\">";
+    };
+  }
+  $output[] = "      <div class=\"clear-block\"></div>";
+  $output[] = "    </div>";
+  $output[] = "  </div></div>";
+  return join("\n", $output);
+}

@@ -1,0 +1,131 @@
+node_export_serialize::a:1:{i:0;O:8:&quot;stdClass&quot;:65:{s:3:&quot;nid&quot;;s:2:&quot;75&quot;;s:4:&quot;type&quot;;s:9:&quot;khachhang&quot;;s:8:&quot;language&quot;;s:2:&quot;en&quot;;s:3:&quot;uid&quot;;s:1:&quot;1&quot;;s:6:&quot;status&quot;;s:1:&quot;1&quot;;s:7:&quot;created&quot;;s:10:&quot;1349244327&quot;;s:7:&quot;changed&quot;;i:1349252799;s:7:&quot;comment&quot;;s:1:&quot;0&quot;;s:7:&quot;promote&quot;;s:1:&quot;0&quot;;s:8:&quot;moderate&quot;;s:1:&quot;0&quot;;s:6:&quot;sticky&quot;;s:1:&quot;0&quot;;s:4:&quot;tnid&quot;;s:1:&quot;0&quot;;s:9:&quot;translate&quot;;s:1:&quot;0&quot;;s:3:&quot;vid&quot;;s:2:&quot;75&quot;;s:12:&quot;revision_uid&quot;;s:1:&quot;1&quot;;s:5:&quot;title&quot;;s:13:&quot;Thái Văn An&quot;;s:4:&quot;body&quot;;s:0:&quot;&quot;;s:6:&quot;teaser&quot;;s:0:&quot;&quot;;s:18:&quot;revision_timestamp&quot;;s:10:&quot;1349244327&quot;;s:6:&quot;format&quot;;s:1:&quot;0&quot;;s:4:&quot;name&quot;;s:5:&quot;admin&quot;;s:7:&quot;picture&quot;;s:0:&quot;&quot;;s:4:&quot;data&quot;;s:72:&quot;a:1:{s:13:&quot;form_build_id&quot;;s:37:&quot;form-f8d60aae28ebfae1952bff2ac5495af9&quot;;}&quot;;s:4:&quot;path&quot;;s:18:&quot;content/thái-văn&quot;;s:16:&quot;field_anhdaidien&quot;;a:1:{i:0;a:10:{s:3:&quot;fid&quot;;s:2:&quot;48&quot;;s:3:&quot;uid&quot;;s:1:&quot;1&quot;;s:8:&quot;filename&quot;;s:10:&quot;images.jpg&quot;;s:8:&quot;filepath&quot;;s:41:&quot;sites/default/files/anhdaidien/images.jpg&quot;;s:8:&quot;filemime&quot;;s:10:&quot;image/jpeg&quot;;s:8:&quot;filesize&quot;;s:4:&quot;6218&quot;;s:6:&quot;status&quot;;s:1:&quot;1&quot;;s:9:&quot;timestamp&quot;;s:10:&quot;1349244326&quot;;s:4:&quot;list&quot;;s:1:&quot;1&quot;;s:4:&quot;data&quot;;a:2:{s:3:&quot;alt&quot;;s:0:&quot;&quot;;s:5:&quot;title&quot;;s:0:&quot;&quot;;}}}s:14:&quot;field_chucdanh&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:16:&quot;Senior Developer&quot;;}}s:12:&quot;field_congty&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:5:&quot;Tesla&quot;;}}s:10:&quot;field_data&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;N;}}s:12:&quot;field_diachi&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:17:&quot;K43 Tòa Nhà CEO&quot;;}}s:17:&quot;field_diachi_khac&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:17:&quot;K43 Tòa Nhà CEO&quot;;}}s:27:&quot;field_diachi_khac_quanhuyen&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:12:&quot;Cầu Giấy&quot;;}}s:25:&quot;field_diachi_khac_quocgia&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:2:&quot;vn&quot;;}}s:30:&quot;field_diachi_khac_tinhthanhpho&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:2:&quot;HN&quot;;}}s:22:&quot;field_diachi_quanhuyen&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:12:&quot;Cầu Giấy&quot;;}}s:20:&quot;field_diachi_quocgia&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:2:&quot;vn&quot;;}}s:25:&quot;field_diachi_tinhthanhpho&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:2:&quot;HN&quot;;}}s:11:&quot;field_email&quot;;a:1:{i:0;a:1:{s:5:&quot;email&quot;;s:19:&quot;thaivnaan@gmail.com&quot;;}}s:14:&quot;field_facebook&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:9:&quot;thaivanan&quot;;}}s:12:&quot;field_ghichu&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:205:&quot;Integer sodales ultricies erat, at semper lacus porttitor nec. Mauris fermentum eleifend lobortis. Praesent pellentesque euismod quam vel ultricies. Vestibulum fermentum nulla id tortor tempor consectetur.&quot;;}}s:14:&quot;field_gioitinh&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:3:&quot;nam&quot;;}}s:12:&quot;field_google&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:9:&quot;thaivanan&quot;;}}s:12:&quot;field_hocvan&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:2:&quot;ch&quot;;}}s:13:&quot;field_honnhan&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:1:&quot;1&quot;;}}s:13:&quot;field_hovadem&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:10:&quot;Thái Văn&quot;;}}s:13:&quot;field_hovaten&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:13:&quot;Thái Văn An&quot;;}}s:20:&quot;field_khachhang_code&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:13:&quot;506bd5a77147b&quot;;}}s:10:&quot;field_makh&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:8:&quot;JBSL2012&quot;;}}s:12:&quot;field_mobile&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:10:&quot;0983149111&quot;;}}s:14:&quot;field_ngaycuoi&quot;;a:1:{i:0;a:4:{s:5:&quot;value&quot;;s:10:&quot;1350403200&quot;;s:8:&quot;timezone&quot;;s:16:&quot;Asia/Krasnoyarsk&quot;;s:11:&quot;timezone_db&quot;;s:16:&quot;Asia/Krasnoyarsk&quot;;s:9:&quot;date_type&quot;;s:9:&quot;datestamp&quot;;}}s:14:&quot;field_ngaysinh&quot;;a:1:{i:0;a:4:{s:5:&quot;value&quot;;s:9:&quot;339181200&quot;;s:8:&quot;timezone&quot;;s:16:&quot;Asia/Krasnoyarsk&quot;;s:11:&quot;timezone_db&quot;;s:16:&quot;Asia/Krasnoyarsk&quot;;s:9:&quot;date_type&quot;;s:9:&quot;datestamp&quot;;}}s:19:&quot;field_ngaytotnghiep&quot;;a:1:{i:0;a:4:{s:5:&quot;value&quot;;s:10:&quot;1223481600&quot;;s:8:&quot;timezone&quot;;s:16:&quot;Asia/Krasnoyarsk&quot;;s:11:&quot;timezone_db&quot;;s:16:&quot;Asia/Krasnoyarsk&quot;;s:9:&quot;date_type&quot;;s:9:&quot;datestamp&quot;;}}s:11:&quot;field_phone&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:10:&quot;0983149111&quot;;}}s:13:&quot;field_sothich&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:12:&quot;Lập trình&quot;;}}s:9:&quot;field_ten&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:2:&quot;An&quot;;}}s:13:&quot;field_thunhap&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:2:&quot;10&quot;;}}s:13:&quot;field_twitter&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:9:&quot;thaivanan&quot;;}}s:11:&quot;field_yahoo&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:9:&quot;thaivanan&quot;;}}s:18:&quot;field_tapkhachhang&quot;;a:1:{i:0;a:1:{s:5:&quot;value&quot;;s:1:&quot;1&quot;;}}s:8:&quot;taxonomy&quot;;a:1:{i:2;a:1:{i:1;s:1:&quot;1&quot;;}}s:4:&quot;uuid&quot;;s:36:&quot;0d11145f-0d34-11e2-9f7a-005056c00001&quot;;s:13:&quot;revision_uuid&quot;;b:0;s:22:&quot;auto_nodetitle_applied&quot;;b:1;s:6:&quot;is_new&quot;;b:0;s:9:&quot;timestamp&quot;;i:1349252799;s:4:&quot;menu&quot;;a:12:{s:10:&quot;link_title&quot;;s:0:&quot;&quot;;s:4:&quot;mlid&quot;;i:0;s:4:&quot;plid&quot;;i:0;s:9:&quot;menu_name&quot;;s:13:&quot;primary-links&quot;;s:6:&quot;weight&quot;;i:0;s:7:&quot;options&quot;;a:0:{}s:6:&quot;module&quot;;s:4:&quot;menu&quot;;s:8:&quot;expanded&quot;;i:0;s:6:&quot;hidden&quot;;i:0;s:12:&quot;has_children&quot;;i:0;s:10:&quot;customized&quot;;i:0;s:18:&quot;parent_depth_limit&quot;;i:8;}}}<div class="dev-query">Executed 18 queries in 7.78 milliseconds.</div><textarea rows=30 style="width: 100%;">
+Array
+(
+    [0] =&gt; Array
+        (
+            [0] =&gt; module_list
+/* admin : module_list */ SELECT name, filename, throttle FROM system WHERE type = &#039;module&#039; AND status = 1 AND bootstrap = 1 ORDER BY weight ASC, filename ASC
+            [1] =&gt; 0.000420808792114
+        )
+
+    [1] =&gt; Array
+        (
+            [0] =&gt; drupal_get_filename
+/* admin : drupal_get_filename */ SELECT filename FROM system WHERE name = &#039;user&#039; AND type = &#039;module&#039;
+            [1] =&gt; 0.000326156616211
+        )
+
+    [2] =&gt; Array
+        (
+            [0] =&gt; drupal_lookup_path
+/* admin : drupal_lookup_path */ SELECT COUNT(pid) FROM url_alias
+            [1] =&gt; 0.000252962112427
+        )
+
+    [3] =&gt; Array
+        (
+            [0] =&gt; drupal_lookup_path
+/* admin : drupal_lookup_path */ SELECT src FROM url_alias WHERE dst = &#039;admin/content/node_export&#039; AND language IN(&#039;en&#039;, &#039;&#039;) ORDER BY language DESC, pid DESC
+            [1] =&gt; 0.00023078918457
+        )
+
+    [4] =&gt; Array
+        (
+            [0] =&gt; module_list
+/* admin : module_list */ SELECT name, filename, throttle FROM system WHERE type = &#039;module&#039; AND status = 1 ORDER BY weight ASC, filename ASC
+            [1] =&gt; 0.000723838806152
+        )
+
+    [5] =&gt; Array
+        (
+            [0] =&gt; drupal_lookup_path
+/* admin : drupal_lookup_path */ SELECT dst FROM url_alias WHERE src = &#039;admin/content/node_export&#039; AND language IN(&#039;en&#039;, &#039;&#039;) ORDER BY language DESC, pid DESC
+            [1] =&gt; 0.000344038009644
+        )
+
+    [6] =&gt; Array
+        (
+            [0] =&gt; menu_get_item
+/* admin : menu_get_item */ SELECT * FROM menu_router WHERE path IN (&#039;admin/content/node_export&#039;,&#039;admin/content/%&#039;,&#039;admin/%/node_export&#039;,&#039;admin/%/%&#039;,&#039;admin/content&#039;,&#039;admin/%&#039;,&#039;admin&#039;) ORDER BY fit DESC LIMIT 0, 1
+            [1] =&gt; 0.000406980514526
+        )
+
+    [7] =&gt; Array
+        (
+            [0] =&gt; cache_get
+/* admin : cache_get */ SELECT data, created, headers, expire, serialized FROM cache_form WHERE cid = &#039;form_form-54b18ce61bd767d2ef3c49125bd16246&#039;
+            [1] =&gt; 0.000217914581299
+        )
+
+    [8] =&gt; Array
+        (
+            [0] =&gt; _node_types_build
+/* admin : _node_types_build */ SELECT nt.type, nt.* FROM node_type nt ORDER BY nt.type ASC
+            [1] =&gt; 0.000283002853394
+        )
+
+    [9] =&gt; Array
+        (
+            [0] =&gt; menu_get_menus
+/* admin : menu_get_menus */ SELECT * FROM menu_custom ORDER BY title
+            [1] =&gt; 0.000247001647949
+        )
+
+    [10] =&gt; Array
+        (
+            [0] =&gt; uuid_uuid
+/* admin : uuid_uuid */ SELECT UUID()
+            [1] =&gt; 0.000111818313599
+        )
+
+    [11] =&gt; Array
+        (
+            [0] =&gt; cache_get
+/* admin : cache_get */ SELECT data, created, headers, expire, serialized FROM cache_menu WHERE cid = &#039;links:navigation:page-cid:admin/content/node_export:1&#039;
+            [1] =&gt; 0.000192880630493
+        )
+
+    [12] =&gt; Array
+        (
+            [0] =&gt; cache_get
+/* admin : cache_get */ SELECT data, created, headers, expire, serialized FROM cache_menu WHERE cid = &#039;links:navigation:tree-data:5e1604028fe5e405d1f5c798ba6a864c&#039;
+            [1] =&gt; 0.000758171081543
+        )
+
+    [13] =&gt; Array
+        (
+            [0] =&gt; user_load
+/* admin : user_load */ SELECT * FROM users u WHERE uid = 1
+            [1] =&gt; 0.000808954238892
+        )
+
+    [14] =&gt; Array
+        (
+            [0] =&gt; user_load
+/* admin : user_load */ SELECT r.rid, r.name FROM role r INNER JOIN users_roles ur ON ur.rid = r.rid WHERE ur.uid = 1
+            [1] =&gt; 0.000339031219482
+        )
+
+    [15] =&gt; Array
+        (
+            [0] =&gt; uuid_user
+/* admin : uuid_user */ SELECT uuid FROM uuid_users WHERE uid = 1
+            [1] =&gt; 0.000247955322266
+        )
+
+    [16] =&gt; Array
+        (
+            [0] =&gt; cache_get
+/* admin : cache_get */ SELECT data, created, headers, expire, serialized FROM cache_content WHERE cid = &#039;content_type_info:en&#039;
+            [1] =&gt; 0.00062894821167
+        )
+
+    [17] =&gt; Array
+        (
+            [0] =&gt; sess_write
+/* admin : sess_write */ UPDATE sessions SET uid = 1, cache = 0, hostname = &#039;127.0.0.1&#039;, session = &#039;hsid|i:8;node_overview_filter|a:0:{}updates_remaining|a:0:{}node_export|a:0:{}messages|a:1:{s:7:\&quot;warning\&quot;;a:1:{i:0;s:20:\&quot;No content selected.\&quot;;}}&#039;, timestamp = 1349252801 WHERE sid = &#039;2292ff15c24ef848e47a98d4a1bf5d9e&#039;
+            [1] =&gt; 0.00124216079712
+        )
+
+)
+</textarea>

@@ -1,0 +1,1076 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function dpldev_khachhang_menu() {
+  $weight = 0;
+  $items = array();
+  $items['khachhang'] = array(
+    'title' => t('Khách hàng', array(), 'vi'),
+    'page callback' => 'dpldev_khachhang_page',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['khachhang/vip'] = array(
+    'title' => t('Khách VIP', array(), 'vi'),
+    'page callback' => 'dpldev_khachhang_vip_page',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['khachhang/%node/view'] = array(
+    'title' => t('Chi tiết Khách hàng', array(), 'vi'),
+    'page callback' => 'dpldev_khachhang_node_view',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['donhang/%node/view'] = array(
+    'title' => t('Thông tin chi tiết đơn hàng', array(), 'vi'),
+    'page callback' => 'dpldev_khachhang_node_view',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['ajax/info'] = array(
+    'title' => t('Thiết lập khóa chính', array(), 'vi'),
+    'page callback' => 'dpldev_khachhang_set_primekey',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['match/khachhang'] = array(
+    'title' => t('Thông tin chi tiết đơn hàng', array(), 'vi'),
+    'page callback' => 'dpldev_khachhang_match_nid',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['delete/khachhang'] = array(
+    'title' => t('Thông tin chi tiết đơn hàng', array(), 'vi'),
+    'page callback' => 'dpldev_khachhang_delete',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['huy/khachhang'] = array(
+    'title' => t('Thông tin chi tiết đơn hàng', array(), 'vi'),
+    'page callback' => 'dpldev_khachhang_huy',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Menu callback; Generate a listing of customer nodes.
+ */
+function dpldev_khachhang_node_view($node) {
+  $output = node_view($node, FALSE, TRUE, FALSE);
+  return $output;
+}
+
+/**
+ * Menu callback; Generate a listing of customer nodes.
+ */
+function dpldev_khachhang_page($op = 'view') {
+  $output = 'ABC';
+  switch ($op) {
+    case 'vip':
+      $title = t('Khách VIP', array(), 'vi');
+      $output = dpldev_khachhang_filter('vip');
+      break;
+    case 'khachmoi':
+      $title = t('Khách mới', array(), 'vi');
+      $output = dpldev_khachhang_filter('khachmoi');
+      break;
+    case 'khachcu':
+      $title = t('Khách cũ', array(), 'vi');
+      $output = dpldev_khachhang_filter('khachcu');
+      break;
+    case 'doanhsocao':
+      $title = t('Doanh số cao', array(), 'vi');
+      $output = dpldev_khachhang_filter('doanhsocao');
+      break;
+    case 'doanhsothap':
+      $title = t('Doanh số thấp', array(), 'vi');
+      $output = dpldev_khachhang_filter('doanhsothap');
+      break;
+    case 'lienheganday':
+      $title = t('Liên hệ gần đây', array(), 'vi');
+      $output = dpldev_khachhang_filter('lienheganday');
+      break;
+    case 'lienhetruocday':
+      $title = t('Liên hệ trước đây', array(), 'vi');
+      $output = dpldev_khachhang_filter('lienheganday');
+      break;
+    default:
+      $output = dpldev_khachhang_filter();
+      $title = t('Khách hàng', array(), 'vi');
+      break;
+  }
+
+  drupal_set_title($title);
+  return $output;
+}
+
+/**
+ * Menu callback; Generate a listing of customer nodes.
+ */
+function dpldev_khachhang_vip_page($op = 'view') {
+  $output = dpldev_khachhang_filter('vip', $a1, $a2);
+  return $output;
+}
+
+function _dpldev_khachhang_tabs() {
+  $items = array();
+  $items['khachhang/khachmoi'] = t('Khách mới', array(), 'vi');
+  $items['khachhang/khachcu'] = t('Khách cũ', array(), 'vi');
+  $items['khachhang/doanhsocao'] = t('Doanh số cao', array(), 'vi');
+  $items['khachhang/doanhsothap'] = t('Doanh số thấp', array(), 'vi');
+  $items['khachhang/lienheganday'] = t('Liên hệ gần đây', array(), 'vi');
+  $items['khachhang/lienhetruocday'] = t('Liên hệ trước đây', array(), 'vi');
+  $items_1 = array();
+
+  foreach ($items as $path => $title) {
+    $attributes = array('attributes' => array('class' => 'tab-item'));
+    $url = arg(0) . '/' . arg(1);
+
+    if ($url == $path) {
+      $attributes['attributes']['class'] .= ' active';    
+    }
+
+    $items_1[] = l($title, $path, $attributes);
+  }
+  
+  $data = array(
+    'items' => $items,
+    'output' => '<div class="khachhang-tabs"><label>' . t('Sắp xếp theo:', array(), 'vi') . '</label>' . theme('item_list', $items_1). '</div>',
+  );
+  
+  return $data;
+}
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function dpldev_khachhang_form_alter(&$form, $form_state, $form_id) {
+  if ($form_id == 'khachhang_node_form') {
+  }
+  if ($form_id == 'donhang_node_form') {
+  }
+}
+
+function dpldev_khachhang_form_filter() {
+  $form = array();
+  $form['#method'] = 'GET';
+  
+  $options = array('ALL' => t('Tất cả', array(), 'vi'),
+  				   '1' => t('Hà Nội', array(), 'vi'),
+  				   '2' => t('Tp. Hồ Chí Minh', array(), 'vi'));
+  $form['khuvuc'] = array(
+  	'#type' => 'select',
+  	'#title' => 'Khu Vực',
+  	'#default_value' => isset($_GET['khuvuc']) ? $_GET['khuvuc'] : '',
+  	'#options' => $options
+  );
+  	
+  $options = array('ALL' => t('Tất cả', array(), 'vi'));
+  $options += dpldev_content_get_id_names('tapkhachhang');
+  $form['tapkhachhang'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Tập khách hàng', array(), 'vi'),
+    '#default_value' => isset($_GET['tapkhachhang']) && is_array($_GET['tapkhachhang']) ? $_GET['tapkhachhang'] : array(),
+    '#options' => $options,
+    '#attributes' => array('class' => 'first-select-all'),
+  );
+
+  $options = dpldev_content_get_id_names('khohang');
+  array_unshift($options, '');
+
+  $form['khohang'] = array(
+    '#type' => 'select',
+    '#title' => t('Kho hàng', array(), 'vi'),
+    '#default_value' => isset($_GET['khohang']) ? $_GET['khohang'] : '',
+    '#options' => $options,
+  );
+
+  $options = dpldev_content_get_id_names('thuonghieu');
+  array_unshift($options, '');
+  
+  $form['thuonghieu'] = array(
+  '#type' => 'select',
+  '#title' => t('Thương hiệu', array(), 'vi'),
+  '#default_value' => isset($_GET['thuonghieu']) && is_array($_GET['thuonghieu']) ? $_GET['thuonghieu'] : '',
+  '#options' => $options,
+  );
+  $form['gioitinh'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Giới tính', array(), 'vi'),
+    '#default_value' => isset($_GET['gioitinh']) && is_array($_GET['gioitinh']) ? $_GET['gioitinh'] : array(),
+    '#options' => array(
+      'ALL' => t('Tất cả', array(), 'vi'),
+      'nam' => t('Nam', array(), 'vi'),
+      'nu' => t('Nữ', array(), 'vi'),
+    ),
+    '#attributes' => array('class' => 'first-select-all'),
+  );
+
+  $options = array();
+  $options[] = '';
+
+
+  $options[10] = 10 . ' ' . t('Triệu', array(), 'vi');
+  $options[200] = 200 . ' ' . t('Triệu', array(), 'vi');
+  $options[500] = 500 . ' ' . t('Triệu', array(), 'vi');
+  $options[1000] = 1 . ' ' . t('Tỷ', array(), 'vi');
+  $form['doanhso_tren'] = array(
+    '#type' => 'select',
+    '#title' => t('Trên', array(), 'vi'),
+    '#default_value' => isset($_GET['doanhso_tren']) ? $_GET['doanhso_tren'] : '',
+    '#options' => $options,
+    '#prefix' => '<div class="label">' . t('Doanh số', array(), 'vi') . '</div>'
+  );
+  $form['doanhso_duoi'] = array(
+    '#type' => 'select',
+    '#title' => t('Dưới', array(), 'vi'),
+    '#default_value' => isset($_GET['doanhso_duoi']) ? $_GET['doanhso_duoi'] : '',
+    '#options' => $options,
+  );
+  $form['date_from'] = array(
+    '#type' => 'date_popup',
+    '#date_format' => 'd/m/Y',
+    '#date_year_range' => '-10:+10',
+    '#title' => t('Từ', array(), 'vi'),
+    '#default_value' => isset($_GET['date_from']['date']) ? dpldev_control_convert_date($_GET['date_from']['date'], 'd/m/Y') : '',
+    '#prefix' => '<div class="label normal">' . t('Thời gian', array(), 'vi') . '</div>'
+  );
+  $form['date_to'] = array(
+    '#type' => 'date_popup',
+    '#date_format' => 'd/m/Y',
+    '#date_year_range' => '-10:+10',
+    '#title' => t('Đến', array(), 'vi'),
+    '#default_value' => isset($_GET['date_to']['date']) ? dpldev_control_convert_date($_GET['date_to']['date'], 'd/m/Y') : '',
+    '#suffix' => '<div class="bhline"></div>',
+  );
+  $form['keyword'] = array(
+    '#type' => 'hidden',
+    '#title' => NULL,
+    '#default_value' => isset($_GET['keyword']) ? $_GET['keyword'] : ''
+  );
+  $form['json'] = array(
+    '#type' => 'hidden',
+    '#title' => NULL,
+    '#default_value' => 0
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Lọc', array(), 'vi'),
+    '#suffix' => l(t('Xem mặc định', array(), 'vi'), $_GET['q'], array('attributes' => array('title' => t('Xem mặc định', array(), 'vi'), 'class' => 'link-reset'))),
+  );
+  return $form;
+}
+
+function dpldev_khachhang_form_search() {
+  $form = array();
+  $form['#method'] = 'GET';
+
+  if (arg(0) != 'khachhang') {
+    $form['#action'] = 'khachhang';
+  }
+
+  $form['keyword'] = array(
+    '#type' => 'textfield',
+    '#title' => NULL,
+    '#default_value' => isset($_GET['keyword']) && !empty($_GET['keyword']) ? $_GET['keyword'] : t('Nhập tên KH hoặc SĐT để tìm kiếm khách hàng', array(), 'vi'),
+    '#attributes' => array(
+      'class' => 'inputfocus',
+      'dplaceholder' => t('Nhập tên KH hoặc SĐT để tìm kiếm khách hàng', array(), 'vi'),
+    ),
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Tìm', array(), 'vi'),
+  );
+  return $form;
+}
+
+/**
+ * Implementation of hook_block().
+ *
+ */
+function dpldev_khachhang_block($op = 'list', $delta = 0) {
+  if ($op == 'list') {
+    $blocks['topnav']['info'] = t('Xóa, chỉnh sửa khách hàng', array(), 'vi');
+    $blocks['khachhang']['info'] = t('Khách hàng', array(), 'vi');
+    $blocks['export']['info'] = t('Export khách hàng', array(), 'vi');
+    $blocks['donhang']['info'] = t('Đơn hàng', array(), 'vi');
+    $blocks['marketing']['info'] = t('marketing', array(), 'vi');
+    $blocks['lichsu']['info'] = t('Lịch sử', array(), 'vi');
+    $blocks['khcnstt']['info'] = t('Khách hàng có ngày sinh trong tháng', array(), 'vi');
+    $blocks['filter']['info'] = t('Lọc danh sách', array(), 'vi');
+    $blocks['search']['info'] = t('Tìm kiếm', array(), 'vi');
+    return $blocks;
+  }
+  else if ($op == 'view') {
+    switch ($delta) {
+      case 'topnav':
+        $items = array();
+        $items[] = l('<span class="icon-back"></span>', 'khachhang', array('html'=>TRUE, 'attributes'=>array('class'=>'link-btn', 'title'=>t('Khách hàng', array(), 'vi'))));
+        $items[] = l('<span class="icon-del"></span>' . t('Xóa', array(), 'vi'), 'node/' . arg(1) . '/delete', array('html'=>TRUE, 'attributes'=>array('class'=>'link-btn', 'title'=>t('Xóa thông tin khách hàng', array(), 'vi'))));
+        $items[] = l('<span class="icon-edit"></span>' . t('Chỉnh sửa', array(), 'vi'), 'node/' . arg(1) . '/edit', array('html'=>TRUE, 'attributes'=>array('class'=>'link-btn', 'title'=>t('Sửa thông tin khách hàng', array(), 'vi'))));
+        $block['subject'] = t('Xóa, chỉnh sửa khách hàng', array(), 'vi');
+        $block['content'] = theme('item_list', $items);
+        return $block;
+
+      case 'export':
+        $items = array();
+        $query = 'action=export';
+        if ($_GET['page'] > 0) {
+          $query .= '&page=' . $_GET['page'];
+        }
+
+        if (arg(0) == 'marketing') {
+          switch (arg(1)) {
+            case 'email':
+              $query .= '&ref=email';
+              break;
+            default:
+              $query .= '&ref=sms';
+              break;
+          }
+        }
+
+       $path="http://".'118.70.128.57:10002'.$_SERVER['REQUEST_URI'];
+        //$path="http://".'localhost:8088'.$_SERVER['REQUEST_URI'];
+        $items[] = l('<span class="icon-clone"></span>' . t('Export excel', array(), 'vi'), $path, array('html'=>TRUE, 'query'=>$query, 'attributes'=>array('class'=>'link-btn small', 'title'=>t('Export excel', array(), 'vi'))));
+        $block['subject'] = t('Export khách hàng', array(), 'vi');
+        $block['content'] = theme('item_list', $items);
+        return $block;
+
+      case 'donhang':
+        if (arg(0) == 'khachhang' && is_numeric(arg(1)) && arg(2) == 'view') {
+          $content = dpldev_khachhang_donhang(arg(1));
+        }
+        else {
+          $content = NULL;
+        }
+
+        $block['subject'] = t('Đơn hàng', array(), 'vi');
+        $block['content'] = $content;
+        return $block;
+
+      case 'lichsu':
+        if (arg(0) == 'khachhang' && is_numeric(arg(1)) && arg(2) == 'view') {
+          $content = dpldev_khachhang_lichsu(arg(1));
+        }
+        else {
+          $content = NULL;
+        }
+
+        $block['subject'] = t('Lịch sử', array(), 'vi');
+        $block['content'] = $content;
+        return $block;
+
+      case 'khachhang':
+        $block['subject'] = t('Khách hàng', array(), 'vi');
+        $block['content'] = dpldev_khachhang_filter('report');
+        return $block;
+
+      case 'marketing':
+        $block['subject'] = t('marketing', array(), 'vi');
+        $block['content'] = dpldev_khachhang_filter('report');
+        return $block;
+
+      case 'khcnstt':
+        $block['subject'] = t('Khách hàng có ngày sinh trong tháng', array(), 'vi');
+        $block['content'] = dpldev_khachhang_filter('khcnstt');
+        return $block;
+
+      case 'filter':
+        $block['subject'] = t('Lọc danh sách', array(), 'vi');
+        $block['content'] = drupal_get_form('dpldev_khachhang_form_filter');
+        return $block;
+
+      case 'search':
+        $block['subject'] = t('Tìm kiếm', array(), 'vi');
+        $block['content'] = drupal_get_form('dpldev_khachhang_form_search');
+        return $block;
+    }
+  }
+}
+
+
+function dpldev_khachhang_filter($op = '') {
+  $joins = array();
+  $wheres = array();
+  $orders = array();
+  $groups = array();
+  $havings = array();
+
+  //SQL Condition string
+  $join = NULL;
+  $where = NULL;
+  $order = NULL;
+  $group = NULL;
+  $having = NULL;
+  $ds_flag = NULL;
+  $timenow = time();
+  $month_start  = mktime(0, 0, 0, date('m'), 1, date('Y'));
+  $month_end  = $timenow;
+  $op = is_string($op) ? strtolower(trim($op)) : $op;
+
+  $no_result_message = t('Hiện tại hệ thống chưa có khách hàng nào phù hợp với tiêu chí lọc của bạn.', array(), 'vi');
+
+  $sqlselect = 'SELECT ctk.*, SUM(ctd.field_giaban_value*ctd.field_soluong_value - (100*(ctd.field_giamgia_value/(ctd.field_giaban_value * ctd.field_soluong_value)))) doanhso 
+    FROM content_type_donhang ctd 
+  ';
+  $sqlcount = 'SELECT COUNT(DISTINCT ctd.field_khachhang_nid_value) 
+    FROM {content_type_donhang} ctd 
+  ';
+  $joins['ctk'] = 'INNER JOIN content_type_khachhang ctk ON ctk.vid = ctd.field_khachhang_nid_value';
+  $groups['nid'] = 'ctd.field_khachhang_nid_value';
+
+  switch ($op) {
+    case 'khcnstt':
+      $title = t('Khách hàng có ngày sinh trong tháng', array(), 'vi');
+      $wheres[] = array(
+        'type' => 'date',
+        'field' => "DATE_FORMAT(FROM_UNIXTIME(ctk.field_ngaysinh_value), '%%m')",
+        'operator' => '=',
+        'value' => "DATE_FORMAT(FROM_UNIXTIME($timenow), '%%m')",
+      );
+      break;
+
+    case 'vip':
+      $title = t('Khách VIP', array(), 'vi');
+      $no_result_message = t('Hiện tại hệ thống chưa có khách hàng VIP nào phù hợp với tiêu chí lọc của bạn.', array(), 'vi');
+      break;
+
+    case 'khachmoi':
+      $title = t('Khách mới', array(), 'vi');
+      $no_result_message = t('Tháng này chưa có khách hàng mới.', array(), 'vi');
+      $orders['ctd.field_ngayban_value'] = 'ctd.field_ngayban_value DESC';
+      if (arg(2) == 'trongthang') {
+        $wheres[] = array(
+          'field' => "ctk.vid",
+          'operator' => 'IN',
+          'value' => "(SELECT vid FROM {node} WHERE type='khachhang' AND created>=$month_start AND created<=$month_end)",
+        );
+      }
+      break;
+
+    case 'khachcu':
+      $title = t('Khách cũ', array(), 'vi');
+      $orders['ctd.field_ngayban_value'] = 'ctd.field_ngayban_value ASC';
+      break;
+
+    case 'doanhsocao':
+      $title = t('Doanh số cao', array(), 'vi');
+      $orders['doanhso'] = 'doanhso DESC';
+      break;
+
+    case 'doanhsothap':
+      $title = t('Doanh số thấp', array(), 'vi');
+      $orders['doanhso'] = 'doanhso ASC';
+      break;
+
+    case 'lienheganday':
+      $title = t('Liên hệ gần đây', array(), 'vi');
+      break;
+
+    case 'lienhetruocday':
+      $title = t('Liên hệ trước đây', array(), 'vi');
+      break;
+
+    default:
+      $title = t('Khách hàng', array(), 'vi');
+      break;
+  }
+// marketing/thutay loc theo khach hang moi
+   if(arg(0) == 'marketing' && arg(2)=='khachmoi') {
+       $orders['ctd.field_ngayban_value'] = 'ctd.field_ngayban_value DESC';
+   }
+// marketing/thutay loc theo khach hang cu
+    if(arg(0) == 'marketing' && arg(2)=='khachcu') {
+        $orders['ctd.field_ngayban_value'] = 'ctd.field_ngayban_value ASC';
+    }
+// marketing/thutay loc theo doanh so cao
+    if(arg(0) == 'marketing' && arg(2) =='doanhsocao') {
+        $orders['doanhso'] = 'doanhso DESC';
+    }
+ // marketing/thutay loc theo doanh so cao
+    if(arg(0) == 'marketing' && arg(2) =='doanhsothap') {
+        $orders['doanhso'] = 'doanhso ASC';
+    }
+
+  // Loc theo khu vuc
+  if (isset($_GET['khuvuc']) && $_GET['khuvuc'] != 'ALL') {
+  	$wheres[] = array(
+  		'field' => 'LOWER(ctk.field_area_value)',
+  		'operator' => '=',
+  		'value' => intval($_GET['khuvuc']),
+  	);
+  }
+
+  
+  // Loc theo tap khach hang
+  if (isset($_GET['tapkhachhang']) && is_array($_GET['tapkhachhang']) && !isset($_GET['tapkhachhang']['ALL'])) {
+    $wheres[] = array(
+      'field' => "LOWER(ctk.field_tapkhachhang_value)",
+      'operator' => 'IN',
+      'value' => "('" . implode("','", $_GET['tapkhachhang']) . "')",
+    );
+  }
+  else if ($op == 'vip') {
+    $wheres[] = array(
+      'field' => "LOWER(ctk.field_tapkhachhang_value)",
+      'operator' => 'IN',
+      'value' => "('" . implode("','", array_keys(dpldev_content_get_id_names('tapkhachhang'))) . "')",
+    );
+  }
+
+  // Loc theo kho hang
+  if ($_GET['khohang'] && is_numeric($_GET['khohang'])) {
+    $wheres[] = array(
+      'field' => "ctd.field_khohang_value",
+      'operator' => '=',
+      'value' => intval($_GET['khohang']),
+    );
+  }
+  // Loc theo thuong hieu
+  if ($_GET['thuonghieu'] && is_numeric($_GET['thuonghieu'])) {
+    $wheres[] = array(
+      'field' => "ctd.field_thuonghieu_value",
+      'operator' => '=',
+      'value' => $_GET['thuonghieu'],
+    );
+  }
+  // Loc theo gioi tinh
+  if (isset($_GET['gioitinh']) && is_array($_GET['gioitinh']) && !isset($_GET['gioitinh']['ALL'])) {
+    $wheres[] = array(
+      'field' => "LOWER(ctk.field_gioitinh_value)",
+      'operator' => 'IN',
+      'value' => "('" . implode("','", $_GET['gioitinh']) . "')",
+    );
+  }
+  // Loc theo khu vuc
+  if (isset($_GET['khuvuc']) && is_array($_GET['khuvuc']) && !isset($_GET['khuvuc']['ALL'])) {
+    $wheres[] = array(
+      'field' => "LOWER(ctk.field_diachi_khac_tinhthanhpho_value)",
+      'operator' => 'IN',
+      'value' => "('" . implode("','", $_GET['khuvuc']) . "')",
+    );
+  }
+  // Loc theo doanh so
+  $doanhso_tren = intval($_GET['doanhso_tren']) * 1000000;
+  $doanhso_duoi = intval($_GET['doanhso_duoi']) * 1000000;
+
+  if ($doanhso_duoi && $doanhso_tren && $doanhso_tren > $doanhso_duoi) {
+    drupal_set_message(t('Doanh số đưa vào không hợp lệ'), 'error');
+    drupal_goto($_GET['q']);
+  }
+
+  if ($doanhso_tren > 0) {
+    $havings['doanso_tren'] = "doanhso >= $doanhso_tren";
+    $ds_flag = TRUE;
+  }
+  if ($doanhso_duoi > 0) {
+    $havings['doanhso_duoi'] = "doanhso <= $doanhso_duoi";
+    $ds_flag = TRUE;
+  }
+
+  // Loc doanh so theo thoi gian
+  if (isset($_GET['date_from']['date']) && !empty($_GET['date_from']['date'])) {
+    $date_from = dpldev_control_convert_date($_GET['date_from']['date'], 'd/m/Y');
+    if ($date_from) {
+      $wheres['date_from'] = array(
+        'field' => "ctd.field_ngayban_value",
+        'operator' => '>=',
+        'value' => strtotime($date_from),
+      );
+      $ds_flag = TRUE;
+    }
+  }
+  if (isset($_GET['date_to']['date']) && !empty($_GET['date_to']['date'])) {
+    $date_to = dpldev_control_convert_date($_GET['date_to']['date'], 'd/m/Y');
+    if ($date_to) {
+      $wheres['date_to'] = array(
+        'field' => "ctd.field_ngayban_value",
+        'operator' => '<=',
+        'value' => strtotime($date_to),
+      );
+      $ds_flag = TRUE;
+    }
+  }
+
+  if (count($joins)) {
+    $join = implode(' ', $joins);
+  }
+
+  if (count($wheres)) {
+    $items = array();
+    foreach ($wheres as $k=>$v) {
+
+      if (!isset($v['field'])) {
+        $v['field'] = $k;
+      }
+      if (!isset($v['operator'])) {
+        $v['operator'] = '=';
+      }
+      if (!isset($v['type']) && strtolower($v['operator']) != 'in') {
+        $v['value'] = ' \'' . $v['value'] . '\'';  
+      }
+
+      $items[] = $v['field'] . ' ' . $v['operator'] . $v['value'];
+    }
+
+    $where = ' WHERE ' . implode(' AND ', $items) . ' ';
+  }
+  // Loc theo keyword
+  if (isset($_GET['keyword']) && !empty($_GET['keyword']) && $_GET['keyword'] != t('Nhập tên KH hoặc SĐT để tìm kiếm khách hàng', array(), 'vi')) {
+
+    $where .= 'and (ctk.field_hovaten_value like '."'". '%%' . strtolower(trim($_GET['keyword'])) . '%'."'" .' or ctk.field_mobile_value like '."'". '%%' . strtolower(trim($_GET['keyword'])) . '%'."'".')' ;
+
+  }
+  //Chi loc khach hang comkhoa chinh hoac null - tri
+  $where .= 'and (ctk.field_khoangoai_value IS NULL or ctk.field_khoangoai_value = ctk.nid)';
+
+  if (!$where || empty($where)) {
+    $where = ' WHERE (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = \'0\') ';
+  }
+  else {
+    $where .= ' AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = \'0\') ';
+  }
+
+  if (count($groups)) {
+    $group = ' GROUP BY ' . implode(',', $groups) . ' ';
+    if (count($havings)) {
+      $having = ' HAVING ' . implode(' AND ', $havings) . ' ';
+    }
+  }
+  if (count($orders)) {
+    $order = ' ORDER BY ' . implode(',', $orders) . ' ';
+  }
+
+  $sqlselect .= '
+    ' . $join . ' 
+    ' . $where . ' 
+    ' . $group . '
+    ' . $having . '  
+    ' . $order;
+  $sqlcount .= '
+    ' . $join . ' 
+    ' . $where;
+  $limit = (int)$_GET['limit'];
+  if (!$limit) {
+    $limit = 15;
+  }
+  if($_GET['action'] == 'export') {
+    $result = db_query($sqlselect);
+  }
+  else
+  {
+    $result = pager_query($sqlselect, $limit, 0, $sqlcount);
+  }
+
+
+  $data = array();
+  $header = array();
+    $header['header_cell'] = theme('table_select_header_cell');
+    $header['hovaten'] = t('Họ và tên', array(), 'vi');
+    $header['gioi'] = t('Giới', array(), 'vi');
+    $header['ns'] = t('NS', array(), 'vi');
+    $header['sdt'] = t('SĐT', array(), 'vi');
+    $header['diachi'] = t('Địa chỉ', array(), 'vi');
+    $header['email'] = t('Email', array(), 'vi');
+    $header['tongds'] = t('Tổng DS<br />(Tr đ)', array(), 'vi');
+    $header['ds'] = t('Doanh số<br />(Tr đ)', array(), 'vi');
+    $header['hang'] = t('Hạng', array(), 'vi');
+    $header['quanly'] = t('Quản lý', array(), 'vi');
+    $header['ngayhethang'] = t('Ngày hết<br />hạng', array(), 'vi');
+  $rows = array();
+
+  $row_exports = array();
+  $text_length = array(
+    'hovaten' => 12,
+    'gioi' => 3,
+    'ns' => 5,
+    'sdt' => 7,
+    'diachi' => 10,
+    'email' => 7,
+    'quanly' => 6,
+  );
+  $text_align = 'right';
+
+  if ($op != 'vip') {
+    $text_length = array(
+      'hovaten' => 20,
+      'gioi' => 3,
+      'ns' => 5,
+      'sdt' => 10,
+      'diachi' => 15,
+      'email' => 7,
+      'quanly' => 12,
+    );
+    $text_align = 'left';
+
+    if ($op != 'report') {
+      $header['report'] = ''; 
+    }
+    if(arg(0) =='marketing') {
+        unset($header['ds'], $header['hang'], $header['ngayhethang']);
+    }
+    else
+    unset($header['ns'], $header['ds'], $header['hang'], $header['ngayhethang']);
+  }
+  if(arg(0) == 'marketing') {
+      $header['ds'] = t('DS', array(), 'vi');
+      $header['tap'] = t('Tập', array(), 'vi');
+      $header['thuoc'] = t('Thuộc', array(), 'vi');
+      unset($header['tongds'],$header['quanly']);
+  }
+
+  while ($obj = db_fetch_object($result)) {
+    switch ($obj->field_gioitinh_value) {
+      case 'nam':
+        $goitinh = t('Nam', array(), 'vi');
+        break;
+      case 'nu':
+        $goitinh = t('nữ', array(), 'vi');
+        break;
+      default:
+        $goitinh = '-';
+    }
+    $doanhso = $obj->doanhso;
+    $tongdoanhso = !$ds_flag ? $doanhso : dpldev_donhang_content_tong_doanh_so($obj->nid);
+    $data[] = $obj;
+    $row = array();
+    $row_export = array();
+    if($_GET['action'] == 'export') {
+      $row['hovaten'] = $obj->field_hovaten_value;
+      unset($row['header_cell']);
+      unset($header['header_cell']);
+
+    }
+ else {
+    $row['header_cell'] = '<div class="form-item"><label class="option"><input type="checkbox" class="form-checkbox" value="' . $obj->nid . '"  name="nids[' . $obj->nid . ']"> </label></div>';
+    $key ='';
+    if($obj->field_khoangoai_value == $obj ->nid )
+    $key .= '<span id="key"></span>';
+   $row['hovaten'] = $key.l(ucwords(drupal_strtolower($obj->field_hovaten_value)), 'khachhang/' . $obj->nid . '/view', array('html' => TRUE));
+    $row_export['hovaten'] = $row['hovaten'];
+ }
+    //$row['hovaten'] = dpldev_text_view($row['hovaten'], array('length'=>$text_length['hovaten'], 'align'=>$text_align, 'tooltip'=>TRUE));
+    $row['gioi'] = $goitinh;
+    $row['gioi'] = dpldev_text_view($row['gioi'], array('length'=>$row['gioi'], 'align'=>$text_align, 'tooltip'=>TRUE));
+
+    if ($op == 'vip' || arg(0) == 'marketing') {
+      $row['ns'] = isset($obj->field_ngaysinh_value) && !empty($obj->field_ngaysinh_value) ? format_date($obj->field_ngaysinh_value, 'custom', 'd/m/Y') : '-';
+      //$row['ns'] = dpldev_text_view($row['ns'], array('length'=>$text_length['ns'], 'align'=>$text_align, 'tooltip'=>TRUE));
+    }
+
+    $row['sdt'] = $obj->field_mobile_value;
+    $row_export['sdt'] = $row['sdt'];
+    //$row['sdt'] = dpldev_text_view($row['sdt'], array('length'=>$text_length['sdt'], 'align'=>$text_align, 'tooltip'=>TRUE));
+    $row['diachi'] = $obj->field_diachi_value;
+    //$row['diachi'] = dpldev_text_view($row['diachi'], array('length'=>$text_length['diachi'], 'align'=>$text_align, 'tooltip'=>TRUE));
+    $row['email'] = isset($obj->field_email_email) && !empty($obj->field_email_email) ? $obj->field_email_email : '-';
+    $row_export['email'] = $row['email'];
+    //$row['email'] = dpldev_text_view($row['email'], array('length'=>$text_length['email'], 'align'=>$text_align, 'tooltip'=>TRUE));
+    $row['tongds'] = number_format(round($tongdoanhso/1000000, 2), 2, '.', ',');
+
+    if ($op == 'vip') {
+      $row['ds'] = number_format(round($doanhso/1000000, 2), 2, '.', ',');
+    }
+    if ($op == 'vip') {
+      $row['hang'] = dpldev_content_get_table_field_value('tapkhachhang', $obj->field_tapkhachhang_value);
+    }
+   if(arg(0) !='marketing') {
+       $row['quanly'] = dpldev_content_get_table_field_value('cuahang', $obj->field_quan_ly_value);
+       //$row['quanly'] = dpldev_text_view($row['quanly'], array('length'=>$text_length['quanly'], 'align'=>$text_align, 'tooltip'=>TRUE));
+   }
+
+    if ($op == 'vip') {
+      $row['ngayhethang'] = function_exists('dpldev_khachhang_vip_ngay_het_hang') ? dpldev_khachhang_vip_ngay_het_hang($obj->nid) : '-';
+    }
+     if(arg(0) =='marketing') {
+         $row['tap'] = 'Vip';
+         $row['thuoc'] = 'Dh';
+
+
+     }
+
+    $rows[] = $row;
+    $row_exports[] = $row_export;
+
+  }
+
+  if (!count($rows)) {
+    $rows[] = array(array('data' => $no_result_message, 'colspan' => count($header)));
+  }
+  else if ($_GET['action'] == 'export') {
+    $header1 = array();
+
+    switch ($_GET['ref']) {
+      case 'email':
+        $header1['hovaten'] = t('Họ và tên', array(), 'vi');
+        $header1['email'] = t('Email', array(), 'vi');
+        $export_filename = 'Khach_Hang_Email.xls';
+
+        foreach ($row_exports as $key=>$row) {
+          unset($row_exports[$key]['sdt']);
+        }
+
+        break;
+
+      case 'sms':
+        $header1['hovaten'] = t('Họ và tên', array(), 'vi');
+        $header1['sdt'] = t('SĐT', array(), 'vi');
+        $export_filename = 'Khach_Hang_SMS.xls';
+
+        foreach ($row_exports as $key=>$row) {
+          unset($row_exports[$key]['email']);
+        }
+
+        break;
+    }
+
+    if (count($header1)) {
+      $output = theme('table', $header1, $row_exports, array('class' => 'table'));
+      dpldev_control_stream_download($output, $export_filename);
+    }
+
+  }
+  $number = db_affected_rows(db_query($sqlselect));
+  $input_key = '<input type="button" value="Khóa chính" id ="khoachinh">';
+  $connect = '<input type="button" value="Group khách hàng" id ="ketnoi">';
+  $output = '<div id ="top_kh">'.$input_key.$connect.'</div>';
+  $output .= theme('table', $header, $rows, array('class' => 'table'));
+  if ($_GET['action'] == 'export') {
+    dpldev_control_stream_download($output, 'Danh_sach_khach_hang.xls');
+  }
+  $textDelete = '<div id ="sure">Bạn có chắc muốn xóa không? <input type="button" id = "co" value="Có"> <input type="button" id ="khong" value="không"></div>';
+  $number_kh = '<span id ="kq_kh">Có: '.$number. ' kết quả</span>';
+  $delete = '<input type="button" value="Xóa" id ="delete_kh">';
+  $update = '<input type="button" value="Sửa" id ="update_kh">';
+  $selected = 'Đã chon: <span id = "dachon">0</span>';
+  $content_buttom = $textDelete;
+  $content_buttom .= '<div id="bottom_kh">'.$delete .$update.$selected.$number_kh.'</div>';
+  $output .= $content_buttom;
+  $output .= theme('pager');
+  $output = '<div class="full-viewer hide-div-label">' . $output . '</div>';
+
+  if (!$_GET['json']) {
+    drupal_add_js(drupal_get_path('module', 'dpldev_khachhang') . '/js/script.js');
+    $output = "
+    <form action='' method='GET' name='customer-list' id='customer-list' class='form-customer-data'>
+      $output
+    </form>";
+
+  }
+
+  return $output;
+}
+function dpldev_khachhang_set_primekey() {
+  $nid = $_GET['nid'];
+  db_query("UPDATE {content_type_khachhang} SET field_khoangoai_value ='%s' WHERE nid = '%s'",$nid,$nid);
+}
+
+function dpldev_khachhang_match_nid() {
+  $nid = $_GET['nid'];
+  $arr = explode('/',$nid);
+
+  foreach($arr as $v=>$k) {
+    $list_length = db_result(db_query('SELECT COUNT(nid) FROM {content_type_khachhang} WHERE field_khoangoai_value = %d',$k));
+    if($list_length >0) {
+      $prime = $k;
+    }
+  }
+
+  foreach($arr as $m => $n) {
+    db_query("UPDATE {content_type_khachhang} SET field_khoangoai_value ='%s' where nid = '%s'",$prime,$n);
+  }
+}
+function dpldev_khachhang_delete() {
+  $nid = $_GET['nid'];
+  $arr = explode('/',$nid);
+  foreach($arr as $v=>$k) {
+    db_query("DELETE FROM {content_type_khachhang} WHERE  nid = '%s'",$k);
+    db_query("DELETE FROM {content_type_donhang} WHERE field_khachhang_nid_value = '%s'",$k);
+  }
+}
+function dpldev_khachhang_update() {
+  $nid = $_GET['nid'];
+  drupal_goto('node/'.$nid.'/edit');
+}
+
+// Huy group khach hang
+function dpldev_khachhang_huy() {
+  $nid = $_GET['nid'];
+  db_query("UPDATE {content_type_khachhang} SET field_khoangoai_value = null WHERE field_khoangoai_value = '%s'",$nid);
+}
+function dpldev_khachhang_donhang($khachang_id) {
+  $cuahang = dpldev_content_get_id_names('cuahang');
+  $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
+  $id_khachhang = dpldev_group_get_khoangoai($khachang_id);
+  $result = pager_query('SELECT * FROM content_type_donhang ctd WHERE ctd.field_khachhang_nid_value in' . $id_khachhang . ' ORDER BY ctd.field_ngayban_value DESC', $limit);
+  //show table1 thongtinmua hàng
+  $header1 = array();
+  $header1['doanhso'] = t('Doanh số(1.000 VNĐ)', array(), 'vi');
+  $header1['average'] = t('Trung bình đơn hàng', array(), 'vi');
+  $header1['firt'] = t('Đơn hàng đầu tiên', array(), 'vi');
+  $header1['number'] = t('Số đơn hàng', array(), 'vi');
+  $header1['kho'] = t('Kho quản lý', array(), 'vi');
+
+
+  //Show table2 thongtinmuahang
+  $header2 = array();
+  $header2['dsnam'] = t('Doanh số năm', array(), 'vi');
+  $header2['average'] = t('Trung bình năm', array(), 'vi');
+  $header2['dhgan'] = t('Đơn gần nhất', array(), 'vi');
+  $header2['tuoikhach'] = t('Tuổi khách(năm)', array(), 'vi');
+  $header2['quay'] = t('Quầy', array(), 'vi');
+
+
+  //show table detail for donhang
+  $header = array();
+  $header['stt'] = t('Stt', array(), 'vi');
+  $header['giatri'] = t('Giá trị', array(), 'vi');
+  $header['mahang'] = t('Mã hàng', array(), 'vi');
+  $header['sanpham'] = t('Sản phẩm', array(), 'vi');
+  $header['ngaymua'] = t('Ngày mua', array(), 'vi');
+  $header['cuahang'] = t('Cửa hàng', array(), 'vi');
+  $header['chietkhau'] = t('Chiết khấu', array(), 'vi');
+  $header['donhang'] = t('Đơn hàng', array(), 'vi');
+  $rows = array();
+  $page = isset($_GET['page']) ? $_GET['page'] : 0;
+  $i = $page*$limit + 1;
+  while ($obj = db_fetch_object($result)) {
+
+    $row = array();
+    $row['stt'] = $i++;
+    $giatri = (float)$obj->field_giaban_value;
+    $giatri = number_format($giatri, 2);
+    $donhang_link = l($obj->field_sohoadon_value, 'donhang/' . $obj->nid . '/view');
+    $row['giatri'] = $giatri;
+    $row['mahang'] = $obj->field_masanpham_value;
+    $row['sanpham'] = $obj->field_tensanpham_value;
+    $row['ngaymua'] = format_date($obj->field_ngayban_value, 'custom', 'd/m/Y');
+    $row['cuahang'] = $cuahang[$obj->field_cuahang_value];
+    $row['chietkhau'] = (float)$obj->field_giamgia_value > 0 ? $obj->field_giamgia_value . '%' : '-';
+    $row['donhang'] = $donhang_link;
+    $rows[] = $row;
+
+  }
+
+  //show content table1 thongtinmua hang
+  $row1 = array();
+  $doanhso = db_result(db_query("SELECT SUM(ctd.field_giaban_value) FROM content_type_donhang as ctd INNER JOIN content_type_khachhang as ctk ON ctd.field_khachhang_nid_value = ctk.nid WHERE ctk.field_khoangoai_value ='%d'",arg(1)));
+  $row1['doanhso'] = number_format($doanhso, 2);
+
+  $numberDh = db_affected_rows(db_query("SELECT ctd.field_giaban_value FROM content_type_donhang as ctd INNER JOIN content_type_khachhang as ctk ON ctd.field_khachhang_nid_value = ctk.nid WHERE ctk.field_khoangoai_value ='%s'",arg(1)));
+  if($numberDh != 0)
+    $row1['average'] = number_format(round($doanhso/$numberDh,2),2);
+  else
+    $row1['average'] = 0;
+
+  $firt = db_result(db_query("SELECT ctd.field_ngayban_value FROM content_type_donhang as ctd INNER JOIN content_type_khachhang as ctk ON ctd.field_khachhang_nid_value = ctk.nid WHERE ctk.field_khoangoai_value ='%d'",arg(1)));
+  $row1['firt'] = date('d/m/Y',$firt);
+
+  $row1['number'] = $numberDh;
+  $row1s[] =$row1;
+
+  //show detail for table 2
+  $timeYear = time();
+  $year = date('Y',$timeYear);
+  $row2 = array();
+  $dsYear = db_result(db_query("SELECT SUM(ctd.field_giaban_value) FROM content_type_donhang as ctd INNER JOIN content_type_khachhang as ctk ON ctd.field_khachhang_nid_value = ctk.nid WHERE ctk.field_khoangoai_value ='%d' and DATE_FORMAT(ctd.field_ngayban_value,'%Y') = '%d'",arg(1)),$year);
+  $row2['dsYear'] = number_format($dsYear, 2);
+
+  $numberDhYear = db_affected_rows(db_query("SELECT ctd.field_giaban_value FROM content_type_donhang as ctd INNER JOIN content_type_khachhang as ctk ON ctd.field_khachhang_nid_value = ctk.nid WHERE ctk.field_khoangoai_value ='%s' and DATE_FORMAT(ctd.field_ngayban_value,'%Y') = '%d'",arg(1)),$year);
+  if($numberDhYear != 0)
+    $row2['average'] = number_format(round($dsYear/$numberDhYear,2),2);
+  else
+    $row2['average'] = 0;
+
+
+  $firtYear = db_result(db_query("SELECT ctd.field_ngayban_value FROM content_type_donhang as ctd INNER JOIN content_type_khachhang as ctk ON ctd.field_khachhang_nid_value = ctk.nid WHERE ctk.field_khoangoai_value ='%d' and DATE_FORMAT(ctd.field_ngayban_value,'%Y') = '%d'",arg(1)),$year);
+  $row2['dhgan'] = date('m/d/Y',$firtYear);
+
+  $tuoiKH = round(($timeYear - $firt)/(365*24*60*60),2);
+  $row2['tuoikhach'] = $tuoiKH;
+
+  $row2s[] = $row2;
+  if (!count($rows)) {
+    $rows[] = array(array('data'=>t('Khôngt tìm thấy thông tin đơn hàng nào của khách hàng trên hệ thống.', array(), 'vi')));
+  }
+  $output = theme('table', $header1, $row1s, array('class' => 'table tbl-style-1'));
+  $output .= theme('table', $header2, $row2s, array('class' => 'table tbl-style-1'));
+  $output .= theme('table', $header, $rows, array('class' => 'table tbl-style-1'));
+  $output .= theme('pager');
+  return $output;
+}
+
+function dpldev_khachhang_lichsu($khachang_id) {
+  $cuahang = dpldev_content_get_id_names('cuahang');
+  $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
+  $result = pager_query('SELECT * FROM content_type_donhang ctd WHERE ctd.field_khachhang_nid_value=' . $khachang_id . ' ORDER BY ctd.field_ngayban_value DESC', $limit);
+  $header = array();
+  $header['TT'] = t('TT', array(), 'vi');
+  $header['hanhdong'] = t('Hành động', array(), 'vi');
+  $header['ngay'] = t('Ngày', array(), 'vi');
+  $rows = array();
+  $page = isset($_GET['page']) ? $_GET['page'] : 0;
+  $i = $page*$limit + 1;
+
+  while ($obj = db_fetch_object($result)) {
+    $row = array();
+    $row['stt'] = $i++;
+    $giatri = (float)$obj->field_giaban_value;
+    $giatri = number_format($giatri, 2);
+    $donhang_link = l($obj->field_sohoadon_value, 'donhang/' . $obj->nid . '/view', array('attributes'=>array('class'=>'underline')));
+    $row['hanhdong'] = t('Mua hàng', array(), 'vi') . ' (' . t('đơn hàng', array(), 'vi') . ' ' . $donhang_link . ')';
+    $row['ngaymua'] = format_date($obj->field_ngayban_value, 'custom', 'd/m/Y');
+    $rows[] = $row;
+  }
+  $output = theme('table', $header, $rows, array('class' => 'table tbl-style-1'));
+  $output .= theme('pager');
+  return $output;
+}
+
+function dpldev_khachhang_node_relate($nid) {
+ $result = db_query("SELECT * FROM {content_type_khachhang} WHERE field_khoangoai_value = '%s'",$nid);
+  $rows = array();
+  while($row = db_fetch_object($result)) {
+    $rows[] = $row;
+  }
+ return $rows;
+}
+
+function dpldev_khachhang_info_khachhang() {
+  $khAll = dpldev_khachhang_node_relate(arg(1)) ;
+  $row = array();
+  foreach($khAll as $khAlls) {
+    $row['name'] = $khAlls->field_hovaten_value;
+    $row['gen'] = $khAlls->field_gioitinh_value;
+    if(empty($khAlls->field_phone_value))
+      $row['phone'] = '-';
+    else
+      $row['phone'] = $khAlls->field_phone_value;
+    $row['email'] = $khAlls->field_email_email;
+    if(empty($khAlls->field_diachi_value))
+      $row['address'] = '-';
+    else
+      $row['address'] = $khAlls->field_diachi_value;
+    if(empty($khAlls->field_ngaysinh_value))
+      $row['birthday'] = '-';
+    else
+      $row['birthday'] = $khAlls->field_ngaysinh_value;
+    $rows[]= $row;
+  }
+ return $rows;
+}

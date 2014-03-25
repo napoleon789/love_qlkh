@@ -1,0 +1,5 @@
+name = dpldev calendar
+description = dpldev calendar
+core = 6.x
+package = DPLDEV
+version = 6.x

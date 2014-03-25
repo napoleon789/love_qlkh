@@ -1,0 +1,53 @@
+<?php
+/**
+ * Implements hook_menu().
+ */
+function dpldev_convert_menu() {
+  $items = array();
+  $items['admin/capnhap/convert_data_chuan'] = array(
+    'title' => t('2.Cập nhật dữ sang chuẩn', array(), 'vi'),
+    'page callback' => 'dpldev_import_convert_data',
+    'page arguments' => array(1),
+    'access arguments' => array('administer nodes'),
+  );
+  $items['admin/capnhap/convert_data_update'] = array(
+    'title' => t('3.Update chiết khấu', array(), 'vi'),
+    'page callback' => 'dpldev_import_convert_update',
+    'page arguments' => array(1),
+    'access arguments' => array('administer nodes'),
+  );
+  $items['testa'] = array(
+    'title' => t('3.Update chiết khấu', array(), 'vi'),
+    'page callback' => 'doji_chart_get_array',
+    'access arguments' => array('administer nodes'),
+  );
+  return $items;
+}
+/**
+ * convert data to import
+ */
+function dpldev_import_convert_data() {
+  $query = "select * from pmkt where left(tk_no,3) = '131' and status != 1  ORDER BY ngayban ASC";
+  $result = db_query_range($query,0,100);
+  while($row = db_fetch_array($result)) {
+    $row['chietkhau'] =0;
+    $row['id_cv'] = $row['id'];
+    drupal_write_record('pmkt_chuan',$row);
+    db_query('UPDATE {pmkt} SET status = 1 where id = "%d" ',$row['id_cv']);
+  }
+
+ die(dpldev_control_fresh_page('Cập nhật dữ liệu thành công'));
+}
+
+/**
+ * update chietkhau =0 sang chietkhau = 521
+ */
+function dpldev_import_convert_update() {
+  $query = "select * from pmkt where left(tk_no,3) = '521' and status != 1  ORDER BY ngayban ASC";
+  $result = db_query_range($query,0,100);
+  while($row = db_fetch_array($result)) {
+    db_query('update {pmkt_chuan} set chietkhau = "%d" where id_cv = "%d" ',$row['giatri'],$row['id'] - 1);
+    db_query('update {pmkt} set status = 1 where id = "%d"',$row['id']);
+  }
+  die(dpldev_control_fresh_page('Cập nhật dữ liệu thành công'));
+}

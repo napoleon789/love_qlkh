@@ -1,0 +1,174 @@
+<?php
+/**
+ * Implements hook_menu().
+ */
+function dpldev_khachhang_vip_menu() {
+  $items = array();
+  $items['admin/capnhap/khachhang_vip'] = array(
+    'title' => t('Cập nhật VIP', array(), 'vi'),
+    'page callback' => 'dpldev_khachhang_vip_capnhat',
+    'page arguments' => array(1),
+    'access arguments' => array('administer nodes'),
+  );
+  return $items;
+}
+
+/**
+ * Implementation of hook_cron().
+ */
+function dpldev_khachhang_vip_cron() {
+}
+
+/**
+ * Lay thong tin khach hang VIP
+ */
+function dpldev_khachhang_vip_object($nid) {
+  static $cached; 
+  if (!isset($cached[$nid])) {
+    $cached[$nid] = db_fetch_object(db_query_range('SELECT * FROM khachhang_vip_log WHERE nid=%d ORDER BY id DESC', $nid, 0, 1));    
+  }
+
+  return $cached[$nid];
+}
+
+/**
+ * Ngay het hang
+ */
+function dpldev_khachhang_vip_ngay_het_hang($nid) {
+  $obj = dpldev_khachhang_vip_object($nid);
+  $ret = '-';
+
+  if (isset($obj->created)) {
+    $d = date('d', $obj->created);
+    $m = date('m', $obj->created);
+    $y = date('Y', $obj->created);
+    $y1 = $y + 1;
+
+    if ($d && $m && $y) {
+      $ret = mktime(0, 0, 0, $m, $d, $y1);
+      $ret = format_date($ret, 'custom', 'd/m/Y');
+    }
+  }
+  
+  return $ret;
+}
+
+/**
+ * Gui mail thong bao
+ */
+function dpldev_khachhang_vip_send_mail($nid) {
+  global $language;
+  $from = variable_get('site_mail', 'mailer@luxcer.com');
+  $to = 'anthai@luxer.com,thaivanan@gmail.com,locnguyen@luxcer.com,thinh.lc@doji.vn';
+
+  if (variable_get('smtp_on', 0)) { 	
+    $from = variable_get('smtp_username', $from);   
+  }
+
+  $values = array();
+  $values['subject'] = t('Thông báo khách hàng !name xuống hạng', array('!name'=>$name), 'vi');
+  $values['subject'] = t('
+    Khách hàng !name từ hạng !hang1 sẽ được hạ xuống hạng !hang2. <br />
+    Bạn hãy kiểm duyệt lại ở !link1. Nếu đúng thì sử dụng !link2 để xuống hạng cho khách hàng.', 
+    array('!name'=>$name, '!hang1'=>$hang1, '!hang1'=>$hang2, '!link1'=>$link1, '!link2'=>$link2), 'vi');
+
+  drupal_mail('dpldev_control', 'khachhang_vip_xuong_hang', $to, language_default(), $values, $from);
+}
+
+/**
+ * Kiem tra tap khach hang
+ */
+function dpldev_khachhang_vip_check($nid, $tapkhachhang_id, $year) {
+  $ret = 0;
+  //$obj = db_fetch_object(db_query_range('SELECT * FROM khachhang_vip_log WHERE nid=%d ORDER BY id DESC', $nid, 0, 1));
+  //if (isset($obj->nid)) {
+  //}
+  if ($tapkhachhang_id) {
+    $ret = 1; 
+  }
+  return $ret;
+}
+
+/**
+* Lay VIP ID
+* @param Total
+* @return tapkhachhang_id
+* CAC HANG VIP:
+  1	Stanby VIP
+  2	Bạc
+  3	Vàng
+  4	Kim Cương
+  5	Bạch Kim
+*/
+function dpldev_khachhang_vip_get_id($total) {
+  $tapkhachhang_id = 0;
+  $items = dpldev_content_get_table_values('tapkhachhang');
+  foreach ($items as $item) {
+    $total_min = $item->total_min;
+    $total_max = $item->total_max;
+    if ($total_min <= 0 && $total_max <= 0) {
+      continue;
+    }
+    if ($total > $total_min) {
+      if ($total_max > $total_min) {
+        if ($total < $total_max) {
+          $tapkhachhang_id = $item->id;
+        }
+        continue;
+      }
+      $tapkhachhang_id = $item->id;
+    }
+  }
+  return $tapkhachhang_id;
+}
+
+/**
+* Cap nhat VIP cho khach hang
+*/
+function dpldev_khachhang_vip_capnhat() {
+  global $user;
+  dpldev_content_get_table_values('tapkhachhang');
+  $khachhang_vip_nid = variable_get('khachhang_vip_nid', 1);
+  $timenow = time();
+  $year = date('Y', $timenow);
+  $date_from = mktime(0, 0, 0, 1, 1, $year);
+  $date_to = $timenow;
+  $pyeartime = $year - 1;
+  $pyeartime = $date_from = mktime(0, 0, 0, 1, 1, $pyeartime);
+
+  $sqlselect = 'SELECT ctk.*, ctd.field_khachhang_nid_value nid, SUM(ctd.field_giaban_value*ctd.field_soluong_value - (100*(ctd.field_giamgia_value/(ctd.field_giaban_value * ctd.field_soluong_value)))) doanhso 
+    FROM content_type_donhang ctd 
+    INNER JOIN content_type_khachhang ctk ON ctk.vid = ctd.field_khachhang_nid_value 
+    LEFT JOIN khachhang_vip_log khl ON ctd.field_khachhang_nid_value = khl.nid 
+    WHERE (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = \'0\') AND ctd.field_ngayban_value >= %d AND ctd.field_ngayban_value < %d AND ctd.field_khachhang_nid_value > %d 
+    GROUP BY ctd.field_khachhang_nid_value 
+    ORDER BY ctd.field_khachhang_nid_value ASC 
+    LIMIT 100 
+  ';
+
+  $result = db_query($sqlselect, $date_from, $date_to, $khachhang_vip_nid);
+
+  while ($obj = db_fetch_object($result)) {
+    $field_tapkhachhang_value = (int)$obj->field_tapkhachhang_value;
+    $total = round($obj->doanhso/1000000);
+    $tapkhachhang_id = dpldev_khachhang_vip_get_id($total);
+    $check_id = dpldev_khachhang_vip_check($obj->nid, $tapkhachhang_id, $pyeartime);
+
+    if ($check_id) {
+      $data = new stdClass;
+      $data->nid = $obj->nid;
+      $data->uid = $user->nid;
+      $data->tapkhachhang_id = $tapkhachhang_id;
+      $data->created = $timenow;
+      $data->action = 1;
+      drupal_write_record('khachhang_vip_log', $data);
+      db_query('UPDATE {content_type_khachhang} SET field_tapkhachhang_value=\'%s\' WHERE nid=%d', $tapkhachhang_id, $obj->nid);
+    }
+    
+    variable_set('khachhang_vip_nid', $obj->nid);
+  }
+
+  $message = t('Cập nhập VIP cho khách hàng thành công!', array(), 'vi');
+  die(dpldev_control_fresh_page($message));
+  return $message;
+}

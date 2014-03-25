@@ -1,0 +1,373 @@
+array(
+  array(
+    'nid' => '75',
+    'type' => 'khachhang',
+    'language' => 'en',
+    'uid' => '1',
+    'status' => '1',
+    'created' => '1349244327',
+    'changed' => '1349252799',
+    'comment' => '0',
+    'promote' => '0',
+    'moderate' => '0',
+    'sticky' => '0',
+    'tnid' => '0',
+    'translate' => '0',
+    'vid' => '75',
+    'revision_uid' => '1',
+    'title' => 'Thái Văn An',
+    'body' => '',
+    'teaser' => '',
+    'log' => '',
+    'revision_timestamp' => '1349252799',
+    'format' => '0',
+    'name' => 'admin',
+    'picture' => '',
+    'data' => 'a:1:{s:13:"form_build_id";s:37:"form-f8d60aae28ebfae1952bff2ac5495af9";}',
+    'path' => 'content/thái-văn',
+    'field_anhdaidien' => array(
+      '0' => array(
+        'fid' => NULL,
+        'uid' => '1',
+        'filename' => 'images.jpg',
+        'filepath' => '#FILES_DIRECTORY_PATH#/anhdaidien/images.jpg',
+        'filemime' => 'image/jpeg',
+        'filesize' => '6218',
+        'status' => '1',
+        'timestamp' => '1349244326',
+        'list' => '1',
+        'data' => array(
+          'alt' => '',
+          'title' => '',
+        ),
+        'node_export_file_url' => 'http://qlkh.local/sites/default/files/anhdaidien/images.jpg',
+      ),
+    ),
+    'field_chucdanh' => array(
+      '0' => array(
+        'value' => 'Senior Developer',
+      ),
+    ),
+    'field_congty' => array(
+      '0' => array(
+        'value' => 'Tesla',
+      ),
+    ),
+    'field_data' => array(
+      '0' => array(
+        'value' => NULL,
+      ),
+    ),
+    'field_diachi' => array(
+      '0' => array(
+        'value' => 'K43 Tòa Nhà CEO',
+      ),
+    ),
+    'field_diachi_khac' => array(
+      '0' => array(
+        'value' => 'K43 Tòa Nhà CEO',
+      ),
+    ),
+    'field_diachi_khac_quanhuyen' => array(
+      '0' => array(
+        'value' => 'Cầu Giấy',
+      ),
+    ),
+    'field_diachi_khac_quocgia' => array(
+      '0' => array(
+        'value' => 'vn',
+      ),
+    ),
+    'field_diachi_khac_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'HN',
+      ),
+    ),
+    'field_diachi_quanhuyen' => array(
+      '0' => array(
+        'value' => 'Cầu Giấy',
+      ),
+    ),
+    'field_diachi_quocgia' => array(
+      '0' => array(
+        'value' => 'vn',
+      ),
+    ),
+    'field_diachi_tinhthanhpho' => array(
+      '0' => array(
+        'value' => 'HN',
+      ),
+    ),
+    'field_email' => array(
+      '0' => array(
+        'email' => 'thaivnaan@gmail.com',
+      ),
+    ),
+    'field_facebook' => array(
+      '0' => array(
+        'value' => 'thaivanan',
+      ),
+    ),
+    'field_ghichu' => array(
+      '0' => array(
+        'value' => 'Integer sodales ultricies erat, at semper lacus porttitor nec. Mauris fermentum eleifend lobortis. Praesent pellentesque euismod quam vel ultricies. Vestibulum fermentum nulla id tortor tempor consectetur.',
+      ),
+    ),
+    'field_gioitinh' => array(
+      '0' => array(
+        'value' => 'nam',
+      ),
+    ),
+    'field_google' => array(
+      '0' => array(
+        'value' => 'thaivanan',
+      ),
+    ),
+    'field_hocvan' => array(
+      '0' => array(
+        'value' => 'ch',
+      ),
+    ),
+    'field_honnhan' => array(
+      '0' => array(
+        'value' => '1',
+      ),
+    ),
+    'field_hovadem' => array(
+      '0' => array(
+        'value' => 'Thái Văn',
+      ),
+    ),
+    'field_hovaten' => array(
+      '0' => array(
+        'value' => 'Thái Văn An',
+      ),
+    ),
+    'field_khachhang_code' => array(
+      '0' => array(
+        'value' => '506bd5a77147b',
+      ),
+    ),
+    'field_makh' => array(
+      '0' => array(
+        'value' => 'JBSL2012',
+      ),
+    ),
+    'field_mobile' => array(
+      '0' => array(
+        'value' => '0983149111',
+      ),
+    ),
+    'field_ngaycuoi' => array(
+      '0' => array(
+        'value' => '1350403200',
+        'timezone' => 'Asia/Krasnoyarsk',
+        'timezone_db' => 'Asia/Krasnoyarsk',
+        'date_type' => 'datestamp',
+      ),
+    ),
+    'field_ngaysinh' => array(
+      '0' => array(
+        'value' => '339181200',
+        'timezone' => 'Asia/Krasnoyarsk',
+        'timezone_db' => 'Asia/Krasnoyarsk',
+        'date_type' => 'datestamp',
+      ),
+    ),
+    'field_ngaytotnghiep' => array(
+      '0' => array(
+        'value' => '1223481600',
+        'timezone' => 'Asia/Krasnoyarsk',
+        'timezone_db' => 'Asia/Krasnoyarsk',
+        'date_type' => 'datestamp',
+      ),
+    ),
+    'field_phone' => array(
+      '0' => array(
+        'value' => '0983149111',
+      ),
+    ),
+    'field_sothich' => array(
+      '0' => array(
+        'value' => 'Lập trình',
+      ),
+    ),
+    'field_ten' => array(
+      '0' => array(
+        'value' => 'An',
+      ),
+    ),
+    'field_thunhap' => array(
+      '0' => array(
+        'value' => '10',
+      ),
+    ),
+    'field_twitter' => array(
+      '0' => array(
+        'value' => 'thaivanan',
+      ),
+    ),
+    'field_yahoo' => array(
+      '0' => array(
+        'value' => 'thaivanan',
+      ),
+    ),
+    'field_tapkhachhang' => array(
+      '0' => array(
+        'value' => '1',
+      ),
+    ),
+    'taxonomy' => array(
+      '2' => array(
+        '1' => '1',
+      ),
+    ),
+    'uuid' => '0d11145f-0d34-11e2-9f7a-005056c00001',
+    'revision_uuid' => NULL,
+    'menu' => array(
+      'link_title' => '',
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => 'primary-links',
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+      'parent_depth_limit' => 8,
+    ),
+    '#_export_node_encode_object' => '1',
+  ),
+)<div class="dev-query">Executed 18 queries in 7.96 milliseconds.</div><textarea rows=30 style="width: 100%;">
+Array
+(
+    [0] =&gt; Array
+        (
+            [0] =&gt; module_list
+/* admin : module_list */ SELECT name, filename, throttle FROM system WHERE type = &#039;module&#039; AND status = 1 AND bootstrap = 1 ORDER BY weight ASC, filename ASC
+            [1] =&gt; 0.000270128250122
+        )
+
+    [1] =&gt; Array
+        (
+            [0] =&gt; drupal_get_filename
+/* admin : drupal_get_filename */ SELECT filename FROM system WHERE name = &#039;user&#039; AND type = &#039;module&#039;
+            [1] =&gt; 0.000370979309082
+        )
+
+    [2] =&gt; Array
+        (
+            [0] =&gt; drupal_lookup_path
+/* admin : drupal_lookup_path */ SELECT COUNT(pid) FROM url_alias
+            [1] =&gt; 0.00028395652771
+        )
+
+    [3] =&gt; Array
+        (
+            [0] =&gt; drupal_lookup_path
+/* admin : drupal_lookup_path */ SELECT src FROM url_alias WHERE dst = &#039;admin/content/node_export&#039; AND language IN(&#039;en&#039;, &#039;&#039;) ORDER BY language DESC, pid DESC
+            [1] =&gt; 0.000211954116821
+        )
+
+    [4] =&gt; Array
+        (
+            [0] =&gt; module_list
+/* admin : module_list */ SELECT name, filename, throttle FROM system WHERE type = &#039;module&#039; AND status = 1 ORDER BY weight ASC, filename ASC
+            [1] =&gt; 0.000935077667236
+        )
+
+    [5] =&gt; Array
+        (
+            [0] =&gt; drupal_lookup_path
+/* admin : drupal_lookup_path */ SELECT dst FROM url_alias WHERE src = &#039;admin/content/node_export&#039; AND language IN(&#039;en&#039;, &#039;&#039;) ORDER BY language DESC, pid DESC
+            [1] =&gt; 0.000510931015015
+        )
+
+    [6] =&gt; Array
+        (
+            [0] =&gt; menu_get_item
+/* admin : menu_get_item */ SELECT * FROM menu_router WHERE path IN (&#039;admin/content/node_export&#039;,&#039;admin/content/%&#039;,&#039;admin/%/node_export&#039;,&#039;admin/%/%&#039;,&#039;admin/content&#039;,&#039;admin/%&#039;,&#039;admin&#039;) ORDER BY fit DESC LIMIT 0, 1
+            [1] =&gt; 0.000429153442383
+        )
+
+    [7] =&gt; Array
+        (
+            [0] =&gt; cache_get
+/* admin : cache_get */ SELECT data, created, headers, expire, serialized FROM cache_form WHERE cid = &#039;form_form-c3befdd81db8fe884c25a553170d822c&#039;
+            [1] =&gt; 0.000265121459961
+        )
+
+    [8] =&gt; Array
+        (
+            [0] =&gt; _node_types_build
+/* admin : _node_types_build */ SELECT nt.type, nt.* FROM node_type nt ORDER BY nt.type ASC
+            [1] =&gt; 0.000335931777954
+        )
+
+    [9] =&gt; Array
+        (
+            [0] =&gt; menu_get_menus
+/* admin : menu_get_menus */ SELECT * FROM menu_custom ORDER BY title
+            [1] =&gt; 0.000324964523315
+        )
+
+    [10] =&gt; Array
+        (
+            [0] =&gt; uuid_uuid
+/* admin : uuid_uuid */ SELECT UUID()
+            [1] =&gt; 0.000120878219604
+        )
+
+    [11] =&gt; Array
+        (
+            [0] =&gt; cache_get
+/* admin : cache_get */ SELECT data, created, headers, expire, serialized FROM cache_menu WHERE cid = &#039;links:navigation:page-cid:admin/content/node_export:1&#039;
+            [1] =&gt; 0.000248908996582
+        )
+
+    [12] =&gt; Array
+        (
+            [0] =&gt; cache_get
+/* admin : cache_get */ SELECT data, created, headers, expire, serialized FROM cache_menu WHERE cid = &#039;links:navigation:tree-data:5e1604028fe5e405d1f5c798ba6a864c&#039;
+            [1] =&gt; 0.000744819641113
+        )
+
+    [13] =&gt; Array
+        (
+            [0] =&gt; user_load
+/* admin : user_load */ SELECT * FROM users u WHERE uid = 1
+            [1] =&gt; 0.000355005264282
+        )
+
+    [14] =&gt; Array
+        (
+            [0] =&gt; user_load
+/* admin : user_load */ SELECT r.rid, r.name FROM role r INNER JOIN users_roles ur ON ur.rid = r.rid WHERE ur.uid = 1
+            [1] =&gt; 0.000189065933228
+        )
+
+    [15] =&gt; Array
+        (
+            [0] =&gt; uuid_user
+/* admin : uuid_user */ SELECT uuid FROM uuid_users WHERE uid = 1
+            [1] =&gt; 0.000141859054565
+        )
+
+    [16] =&gt; Array
+        (
+            [0] =&gt; cache_get
+/* admin : cache_get */ SELECT data, created, headers, expire, serialized FROM cache_content WHERE cid = &#039;content_type_info:en&#039;
+            [1] =&gt; 0.000471115112305
+        )
+
+    [17] =&gt; Array
+        (
+            [0] =&gt; sess_write
+/* admin : sess_write */ UPDATE sessions SET uid = 1, cache = 0, hostname = &#039;127.0.0.1&#039;, session = &#039;hsid|i:8;node_overview_filter|a:0:{}updates_remaining|a:0:{}node_export|a:0:{}messages|a:1:{s:7:\&quot;warning\&quot;;a:1:{i:0;s:20:\&quot;No content selected.\&quot;;}}&#039;, timestamp = 1349252903 WHERE sid = &#039;2292ff15c24ef848e47a98d4a1bf5d9e&#039;
+            [1] =&gt; 0.00174689292908
+        )
+
+)
+</textarea>

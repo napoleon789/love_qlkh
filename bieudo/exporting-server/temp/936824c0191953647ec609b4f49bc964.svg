@@ -1,0 +1,217 @@
+{
+chart: {
+  			        renderTo: 'chart-container-ant-0',
+                marginRight: 45,
+                with:290,
+				height:300,
+                defaultSeriesType: 'line',
+                plotBorderColor: '#c3c3c3',
+                plotBorderWidth: 1,
+                spacingBottom: 15,
+                 events: {
+                      click: function(e) {
+                       // $.colorbox({iframe:true, width:975, height:575, scrolling:false, href:''});
+                         
+                      }
+                   }
+  			        },
+        		   xAxis: {
+                  type: 'datetime',
+                  showFirstLabel: true,
+                  minRange: 4,
+                  dateTimeLabelFormats: {
+                      second: '%H:%M:%S %d/%m<br>%Y',
+                      minute: '%H:%M',
+                      hour: '%H:%M',
+                      day: '%d/%m',
+                      week: '%d/%m<br>%Y',
+                      month: '%m/%Y',
+                      year: '%Y'
+                  },
+                  tickInterval: 14400000,
+        					title: {
+        					//	text: '13/11/2013 09:28 - 14/11/2013 09:28',
+                    //verticalAlign: 'top',
+      					  },
+            			labels: {
+            				//align: 'left',
+                    style:{
+                      fontSize: '8px',
+                      color: '#959595',
+                    },
+            			},
+        		   },
+      			   yAxis : [{
+      			        title: 'seositetools.net',
+                    startOnTick: false,
+              			showFirstLabel: true,
+                    showLastLabel: true,
+                    gridLineColor: '#FFFFFF',
+                    minorTickInterval: 60,
+                    tickInterval: 60,
+                    
+       min: 36300,
+       max: 36600,
+    
+            			labels: {
+            				align: 'right',
+                    enabled: false,
+            				x: 0,
+            				y: 16,
+            				formatter: function() {
+            					return Highcharts.numberFormat(this.value, 0);
+            				},
+                    style: {
+                      color: '#959595',
+                    }
+            			},
+                  plotLines : [{
+                      value : 36490,
+//                    color : '#FF0000',
+                      color : '#ffffff',
+                      dashStyle : 'Dash',
+                      width : 1,
+                      id: 'line1st',
+                      label : {
+                        align: 'right',
+                				x: 37,
+                				y: 3,
+                        text : '36490',
+                        style : {
+                          fontSize: '9px',
+                          color: '#000000',
+                        },
+            					}
+    				      }, {
+            					value : 36540,
+            					//color : '#00a2ff',
+                      color : '#ffffff',
+            					dashStyle : 'Dash',
+            					width : 1,
+                      id: 'line2nd',
+            					label : {
+            					  align: 'right',
+                				x: 37,
+                				y: 3,
+            						text : '36540',
+                        style : {
+                          fontSize: '9px',
+                          color: '#000000',
+                        },
+            					}
+    				      }]
+
+      			   }, { // right y axis
+            			linkedTo: 0,
+            			gridLineWidth: 0,
+            			opposite: true,
+                  title: 'tvazone',
+                  minorTickInterval: 60,
+                  tickInterval: 60,
+            			showFirstLabel: true,
+                  showLastLabel: true,
+                  
+       min: 36300,
+       max: 36600,
+    
+                  customControl: 'tvazone',
+                  gridCount: 6,
+            			labels: {
+            				align: 'right',
+                    //enabled: false,
+                    step: 0,
+            				x: 35,
+            				y: 0,
+                    style:{
+                      fontSize: '8px',
+                      color: '#959595',
+                    },
+            				formatter: function() {
+            				  if (36490 == this.value || Math.abs(36490 - this.value) < 20 || 36540 == this.value || Math.abs(36540 - this.value) < 20) {
+            				    return '';
+            				  }
+            					return Highcharts.numberFormat(this.value, 0);
+            				}
+            			},
+      			   }],
+  					title : {
+  						text : 'SJC (nghìn/lượng): 36,490/36,540',
+              style: {
+              	color: '#000000',
+              	//fontSize: '16px'
+                fontWeight: 'bold',
+                fontSize: '12px'
+              },
+              align: 'left',
+              x: 0,
+              y: 7,
+              //floating: true,
+  					},
+            subtitle : {
+  						text : 'Cập nhật lúc 09:28 14/11/2013',
+              style: {
+              	color: '#000000',
+              	//fontSize: '16px'
+                fontSize: '9px'
+              },
+              align: 'left',
+              x: 0,
+              y: 30,
+              //floating: true,
+  					},  
+  			    tooltip: {
+             formatter: function() {
+               return '<b>'+ this.series.name +'</b><br/>'+ this.y + ' (nghìn/lượng)';
+             },
+             crosshairs: [true, true],
+  			    },
+            
+        		legend: {
+        			//layout: 'vertical',
+        			align: 'right',
+        			verticalAlign: ' top ',
+        			x: -25,
+        			y: 15,
+        			floating: true,
+        			borderWidth: 0,
+              style: {
+                fontSize: '12px'
+              }
+        		},
+    
+  			    credits : {
+                		text: '<br /><br />',
+                		href: 'http://giavang.doji.vn',
+                    
+  			    },
+      			navigator : {
+      				enabled : false,
+      			},
+      			plotOptions: {
+      				series: {
+      					marker: {
+      						enabled: false,
+      						states: {
+      							hover: {
+      								enabled: true,
+      								radius: 3
+      							}
+      						}
+      					}
+      				},
+               line: {
+                lineWidth: 2,
+               },
+      			},
+           series: [{
+             name: 'Mua',
+             color: '#FF0000',
+             width : 1,
+             data: [[1384309969000,36360],[1384310283000,36360],[1384310032000,36360],[1384310084000,36360],[1384310379000,36350],[1384310470000,36350],[1384310807000,36340],[1384312839000,36340],[1384314401000,36350],[1384317168000,36350],[1384317844000,36350],[1384320172000,36350],[1384320593000,36360],[1384320856000,36370],[1384322604000,36370],[1384324412000,36370],[1384325375000,36370],[1384326721000,36370],[1384326910000,36370],[1384327568000,36370],[1384328419000,36360],[1384329099000,36360],[1384329121000,36370],[1384329232000,36370],[1384329402000,36380],[1384329558000,36380],[1384330597000,36380],[1384332642000,36380],[1384333474000,36390],[1384333978000,36390],[1384334134000,36390],[1384390263000,36430],[1384392208000,36440],[1384392240000,36440],[1384392278000,36440],[1384392413000,36440],[1384392511000,36440],[1384392701000,36440],[1384392877000,36450],[1384393280000,36450],[1384393931000,36460],[1384394151000,36460],[1384394206000,36470],[1384394223000,36470],[1384395463000,36480],[1384396101000,36490],[1384396683000,36490]]
+            }, {
+             name: 'Bán',
+             color: '#00a2ff',
+             width : 1,
+             data: [[1384309969000,36410],[1384310283000,36410],[1384310032000,36410],[1384310084000,36410],[1384310379000,36400],[1384310470000,36400],[1384310807000,36390],[1384312839000,36390],[1384314401000,36400],[1384317168000,36400],[1384317844000,36400],[1384320172000,36400],[1384320593000,36410],[1384320856000,36420],[1384322604000,36420],[1384324412000,36420],[1384325375000,36420],[1384326721000,36420],[1384326910000,36420],[1384327568000,36420],[1384328419000,36410],[1384329099000,36410],[1384329121000,36420],[1384329232000,36420],[1384329402000,36430],[1384329558000,36430],[1384330597000,36430],[1384332642000,36430],[1384333474000,36440],[1384333978000,36440],[1384334134000,36440],[1384390263000,36480],[1384392208000,36500],[1384392240000,36500],[1384392278000,36500],[1384392413000,36500],[1384392511000,36500],[1384392701000,36500],[1384392877000,36500],[1384393280000,36500],[1384393931000,36510],[1384394151000,36510],[1384394206000,36520],[1384394223000,36520],[1384395463000,36530],[1384396101000,36540],[1384396683000,36540]]
+        }],
+		}

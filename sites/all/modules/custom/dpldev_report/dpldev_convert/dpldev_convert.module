@@ -1,0 +1,50 @@
+<?php
+
+
+/**
+ * Implements hook_menu().
+ */
+function dpldev_convert_menu() {
+  $items = array();
+  $items['convert_data_chuan'] = array(
+    'title' => t('Cập nhật dữ liệu khách hàng', array(), 'vi'),
+    'page callback' => 'dpldev_import_convert_data',
+    'page arguments' => array(1),
+    'access arguments' => array('administer nodes'),
+  );
+  return $items;
+}
+
+/**
+ * convert data to import
+ */
+function dpldev_import_convert_data() {
+  $db = array(
+    'mahd' => '10',
+     'doanhso'=>'30',
+    'doanhthu'=>'40'
+  );
+  print_r($db);
+  drupal_write_record('convert',$db);
+  die;
+  $query = "select * from pmkt where left(chietkhau,3) = '131'";
+  $result = db_query($query);
+  $db = array();
+  while($row = db_fetch_array($result)) {
+    $db['mahd'] = $row['sohd'];
+    $db['doanhso'] = $row['giatri'];
+
+    $query1 = "select * from pmkt where left(chietkhau,3) = '521' and sohd = '".$row['sohd']."'";
+    $result1 = db_query($query1);
+    $number = $result1->num_rows;
+    if($number > 0) {
+       $data =  db_fetch_object($result1);
+       $db['doanhthu'] = $data->giatri;
+      }
+    else $db['doanhthu'] =0;
+
+
+  }
+
+
+}

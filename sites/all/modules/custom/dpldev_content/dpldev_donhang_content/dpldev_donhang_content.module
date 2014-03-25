@@ -1,0 +1,44 @@
+<?php
+
+include_once('dpldev_donhang_content.features.inc');
+
+/**
+ * Tinh tong cua mot don hang
+ * @param array
+ * @return total
+ */
+function dpldev_donhang_content_donhang_total($item) {
+  if (isset($item->giaban)) {
+    $item->giaban = (float)preg_replace('|[^0-9\.]|', '', $item->giaban);
+    $item->giamgia = (float)preg_replace('|[^0-9\.]|', '', $item->giamgia);
+    $item->soluong = (int)preg_replace('|[^0-9\.]|', '', $item->soluong);
+    
+    if (!$item->soluong) {
+      $item->soluong = 1;
+    }
+
+    $total = ($item->giaban * $item->soluong);
+    $total -= ($total * $item->giamgia)/100;
+
+    return $total;
+  }
+  return 0;
+}
+
+/**
+ * Tinh tong doanh so
+ * @param array
+ * @return total
+ */
+function dpldev_donhang_content_tong_doanh_so($nid) {
+  static $cached;
+  if (!isset($cached[$nid])) {
+    $result = db_query('SELECT SUM(ctd.field_giaban_value*ctd.field_soluong_value - (100*(ctd.field_giamgia_value/(ctd.field_giaban_value * ctd.field_soluong_value)))) doanhso
+      FROM {content_type_donhang} ctd 
+      WHERE ctd.field_khachhang_nid_value = %d
+    ', $nid);
+    $obj = db_fetch_object($result);
+    $cached[$nid] = isset($obj->doanhso) ? $obj->doanhso : 0;
+  }
+  return $cached[$nid];
+}

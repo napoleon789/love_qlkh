@@ -1,0 +1,117 @@
+<?php
+
+/**
+ * Implementation of hook_install().
+ */
+function dpldev_marketing_install() {
+  // Create tables.
+  drupal_install_schema('marketing_email');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function dpldev_marketing_uninstall() {
+  // Remove tables.
+  drupal_uninstall_schema('marketing_email');
+}
+
+
+/**
+ * Implementation of hook_schema().
+ */
+function dpldev_marketing_schema() {
+  //This table was introduced in Drupal 6.4
+  $schema['marketing_sms'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => "User's {users}.uid.",
+      ),
+      'khachhang_code' => array(
+        'description' => 'Khach Hang Code.',
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'created' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'message' => array(
+        'type' => 'text',
+        'not null' => FALSE,
+        'size' => 'big',
+        'default' => '',
+      ),
+      'status' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  $schema['marketing_email'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => "User's {users}.uid.",
+      ),
+      'khachhang_code' => array(
+        'description' => 'Khach Hang Code.',
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'created' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'message' => array(
+        'type' => 'text',
+        'not null' => FALSE,
+        'size' => 'big',
+        'default' => '',
+      ),
+      'status' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}
+
+/**
+ * Create a marketing_sms + marketing_email tables if this not exists.
+ */
+function dpldev_marketing_update_6200() {
+  $ret = array();
+  $schema = dpldev_marketing_schema();
+  if (db_table_exists('marketing_sms')) {
+    db_drop_table($ret, 'marketing_sms');
+  }
+  if (db_table_exists('marketing_email')) {
+    db_drop_table($ret, 'marketing_email');
+  }
+  db_create_table($ret, 'marketing_sms', $schema['marketing_sms']);
+  db_create_table($ret, 'marketing_email', $schema['marketing_email']);
+  return $ret;
+}

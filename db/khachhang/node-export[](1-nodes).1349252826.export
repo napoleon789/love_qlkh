@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<node_export created="Wed, 03 Oct 2012 16:27:04 +0800">
+  <node>
+    <nid>75</nid>
+    <type>khachhang</type>
+    <language>en</language>
+    <uid>1</uid>
+    <status>1</status>
+    <created>1349244327</created>
+    <changed>1349252799</changed>
+    <comment>0</comment>
+    <promote>0</promote>
+    <moderate>0</moderate>
+    <sticky>0</sticky>
+    <tnid>0</tnid>
+    <translate>0</translate>
+    <vid>75</vid>
+    <revision_uid>1</revision_uid>
+    <title>Thái Văn An</title>
+    <body></body>
+    <teaser></teaser>
+    <log></log>
+    <revision_timestamp>1349252799</revision_timestamp>
+    <format>0</format>
+    <name>admin</name>
+    <picture></picture>
+    <data>a:1:{s:13:&quot;form_build_id&quot;;s:37:&quot;form-f8d60aae28ebfae1952bff2ac5495af9&quot;;}</data>
+    <path>content/thái-văn</path>
+    <field_anhdaidien _numeric_keys="1">
+      <n0>
+        <fid>48</fid>
+        <uid>1</uid>
+        <filename>images.jpg</filename>
+        <filepath>sites/default/files/anhdaidien/images.jpg</filepath>
+        <filemime>image/jpeg</filemime>
+        <filesize>6218</filesize>
+        <status>1</status>
+        <timestamp>1349244326</timestamp>
+        <list>1</list>
+        <data>
+          <alt></alt>
+          <title></title>
+        </data>
+      </n0>
+    </field_anhdaidien>
+    <field_chucdanh _numeric_keys="1">
+      <n0>
+        <value>Senior Developer</value>
+      </n0>
+    </field_chucdanh>
+    <field_congty _numeric_keys="1">
+      <n0>
+        <value>Tesla</value>
+      </n0>
+    </field_congty>
+    <field_data _numeric_keys="1">
+      <n0>
+        <value type="NULL"></value>
+      </n0>
+    </field_data>
+    <field_diachi _numeric_keys="1">
+      <n0>
+        <value>K43 Tòa Nhà CEO</value>
+      </n0>
+    </field_diachi>
+    <field_diachi_khac _numeric_keys="1">
+      <n0>
+        <value>K43 Tòa Nhà CEO</value>
+      </n0>
+    </field_diachi_khac>
+    <field_diachi_khac_quanhuyen _numeric_keys="1">
+      <n0>
+        <value>Cầu Giấy</value>
+      </n0>
+    </field_diachi_khac_quanhuyen>
+    <field_diachi_khac_quocgia _numeric_keys="1">
+      <n0>
+        <value>vn</value>
+      </n0>
+    </field_diachi_khac_quocgia>
+    <field_diachi_khac_tinhthanhpho _numeric_keys="1">
+      <n0>
+        <value>HN</value>
+      </n0>
+    </field_diachi_khac_tinhthanhpho>
+    <field_diachi_quanhuyen _numeric_keys="1">
+      <n0>
+        <value>Cầu Giấy</value>
+      </n0>
+    </field_diachi_quanhuyen>
+    <field_diachi_quocgia _numeric_keys="1">
+      <n0>
+        <value>vn</value>
+      </n0>
+    </field_diachi_quocgia>
+    <field_diachi_tinhthanhpho _numeric_keys="1">
+      <n0>
+        <value>HN</value>
+      </n0>
+    </field_diachi_tinhthanhpho>
+    <field_email _numeric_keys="1">
+      <n0>
+        <email>thaivnaan@gmail.com</email>
+      </n0>
+    </field_email>
+    <field_facebook _numeric_keys="1">
+      <n0>
+        <value>thaivanan</value>
+      </n0>
+    </field_facebook>
+    <field_ghichu _numeric_keys="1">
+      <n0>
+        <value>Integer sodales ultricies erat, at semper lacus porttitor nec. Mauris fermentum eleifend lobortis. Praesent pellentesque euismod quam vel ultricies. Vestibulum fermentum nulla id tortor tempor consectetur.</value>
+      </n0>
+    </field_ghichu>
+    <field_gioitinh _numeric_keys="1">
+      <n0>
+        <value>nam</value>
+      </n0>
+    </field_gioitinh>
+    <field_google _numeric_keys="1">
+      <n0>
+        <value>thaivanan</value>
+      </n0>
+    </field_google>
+    <field_hocvan _numeric_keys="1">
+      <n0>
+        <value>ch</value>
+      </n0>
+    </field_hocvan>
+    <field_honnhan _numeric_keys="1">
+      <n0>
+        <value>1</value>
+      </n0>
+    </field_honnhan>
+    <field_hovadem _numeric_keys="1">
+      <n0>
+        <value>Thái Văn</value>
+      </n0>
+    </field_hovadem>
+    <field_hovaten _numeric_keys="1">
+      <n0>
+        <value>Thái Văn An</value>
+      </n0>
+    </field_hovaten>
+    <field_khachhang_code _numeric_keys="1">
+      <n0>
+        <value>506bd5a77147b</value>
+      </n0>
+    </field_khachhang_code>
+    <field_makh _numeric_keys="1">
+      <n0>
+        <value>JBSL2012</value>
+      </n0>
+    </field_makh>
+    <field_mobile _numeric_keys="1">
+      <n0>
+        <value>0983149111</value>
+      </n0>
+    </field_mobile>
+    <field_ngaycuoi _numeric_keys="1">
+      <n0>
+        <value>1350403200</value>
+        <timezone>Asia/Krasnoyarsk</timezone>
+        <timezone_db>Asia/Krasnoyarsk</timezone_db>
+        <date_type>datestamp</date_type>
+      </n0>
+    </field_ngaycuoi>
+    <field_ngaysinh _numeric_keys="1">
+      <n0>
+        <value>339181200</value>
+        <timezone>Asia/Krasnoyarsk</timezone>
+        <timezone_db>Asia/Krasnoyarsk</timezone_db>
+        <date_type>datestamp</date_type>
+      </n0>
+    </field_ngaysinh>
+    <field_ngaytotnghiep _numeric_keys="1">
+      <n0>
+        <value>1223481600</value>
+        <timezone>Asia/Krasnoyarsk</timezone>
+        <timezone_db>Asia/Krasnoyarsk</timezone_db>
+        <date_type>datestamp</date_type>
+      </n0>
+    </field_ngaytotnghiep>
+    <field_phone _numeric_keys="1">
+      <n0>
+        <value>0983149111</value>
+      </n0>
+    </field_phone>
+    <field_sothich _numeric_keys="1">
+      <n0>
+        <value>Lập trình</value>
+      </n0>
+    </field_sothich>
+    <field_ten _numeric_keys="1">
+      <n0>
+        <value>An</value>
+      </n0>
+    </field_ten>
+    <field_thunhap _numeric_keys="1">
+      <n0>
+        <value>10</value>
+      </n0>
+    </field_thunhap>
+    <field_twitter _numeric_keys="1">
+      <n0>
+        <value>thaivanan</value>
+      </n0>
+    </field_twitter>
+    <field_yahoo _numeric_keys="1">
+      <n0>
+        <value>thaivanan</value>
+      </n0>
+    </field_yahoo>
+    <field_tapkhachhang _numeric_keys="1">
+      <n0>
+        <value>1</value>
+      </n0>
+    </field_tapkhachhang>
+    <taxonomy>
+      <n2>
+        <n1>1</n1>
+      </n2>
+    </taxonomy>
+    <uuid>0d11145f-0d34-11e2-9f7a-005056c00001</uuid>
+    <revision_uuid type="NULL"></revision_uuid>
+    <menu>
+      <link_title></link_title>
+      <mlid>0</mlid>
+      <plid>0</plid>
+      <menu_name>primary-links</menu_name>
+      <weight>0</weight>
+      <options _numeric_keys="1"></options>
+      <module>menu</module>
+      <expanded>0</expanded>
+      <hidden>0</hidden>
+      <has_children>0</has_children>
+      <customized>0</customized>
+      <parent_depth_limit>8</parent_depth_limit>
+    </menu>
+  </node>
+</node_export><div class="dev-query">Executed 18 queries in 86.46 milliseconds.</div><textarea rows=30 style="width: 100%;">
+Array
+(
+    [0] =&gt; Array
+        (
+            [0] =&gt; module_list
+/* admin : module_list */ SELECT name, filename, throttle FROM system WHERE type = &#039;module&#039; AND status = 1 AND bootstrap = 1 ORDER BY weight ASC, filename ASC
+            [1] =&gt; 0.000339984893799
+        )
+
+    [1] =&gt; Array
+        (
+            [0] =&gt; drupal_get_filename
+/* admin : drupal_get_filename */ SELECT filename FROM system WHERE name = &#039;user&#039; AND type = &#039;module&#039;
+            [1] =&gt; 0.000373125076294
+        )
+
+    [2] =&gt; Array
+        (
+            [0] =&gt; drupal_lookup_path
+/* admin : drupal_lookup_path */ SELECT COUNT(pid) FROM url_alias
+            [1] =&gt; 0.000259160995483
+        )
+
+    [3] =&gt; Array
+        (
+            [0] =&gt; drupal_lookup_path
+/* admin : drupal_lookup_path */ SELECT src FROM url_alias WHERE dst = &#039;admin/content/node_export&#039; AND language IN(&#039;en&#039;, &#039;&#039;) ORDER BY language DESC, pid DESC
+            [1] =&gt; 0.000175952911377
+        )
+
+    [4] =&gt; Array
+        (
+            [0] =&gt; module_list
+/* admin : module_list */ SELECT name, filename, throttle FROM system WHERE type = &#039;module&#039; AND status = 1 ORDER BY weight ASC, filename ASC
+            [1] =&gt; 0.000937938690186
+        )
+
+    [5] =&gt; Array
+        (
+            [0] =&gt; drupal_lookup_path
+/* admin : drupal_lookup_path */ SELECT dst FROM url_alias WHERE src = &#039;admin/content/node_export&#039; AND language IN(&#039;en&#039;, &#039;&#039;) ORDER BY language DESC, pid DESC
+            [1] =&gt; 0.000380039215088
+        )
+
+    [6] =&gt; Array
+        (
+            [0] =&gt; menu_get_item
+/* admin : menu_get_item */ SELECT * FROM menu_router WHERE path IN (&#039;admin/content/node_export&#039;,&#039;admin/content/%&#039;,&#039;admin/%/node_export&#039;,&#039;admin/%/%&#039;,&#039;admin/content&#039;,&#039;admin/%&#039;,&#039;admin&#039;) ORDER BY fit DESC LIMIT 0, 1
+            [1] =&gt; 0.000586032867432
+        )
+
+    [7] =&gt; Array
+        (
+            [0] =&gt; cache_get
+/* admin : cache_get */ SELECT data, created, headers, expire, serialized FROM cache_form WHERE cid = &#039;form_form-2e3f9dddc148645159896c8c8459a630&#039;
+            [1] =&gt; 0.00025200843811
+        )
+
+    [8] =&gt; Array
+        (
+            [0] =&gt; _node_types_build
+/* admin : _node_types_build */ SELECT nt.type, nt.* FROM node_type nt ORDER BY nt.type ASC
+            [1] =&gt; 0.00041389465332
+        )
+
+    [9] =&gt; Array
+        (
+            [0] =&gt; menu_get_menus
+/* admin : menu_get_menus */ SELECT * FROM menu_custom ORDER BY title
+            [1] =&gt; 0.000355958938599
+        )
+
+    [10] =&gt; Array
+        (
+            [0] =&gt; uuid_uuid
+/* admin : uuid_uuid */ SELECT UUID()
+            [1] =&gt; 0.000210046768188
+        )
+
+    [11] =&gt; Array
+        (
+            [0] =&gt; cache_get
+/* admin : cache_get */ SELECT data, created, headers, expire, serialized FROM cache_menu WHERE cid = &#039;links:navigation:page-cid:admin/content/node_export:1&#039;
+            [1] =&gt; 0.000355005264282
+        )
+
+    [12] =&gt; Array
+        (
+            [0] =&gt; cache_get
+/* admin : cache_get */ SELECT data, created, headers, expire, serialized FROM cache_menu WHERE cid = &#039;links:navigation:tree-data:5e1604028fe5e405d1f5c798ba6a864c&#039;
+            [1] =&gt; 0.000968933105469
+        )
+
+    [13] =&gt; Array
+        (
+            [0] =&gt; user_load
+/* admin : user_load */ SELECT * FROM users u WHERE uid = 1
+            [1] =&gt; 0.000418186187744
+        )
+
+    [14] =&gt; Array
+        (
+            [0] =&gt; user_load
+/* admin : user_load */ SELECT r.rid, r.name FROM role r INNER JOIN users_roles ur ON ur.rid = r.rid WHERE ur.uid = 1
+            [1] =&gt; 0.00025486946106
+        )
+
+    [15] =&gt; Array
+        (
+            [0] =&gt; uuid_user
+/* admin : uuid_user */ SELECT uuid FROM uuid_users WHERE uid = 1
+            [1] =&gt; 0.000208854675293
+        )
+
+    [16] =&gt; Array
+        (
+            [0] =&gt; cache_get
+/* admin : cache_get */ SELECT data, created, headers, expire, serialized FROM cache_content WHERE cid = &#039;content_type_info:en&#039;
+            [1] =&gt; 0.000671148300171
+        )
+
+    [17] =&gt; Array
+        (
+            [0] =&gt; sess_write
+/* admin : sess_write */ UPDATE sessions SET uid = 1, cache = 0, hostname = &#039;127.0.0.1&#039;, session = &#039;hsid|i:8;node_overview_filter|a:0:{}updates_remaining|a:0:{}node_export|a:0:{}messages|a:1:{s:7:\&quot;warning\&quot;;a:1:{i:0;s:20:\&quot;No content selected.\&quot;;}}&#039;, timestamp = 1349252826 WHERE sid = &#039;2292ff15c24ef848e47a98d4a1bf5d9e&#039;
+            [1] =&gt; 0.079295873642
+        )
+
+)
+</textarea>

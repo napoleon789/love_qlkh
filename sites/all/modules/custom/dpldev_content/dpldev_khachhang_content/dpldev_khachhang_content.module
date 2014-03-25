@@ -1,0 +1,228 @@
+<?php
+
+include_once('dpldev_khachhang_content.features.inc');
+
+/**
+ * Get Khach Hang NID
+ * @param node
+ * @return nid
+ *
+ */
+function dpldev_khachhang_content_get_khachhang_nid($node) {
+  $suffix_mobile = trim(substr($node->field_mobile[0]['value'], -7));
+  $suffix_phone = trim(substr($node->field_phone[0]['value'], -7));
+  $email = strtolower(trim($node->field_email[0]['email']));
+  $makh = strtolower(trim($node->field_makh[0]['value']));
+  $khachhang_nid = 0;
+
+  $obj = db_fetch_object(db_query('
+    SELECT ctk.vid nid 
+    FROM {content_type_khachhang} ctk 
+    WHERE ((LOWER(TRIM(SUBSTRING(ctk.field_phone_value, -7))) != "" AND LOWER(TRIM(SUBSTRING(ctk.field_phone_value, -7))) = "%s") OR (LOWER(TRIM(SUBSTRING(ctk.field_mobile_value, -7))) != "" AND LOWER(TRIM(SUBSTRING(ctk.field_mobile_value, -7))) = "%s") OR (LOWER(TRIM(ctk.field_email_email)) != "" AND LOWER(TRIM(ctk.field_email_email)) = "%s") OR (LOWER(TRIM(ctk.field_makh_value)) !="" AND LOWER(TRIM(ctk.field_makh_value)) = "%s")) 
+    LIMIT 1', $suffix_mobile, $suffix_phone, $email, $makh));
+
+  if (isset($obj->nid)) {
+    $khachhang_nid = $obj->nid;
+  }
+
+  return $khachhang_nid;
+}
+
+/**
+ * Xac dinh thuong hieu cho san pham
+ * @param node || string
+ * @return tid : ID Thuong hieu
+ */
+function dpldev_khachhang_content_get_thuonghieu($node) {
+  $thuonghieu = array();
+  $thuonghieu[1] = 'Diamond House';
+  $thuonghieu[2] = 'Wedding Land';
+  $thuonghieu[3] = 'Dojiwell';
+  $thuonghieu[4] = 'Silver D\'amour';
+  $thuonghieu[5] = '56 Tràng Tiền';
+  $thuonghieu[6] = 'Khách hàng thuê van phòng';
+  $thuonghieu[0] = 'Khác';
+  $word = '';
+  $id = 0;
+
+  if (isset($node->field_makh[0]['value'])) {
+    $word = strtolower(substr(trim($node->field_makh[0]['value']), 0, 4));
+  }
+  else if (is_string($node)) {
+    $word = strtolower(substr(trim($node), 0, 4));
+  }
+
+  switch ($word) {
+    case 'jbsl':
+      $id = 4;
+      break;
+    case 'jbwl':
+      $id = 2;
+      break;
+    case 'jbdh':
+      $id = 1;
+      break;
+    case 'jbtt':
+      $id = 5;
+      break;
+    case 'vptn':
+      $id = 6;
+      break;
+    default:
+      break;
+  }
+
+  return $id;
+}
+
+/**
+ * Cap nhap gioi tinh cho khach hang
+ *
+ * @param hoten
+ *
+ */
+function dpldev_khachhang_content_get_gioitinh($hoten) {
+  static $cached;
+  $hoten = drupal_strtolower(trim($hoten));
+
+  if (!isset($cached[$hoten])) {
+    $t = explode(' ', $hoten);
+    
+    if (isset($t[0])) {
+      switch ($t[0]) {
+        case t('chị'):
+        case t('c.'):
+        case t('cô'):
+        case t('bà'):
+        case t('dì'):
+          $gioitinh = 'nu';
+          break;
+
+        case t('anh'):
+        case t('a.'):
+        case t('chú'):
+        case t('cậu'):
+        case t('ông'):
+          $gioitinh = 'nam';
+          break;
+
+        default:
+          $gioitinh = NULL;
+      }
+    }
+    
+    if (!$gioitinh && isset($t[1])) {
+      switch ($t[1]) {
+        case t('thị'):
+        case t('bích'):
+        case t('diệu'):
+        case t('nguyệt'):
+        case t('ngọc'):
+        case t('thu'):
+        case t('thúy'):
+        case t('kim'):
+        case t('phuong'):
+        case t('phượng'):
+        case t('phụng'):
+          $gioitinh = 'nu';
+          break;
+
+        case t('van'):
+        case t('quang'):
+        case t('d?c'):
+        case t('bá'):
+        case t('tr?ng'):
+        case t('ti?n'):
+        case t('huy'):
+        case t('mạnh'):
+          $gioitinh = 'nam';
+          break;
+
+        default:
+          $gioitinh = NULL;
+      }
+    }
+
+    $cached[$hoten] = $gioitinh;
+  }
+  
+  return $cached[$hoten];
+}
+
+/**
+ * Render content field from content_type_khachhang table
+ * 
+**/
+function dpldev_khachhang_get_field_value($field_name, $nid, $default_output = '-') {
+  if (!$field_name) {
+    return $default_output;
+  }
+  $result = db_queryd_range('SELECT %s FROM content_type_khachhang WHERE %s IS NOT NULL AND %s !="" AND nid=%d', $field_name, $field_name, $field_name, $nid, 0, 1);
+  $node = db_fetch_object($result);
+  $output = '';
+
+  if (isset($node->{"$field_name"})) {
+    $output = $node->{"$field_name"};
+    
+    if ($field_name == 'field_gioitinh_value') {
+      switch ($output) {
+        case 'nam':
+          $output = t('Nam', array(), 'vi');
+          break;
+        case 'nu':
+          $output = t('nữ', array(), 'vi');
+          break;
+        default:
+          $output = '';
+      }
+    }
+    
+    if ($field_name == 'field_ngaysinh_value') {
+      if (!empty($output) && $output) {
+        $output = format_date($output, 'custom', 'd/m/Y');
+      }
+    }
+  }
+
+  if (!$output || empty($output)) {
+    $output = $default_output;
+  }
+
+  return $output;
+}
+
+/**
+* Hien thi thong tin khach hang
+* @param $items
+* @return html
+* 
+*/
+function dpldev_khachhang_content_view_ifno($items = array()) {
+  $last = 1;
+  $output = '';
+
+  foreach ($items as $key => $value) {
+    $lastCss = '';
+    if ($last % 2 == 0) {
+      $lastCss = 'last';
+    }
+
+    if ($last % 2 != 0) {
+      $output .= '<div class="row">';
+    }
+
+    $output .= '<div class="one-half ' . $lastCss . '">';
+    $output .= '   <div class="field-label">' . $items[$key]['label'] . ':&nbsp;</div>';
+    $output .= '   <div class="field-items">';
+    $output .= $items[$key]['value'] && !empty($items[$key]['value']) ? $items[$key]['value'] : '-';
+    $output .= '   </div>';
+    $output .= '</div>';
+
+    if ($last % 2 == 0) {
+      $output .= '</div>';
+    }
+    $last++;
+  }
+
+  return $output;
+}

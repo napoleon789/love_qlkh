@@ -1,0 +1,61 @@
+<?php
+/**
+ * Implementation of hook_install().
+ */
+function dpldev_khachhang_vip_install() {
+  drupal_install_schema('dpldev_khachhang_vip');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function dpldev_khachhang_vip_uninstall() {
+  drupal_uninstall_schema('dpldev_khachhang_vip');
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function dpldev_khachhang_vip_schema() {
+  $schema['khachhang_vip_log'] = array(
+    'description' => 'Luu log khach hang VIP',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'nid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0
+      ),
+      'uid' => array(
+        'description' => 'Nguoi cap nhap VIP',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0
+      ),
+      'tapkhachhang_id' => array(
+        'description' => 'Tap khach hang ID',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0
+      ),
+      'created' => array(
+        'description' => 'Ngay Thang/Xuong hang',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0
+      ),
+      'action' => array(
+        'description' => 'Len/xuong hang. 0 = Mat hang, -1: xuong hang, 1: len hang',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}

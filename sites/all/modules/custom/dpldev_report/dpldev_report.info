@@ -1,0 +1,7 @@
+name = "DPLDEV Report"
+description = "DPLDEV Report"
+core = "6.x"
+package = DPLDEV
+version = "6.x"
+dependencies[] = "dpldev_donhang_content"
+dependencies[] = "dpldev_khachhang_content"

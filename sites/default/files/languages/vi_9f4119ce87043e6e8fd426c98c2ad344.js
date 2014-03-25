@@ -1,0 +1,1 @@
+Drupal.locale = { 'strings': { "Remove this item": "Xóa mục này", "The selected file %filename cannot be uploaded. Only files with the following extensions are allowed: %extensions.": "Tên tệp %filename không được phép tải lên. Chỉ có các tệp với phần mở rộng sau là được phép: %extensions." } };
