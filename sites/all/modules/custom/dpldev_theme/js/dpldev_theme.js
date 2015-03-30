@@ -77,12 +77,34 @@ Drupal.behaviors.dpldev_theme = function (context) {
 };
 
 Drupal.behaviors.huyKh = function(context) {
+    //handle click show hide thong tin mua hang
+    $(".show_hide div#chitiet").click(function() {
+        $("#show_dhd").show( "slow" );
+        $(this).hide();
+        $("#thugon").css("display","inline-block");
+    });
+    $(".show_hide div#thugon").click(function() {
+        $("#show_dhd").hide( "slow" );
+        $(this).hide();
+        $("#chitiet").css("display","inline-block");
+    });
+    //handle click show hide info khach hang
+    $(".show_hide div.more_ct").click(function() {
+        $(".more-info").show( "slow" );
+        $(this).hide();
+        $(".more_tg").css("display","inline-block");
+    });
+    $(".show_hide div.more_tg").click(function() {
+        $(".more-info").hide( "slow" );
+        $(this).hide();
+        $(".more_ct").css("display","inline-block");
+    });
     // handle huy group khach hang
     $("#huy_kh").click(function() {
         $(this).attr("value","loading...").css("color","green");
         var nid = $(this).attr("name");
         var pathname = window.location.pathname;
-        var url = 'http://localhost/qlkh_b1/huy/khachhang?nid='+nid;
+        var url = '/huy/khachhang?nid='+nid;
         $.ajax({
             url: url,
             type: "GET",

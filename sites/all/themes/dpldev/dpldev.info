@@ -6,6 +6,7 @@ engine = phptemplate
 
 stylesheets[screen,projection][] = css/normalize.css
 stylesheets[screen,projection][] = style.css
+stylesheets[screen,projection][] = css/ghichu_style.css
 
 scripts[] = scripts/jquery.url.js
 scripts[] = scripts/jquery.qtip-1.0.0-rc3.min.js

@@ -1,0 +1,201 @@
+<?php
+function dpldev_excel_permission() { return array(
+  'administer uploader' => array(
+    'title' => t('Administer Uploader'),
+    'description' => t('Allow the following roles to upload csv files to the server.'), ),
+  );
+}
+
+/*
+ * implment hook_menu
+ */
+function dpldev_excel_menu() {
+  $items = array();
+  $items['file-uploader'] = array(
+    'title' => 'Upload a File',
+    'type' => MENU_CALLBACK,
+    'description' => 'Import a csv',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dpldev_excel_form_import'),
+    'access arguments' => array('administer uploader'), );
+
+  return $items;
+}
+
+/*
+ * Buil form import file excel
+ */
+
+function dpldev_excel_init() {
+  global $user;
+  if($user -> uid >1 && !isset($user -> roles[7])) {
+    if(arg(1) =='vip' || arg(0) == 'marketing' || arg(0) =='thongke' || drupal_is_front_page()) {
+      drupal_goto("khachhang");
+    }
+  }
+}
+
+function dpldev_excel_form_import() {
+  $form = array();
+
+  $form['#attributes'] = array('enctype' => 'multipart/form-data');
+  $form['import'] = array(
+    '#type' => 'file',
+	'#title' => 'Chọn file excel để import'
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Import'
+  );
+  return $form;
+}
+/*
+ * action when submit form
+ */
+function dpldev_excel_form_import_submit($form, &$form_state) {
+  require_once 'sites/all/modules/contrib/phpexcel/phpexcel.api.inc';
+  #this leads us to sites/mysite.example.com/files/
+  $dir = file_directory_path();
+
+  # unlike form submissions, multipart form submissions are not in
+  # $form_state, but rather in $FILES, which requires more checking
+  if(isset($_FILES) && !empty($_FILES) && $_FILES['files']['size']['import'] != 0){
+
+    #this structure is kind of wacky
+    $name = $_FILES['files']['name']['import '];
+    $size = $_FILES['files']['size']['import '];
+    $type = $_FILES['files']['type']['import '];
+
+    #this is the actual place where we store the file
+    $file = file_save_upload('import', array() , $dir);
+    $path = $file->filepath ;
+    $data = phpexcel_import($path,true);
+    $count = count($data);
+    for($i = 0 ; $i< $count; $i ++) {
+      $newData = $data[$i];
+      $k = 0;
+      foreach($newData as $newData1) {
+        if($k>0) {
+          $new = array_values($newData1);
+          //check gioi tinh cua khach hang
+          $made =trim($new[2]);
+
+          switch($made) {
+            case 'ÔNG':
+              $gioitinh = 'nam';
+              break;
+            case 'BÀ':
+              $gioitinh = 'nu';
+              break;
+            default:
+              $gioitinh = 'None';
+          }
+
+          //check tap khach hang trong file excel
+          $hang = $new[7];
+          switch($hang) {
+            case '2222':
+              $tapkh =  'Bạc';
+              break;
+            case '4444':
+              $tapkh = 'Vàng';
+              break;
+            case '6666':
+              $tapkh = 'Bạc kim';
+              break;
+            case '8888';
+              $tapkh = 'Kim cương';
+              break;
+          }
+          $area = strtolower(trim($new[16]));
+          switch($area) {
+            case 'miền bắc':
+              $khuvuc = 1;
+              break;
+            case 'miền nam':
+              $khuvuc = 2;
+              break;
+          }
+          $khachhang = new stdClass;
+          $khachhang->type = 'khachhang';
+          $khachhang->title = 'kh';
+          $khachhang->format = 2;
+          $khachhang->uid = 1;
+          $khachhang->status = 1;
+          $khachhang->field_hovaten[0]['value'] = $new[3];
+          $khachhang->field_gioitinh[0]['value'] = $gioitinh;
+          $khachhang->field_diachi[0]['value'] = $new[14];
+          $khachhang->field_mobile[0]['value'] = $new[15];
+          $ngaysinh = str_replace("/","-",$new[4]);
+          $khachhang->field_ngaysinh[0]['value'] =strtotime($ngaysinh);
+          $khachhang->field_person[0]['value'] = $new[5];
+          $khachhang->field_type_kh[0]['value'] = $new[6];
+          $khachhang->field_hangthe[0]['value'] = $new[7];
+          $khachhang->field_macodinh[0]['value'] = $new[8];
+          $khachhang->field_chucdanh[0]['value'] = $new[13];
+          $khachhang->field_tapkh[0]['value'] = $tapkh;
+          $khachhang->field_sothe[0]['value'] = $new[1];
+          $khachhang->field_mathe[0]['value'] = $new[6].' '. $new[7].' '.$new[8].' '.$new[1];
+          $khachhang->field_ngaycap[0]['value'] = $new[11];
+          $khachhang->field_thoihan[0]['value'] = $new[12];
+          $khachhang->field_diachi[0]['value'] = $new[14];
+          $khachhang->field_makh[0]['value'] = $new[1];
+          $khachhang->field_area[0]['value'] = $khuvuc;
+          node_save($khachhang);
+          $khachhang_nid = $khachhang->vid;
+          $donhang = new stdClass;
+          $donhang->type = 'donhang';
+          $donhang->title = 'dh';
+          $donhang->format = 2;
+          $donhang->uid = 1;
+          $donhang->status = 1;
+          $donhang->field_khachhang_nid[0]['value'] = $khachhang_nid;
+          node_save($donhang);
+        }
+        $k++;
+      }
+    }
+
+    db_query('UPDATE {content_type_khachhang} set field_khoangoai_value = vid WHERE field_khoangoai_value is NULL');
+    if($file){
+      drupal_set_message("Bạn đã import dữ liệu thành công $name!");
+    }
+    else{
+      drupal_set_message("Đã có lỗi xảy ra.");
+    }
+  }
+  else {
+    drupal_set_message("File excel không tồn tại.");
+  }
+}
+
+function dpldev_excel_get_name_from_id($table,$id) {
+  $query = db_query("SELECT * FROM {%s} WHERE id = %d",$table,$id);
+  while($row = db_fetch_array($query)) {
+    $name = $row['name'];
+  }
+  return $name;
+}
+
+function dpldev_excel_get_name_are($id) {
+  switch($id){
+    case 'All':
+      return 'Tất cả';
+      break;
+    case '1':
+      return 'Hà Nội';
+      break;
+    case '2':
+      return 'Hồ Chí Minh';
+      break;
+
+  }
+}
+
+function dpldev_excel_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  switch($op) {
+    case 'view':
+
+  }
+}
+

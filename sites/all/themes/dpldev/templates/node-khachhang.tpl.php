@@ -48,6 +48,7 @@
  */
 ?>
 <div class="customer-info clear-block">
+<div class ="info_top">
     <div class="row-fluid">
         <div class="one-fifth">
           <?php
@@ -58,28 +59,48 @@
             }
 
             echo theme('image', $user_image);
-          
           ?> 
         </div>
         <div class="four-fifth last">
             <div class="clearfix">
-                <h1><?php
-                $tapkhachhang = '';
-                if ($node->field_tapkhachhang[0]['value']) {
-                  $tapkhachhang = 'VIP';  
-                }
-                echo $node->field_hovaten[0]['value'];?> <?php echo dpldev_text_view($tapkhachhang, array('prefix'=>'- <span>' . t('Khách', array(), 'vi') . ' ', 'suffix' => '</span>', 'output'=>''))?></h1>
+<?php
+$ns =$node->field_ngaysinh[0]['value'];
+if($ns == 0) {
+  $nskh = '-';
+  $nsinfo = '- ';
+}
+else{
+  $nskh = $ns;
+  $nsinfo = date('d/m/Y',$node->field_ngaysinh[0]['value']);
+}
+?>
             </div>
-            <div class="clearfix short-detail">
+            <div class="clearfix short-detail left_kh_info">
+              <div class="row">
+                <div class="field-label">Họ & Tên <span class="spac">:</span></div>
+                <div class="field-items"><?php  $tapkhachhang = '';
+                  if ($node->field_tapkhachhang[0]['value']) {
+                    $tapkhachhang = 'VIP';
+                  }
+                  echo $node->field_hovaten[0]['value'];?> <?php echo dpldev_text_view($tapkhachhang, array('prefix'=>'- <span>' . t('Khách', array(), 'vi') . ' ', 'suffix' => '</span>', 'output'=>''))?>
+                </div>
+              </div>
+              <?php if(isset($node->field_mathe[0]['value'])) :?>
+              <div class="row">
+                <div class="field-label">Hạng <span class="spac">:</span></div>
+                <div class="field-items"><?php echo dpldev_khachhang_tapkh($node->field_hangthe[0]['value'])?>
+                </div>
+              </div>
+              <?php endif;?>
                 <div class="row">
                     <div class="field-label">Giới tính <span class="spac">:</span></div>
-                    <div class="field-items"><?php echo dpldev_text_view($node->field_gioitinh[0]['value'])?>   
+                    <div class="field-items"><?php echo dpldev_text_view($node->field_gioitinh[0]['value'])?>
                     </div>
                 </div>
                 <div class="row">
                     <div class="field-label">Ngày sinh <span class="spac">:</span></div>
                     <div class="field-items">
-                        <span class="date-display-single"><?php echo dpldev_text_view($node->field_ngaysinh[0]['value'])?></span>        
+                        <span class="date-display-single"><?php echo $nsinfo?></span>
                     </div>
                 </div>
                 <div class="row">
@@ -94,14 +115,66 @@
                         <?php echo dpldev_text_view($node->field_email[0]['email'], array('prefix'=>'<div class="field-items">', 'suffix'=>'</div>'))?>
                     </div>
                 </div>
+              <div class="row">
+                <div class="field-label">Địa chỉ <span class="spac">:</span></div>
+                <div class="field-items"><?php echo $node ->field_diachi[0]['view'] ?>
+                </div>
+              </div>
             </div>
+ <?php if(isset($node->field_mathe[0]['value'])) :?>
+          <div class ="right_kh_info short-detail">
+            <div class="row">
+              <div class="field-label">Hạng <span class="spac">:</span></div>
+              <div class="field-items"><?php echo dpldev_khachhang_tapkh($node->field_hangthe[0]['value'])?></div>
+            </div>
+            <div class="row">
+              <div class="field-label">Người phát hành <span class="spac">:</span></div>
+              <div class="field-items"><?php echo $node->field_person[0]['value']?></div>
+            </div>
+            <div class="row">
+              <div class="field-label">Mã thẻ <span class="spac">:</span></div>
+              <div class="field-items"><?php echo $node->field_mathe[0]['value']?></div>
+            </div>
+            <div class="row">
+              <div class="field-label">Ngày cấp <span class="spac">:</span></div>
+              <div class="field-items"><?php echo $node->field_ngaycap[0]['value']?></div>
+            </div>
+            <div class="row">
+              <div class="field-label">Thời hạn <span class="spac">:</span></div>
+              <div class="field-items"><?php echo $node->field_thoihan[0]['value']?></div>
+            </div>
+          </div>
         </div>
+      <?php endif; ?>
     </div>
-
+</div>
     <div class="more-info">
         <h2>Thông tin liên hệ</h2>
 
       <?php  $info = dpldev_khachhang_info_khachhang();?>
+      <?php if(!is_array($info)) :?>
+        <div class="row-fluid">
+          <div class="left_kh">
+              <div class="field-label row">Họ Và Tên  :</div>
+              <div class="field-items row">  <?php echo $node->field_hovaten[0]['value'] ?> </div>
+              <div class="field-label row">Ngày sinh  :</div>
+            <?php $ns = $node->field_ngaysinh[0]['value']?>
+              <div class="field-items row">  <?php echo $nsinfo?></div>
+
+
+          </div>
+          <div class="right_kh">
+
+              <div class="field-label row">Điện thoại :</div>
+              <div class="field-items row"> <?php echo $node -> field_mobile[0]['value'];?>  </div>
+              <div class="field-label row">Địa chỉ :</div>
+            <div class="field-items row"> <?php echo $node -> field_diachi[0]['value']?>  </div>
+
+
+          </div>
+
+        </div>
+      <?php  endif;?>
       <?php if(is_array($info)) :?>
         <input type="button" value="Hủy group" id ="huy_kh" name="<?php echo $node->nid?>">
       <?php
@@ -130,7 +203,7 @@
           <?php endforeach; ?>
           <?php foreach($birthdays as $k => $ngaysinh) :?>
             <div class="field-label row">Ngày sinh <?php echo $k+1?> :</div>
-            <div class="field-items row">  <?php echo $ngaysinh?> </div>
+            <div class="field-items row">  <?php echo $ngaysinh=='-'?'-':date('d/m/Y',$ngaysinh)?> </div>
           <?php endforeach; ?>
          </div>
        <div class="right_kh">
@@ -146,6 +219,7 @@
 
      </div>
 <?php endif; ?>
+      <!--
         <div class="row-fluid">
             <?php
             $inputArray = array (
@@ -186,46 +260,49 @@
             ?>
 
         </div>
-        <h2>Địa chỉ</h2>
+        //-->
+<?php if(isset($node->field_mathe[0]['value'])) :?>
+        <h2>Thông tin quản lý DEC</h2>
         <div class="row-fluid">
             <?php
             $inputArray = array (
             array(
-                'label' => t('Địa chỉ', array(), 'vi'),
-                'value' => dpldev_text_view($node->field_diachi[0]['value']),
+                'label' => t('Hạng thẻ', array(), 'vi'),
+                'value' => dpldev_text_view($node->field_hangthe[0]['value']),
             ),
             array(
-                'label' => t('Địa chỉ khác', array(), 'vi'),
-                'value' => dpldev_text_view($node->field_diachi_khac[0]['value']),
+                'label' => t('Số thẻ', array(), 'vi'),
+                'value' => dpldev_text_view($node->field_sothe[0]['value']),
             ),
             array(
-                'label' => t('Quận / Huyện', array(), 'vi'),
-                'value' => dpldev_text_view($node->field_diachi_quanhuyen[0]['value']),
+                'label' => t('Người phát hành', array(), 'vi'),
+                'value' => dpldev_text_view($node->field_person[0]['value']),
             ),
             array(
-                'label' => t('Quận / Huyện khác', array(), 'vi'),
-                'value' => dpldev_text_view($node->field_diachi_khac_quanhuyen[0]['value']),
+                'label' => t('Mã thẻ', array(), 'vi'),
+                'value' => dpldev_text_view($node->field_mathe[0]['value']),
             ),
             array(
-                'label' => t('Tỉnh / Thành phố', array(), 'vi'),
-                'value' => dpldev_text_view($node->field_diachi_tinhthanhpho[0]['value']),
+                'label' => t('Loại khách', array(), 'vi'),
+                'value' => dpldev_text_view($node->field_type_kh[0]['value']),
             ),
             array(
-                'label' => t('Tỉnh / Thành phố khác', array(), 'vi'),
-                'value' => dpldev_text_view($node->field_diachi_khac_tinhthanhpho[0]['value']),
+                'label' => t('Ngày cấp', array(), 'vi'),
+                'value' => dpldev_text_view($node->field_ngaycap[0]['value']),
             ),
             array(
-                'label' => t('Quốc gia', array(), 'vi'),
-                'value' => dpldev_text_view($node->field_diachi_quocgia[0]['value']),
+                'label' => t('Mã cố định', array(), 'vi'),
+                'value' => dpldev_text_view($node->field_macodinh[0]['value']),
             ),
             array(
-                'label' => t('Quốc gia khác', array(), 'vi'),
-                'value' => dpldev_text_view($node->field_diachi_khac_quocgia[0]['value']),
+                'label' => t('Thời hạn', array(), 'vi'),
+                'value' => dpldev_text_view($node->field_thoihan[0]['value']),
             ),
             );
             echo dpldev_khachhang_content_view_ifno($inputArray);
             ?>
         </div>
+<?php endif; ?>
         <h2>Thông tin khác</h2>
         <div class="row-fluid">
             <?php
@@ -236,53 +313,36 @@
             ),
             array(
                 'label' => 'Ngày sinh',
-                'value' => dpldev_text_view($node->field_ngaysinh[0]['value']),
+                'value' => dpldev_text_view($nsinfo),
             ),
             array(
                 'label' => 'Học vấn',
                 'value' => dpldev_text_view($node->field_hocvan[0]['value']),
             ),
+           array(
+                'label' => 'Công ty',
+                'value' => dpldev_text_view($node->field_congty[0]['value']),
+             ),
+              array(
+                'label' => 'Hôn nhân',
+                'value' => dpldev_text_view($node->field_honnhan[0]['value']),
+              ),
+              array(
+                'label' => 'Chức danh',
+                'value' => dpldev_text_view($node->field_chucdanh[0]['value']),
+              ),
             array(
                 'label' => 'Ngày cưới',
                 'value' => dpldev_text_view($node->field_ngaycuoi[0]['value']),
-            ),
-            array(
-                'label' => 'Hôn nhân',
-                'value' => dpldev_text_view($node->field_honnhan[0]['value']),
-            ),
-            array(
-                'label' => 'Ngày tốt nghiệp',
-                'value' => dpldev_text_view($node->field_ngaytotnghiep[0]['value']),
-            ),
-            array(
-                'label' => 'Yahoo',
-                'value' => dpldev_text_view($node->field_yahoo[0]['value']),
-            ),
-            array(
-                'label' => 'Twitter',
-                'value' => dpldev_text_view($node->filed_twitter[0]['value']),
-            ),
-            array(
-                'label' => 'Google',
-                'value' => dpldev_text_view($node->filed_google[0]['value']),
-            ),
-            array(
-                'label' => 'Facebook',
-                'value' => dpldev_text_view($node->filed_facebook[0]['value']),
             ),
             );
             echo dpldev_khachhang_content_view_ifno($inputArray);
             ?>
         </div>
-        <div class="description">
-          <h2>Ghi chú</h2>
-          <div class="description-content">
-            <?php echo dpldev_text_view($node->field_ghichu[0]['value']);?>
-          </div>
-        </div>
+
     </div>
-    
-    <div class="more-info">
-    
-    </div>
+</div>
+<div class="show_hide">
+  <div class="more_ct">Chi Tiết</div>
+  <div class="more_tg">Thu gọn</div>
 </div>

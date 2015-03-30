@@ -8,7 +8,7 @@ include_once('dpldev_theme.features.inc');
 */
 function dpldev_theme_init() {
   drupal_add_css(drupal_get_path('module', 'dpldev_theme') . '/css/style.css');
-  drupal_add_js(drupal_get_path('module', 'dpldev_theme') . '/js/dpldev_theme.js');
+ // drupal_add_js(drupal_get_path('module', 'dpldev_theme') . '/js/dpldev_theme.js');
 }
 
 /**
@@ -109,7 +109,7 @@ function theme_khachhang_node_form($form) {
   $left_content = '';
   $left_content .= theme('clearfix', '<div class="one-half">' . drupal_render($form['field_hovaten']) . '</div><div class="one-half last"><label for="edit-field-khachhang-buon-0-value">&nbsp;</label>' . drupal_render($form['field_khachhang_buon']) . '</div>');
   $left_content .= theme('clearfix', '<div class="one-half">' . drupal_render($form['field_hovadem']) . '</div><div class="one-half last">' . drupal_render($form['field_ten']) . '</div>');
-  $left_content .= theme('clearfix', '<div class="one-half">' . drupal_render($form['field_gioitinh']) . '</div><div class="one-half last">' . drupal_render($form['field_tapkhachhang']) . '</div>');
+  $left_content .= theme('clearfix', '<div class="one-half">' . drupal_render($form['field_gioitinh']) . '</div>');
   $left_content .= theme('clearfix', drupal_render($form['field_mobile']));
   $left_content .= theme('clearfix', drupal_render($form['field_phone']));
   
@@ -154,7 +154,21 @@ function theme_khachhang_node_form($form) {
 
   $form_content .= theme('clearfix', '<h2 class="fieldset">' . t('Địa chỉ:', array(), 'vi') . '</h2>');
   $form_content .= theme('clearfix', '<div class="row"><div class="one-half">' . $left_content . '</div><div class="one-half last">' . $right_content . '</div></div>');
-  
+
+  //Thông tin hạng thẻ
+  $left_content = '';
+  $left_content .= theme('clearfix', drupal_render($form['field_person']));
+  $left_content .= theme('clearfix', '<div class="one-half">' . drupal_render($form['field_tapkh']) . '</div>');
+  $left_content .= theme('clearfix', drupal_render($form['field_sothe']));
+
+  $right_content = '';
+  // $right_content .= theme('clearfix', '<label class="normal">&nbsp;</label>');
+  $right_content .= theme('clearfix', '<div class="one-half">' . drupal_render($form['field_mathe']) . '</div><div class="one-half last">' . drupal_render($form['field_tapkhachhang']) . '</div>');
+  $right_content .= theme('clearfix', '<div class="one-half">' . drupal_render($form['field_ngaycap']) . '</div><div class="one-half last">' . drupal_render($form['field_thoihan']) . '</div>');
+  $right_content .= theme('clearfix', '<div class="one-half">' . drupal_render($form['field_hangthe']) . '</div><div class="one-half last">' . drupal_render($form['field_macodinh']) . '</div>');
+
+  $form_content .= theme('clearfix', '<h2 class="fieldset">' . t('Thông tin hạng thẻ:', array(), 'vi') . '</h2>');
+  $form_content .= theme('clearfix', '<div class="row"><div class="one-half">' . $left_content . '</div><div class="one-half last">' . $right_content . '</div></div>');
   //Thong tin chi tiet
   $left_content = '';
   $left_content .= theme('clearfix', drupal_render($form['field_anhdaidien']));
@@ -171,7 +185,7 @@ function theme_khachhang_node_form($form) {
       
   $form_content .= theme('clearfix', '<h2 class="fieldset">' . t('Thông tin chi tiết:', array(), 'vi') . '</h2>');
   $form_content .= theme('clearfix', '<div class="row"><div class="one-half">' . $left_content . '</div><div class="one-half last">' . $right_content . '</div></div>');
-  
+
   //Ghi chu
   $form_content .= theme('clearfix', '<h2 class="fieldset">' . t('Ghi chú:', array(), 'vi') . '</h2>');
   $form_content .= theme('clearfix', '<div class="row no-resizable">' . drupal_render($form['field_ghichu']) . '</div>');
@@ -558,7 +572,7 @@ function phptemplate_pager_link($text, $page_new, $element, $parameters = array(
  */
 function theme_khohang_setting($form) {
   global $user;    
-  $headers = array(t('Tên kho hàng', array(), 'vi'), t('Nhãn hiển thị', array(), 'vi'), t('Màu sắc', array(), 'vi'), t('Tắt', array(), 'vi'));
+  $headers = array(t('Tên kho hàng', array(), 'vi'), t('Nhãn hiển thị', array(), 'vi'), t('Màu sắc', array(), 'vi'), t('Tắt', array(), 'vi'),t('Hà Nội',array(),'vi'));
   $rows = array();
   foreach (element_children($form['khohang_setting']) as $key) {
     $row = array();
@@ -566,6 +580,7 @@ function theme_khohang_setting($form) {
     $row[] = drupal_render($form['khohang_setting'][$key]['label']);
     $row[] = drupal_render($form['khohang_setting'][$key]['color']);
     $row[] = drupal_render($form['khohang_setting'][$key]['disable']);
+    $row[] = drupal_render($form['khohang_setting'][$key]['hanoi']);
     $rows[] = $row;
   }
   $output = theme('table', $headers, $rows);

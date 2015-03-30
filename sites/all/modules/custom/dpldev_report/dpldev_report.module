@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Implements hook_menu().
  */
@@ -36,7 +36,7 @@ function dpldev_report_page($op = 'view') {
  *
  */
 function dpldev_report_block($op = 'list', $delta = 0) {
-  $timenow = '1388444400';
+  $timenow = time();
   $year = date('Y', $timenow);
   $date_from = mktime(0, 0, 0, 1, 1, $year);
   $date_to = $timenow;
@@ -47,9 +47,23 @@ function dpldev_report_block($op = 'list', $delta = 0) {
     $blocks[0]['info'] = t('Thống kê doanh số theo khu vực [Pie]', array(), 'vi');
     $blocks[1]['info'] = t('Thống kê doanh số theo tháng [column]', array(), 'vi');
     $blocks[2]['info'] = t('Khách hàng có doanh số tốt nhất', array(), 'vi');
-    $blocks[3]['info'] = t('Doanh số chi tiết', array(), 'vi');
-    $blocks[4]['info'] = t('Doanh số chi tiết [Pie]', array(), 'vi');
-    $blocks[5]['info'] = t('Doanh số chi tiết [column]', array(), 'vi');
+
+    $blocks[3]['info'] = t('Thống kê doanh số theo khu vực phía Bắc', array(), 'vi');
+    $blocks[4]['info'] = t('Thống kê doanh số theo khu vực phía Nam', array(), 'vi');
+
+    $blocks[5]['info'] = t('Thống kê topkh miền Bắc', array(), 'vi');
+    $blocks[6]['info'] = t('Thống kê topkh miền Nam', array(), 'vi');
+
+    $blocks[7]['info'] = t('Thống kê tháng colum Bắc', array(), 'vi');
+    $blocks[8]['info'] = t('Thống kê tháng colum Nam', array(), 'vi');
+
+    $blocks[9]['info'] = t('Quicktabs khu vực bắc', array(), 'vi');
+    $blocks[10]['info'] = t('Quicktabs khu vực Nam', array(), 'vi');
+    $blocks[11]['info'] = t('Quicktabs Top khách hàng Bắc', array(), 'vi');
+    $blocks[12]['info'] = t('Quicktabs Top khách hàng Nam', array(), 'vi');
+    $blocks[13]['info'] = t('Quicktabs theo tháng Bắc', array(), 'vi');
+    $blocks[14]['info'] = t('Quicktabs theo tháng Nam', array(), 'vi');
+
     return $blocks;
   }
   else if ($op == 'view') {
@@ -66,40 +80,97 @@ function dpldev_report_block($op = 'list', $delta = 0) {
         $block['subject'] = t('Khách hàng có doanh số tốt nhất !spantime', array('!spantime'=>$spantime), 'vi');
         $block['content'] = dpldev_report_khohang_chart_topkhachhang();
         return $block;
+
       case 3:
-        $block['subject'] = t('Doanh số chi tiết');
-        $block['content'] = dpldev_report_khohang_chart_topkhachhang_chi_tiet();
+        $block['subject'] = t('Thống kê doanh số miền Bắc !spantime', array('!spantime'=>$spantime), 'vi');
+        $block['content'] = dpldev_report_khohang_chart_pie('khohang_pie_chart_mienbac',NULL,1);
         return $block;
       case 4:
-        $block['subject'] = t('Doanh số chi tiết');
-        $block['content'] = dpldev_report_khohang_chart_pie_chi_tiet();
+        $block['subject'] = t('Thống kê doanh số miền Nam !spantime', array('!spantime'=>$spantime), 'vi');
+        $block['content'] = dpldev_report_khohang_chart_pie('khohang_pie_chart_vung_miennam', NULL,2);
         return $block;
+
+
       case 5:
-        $block['subject'] = t('Doanh số chi tiết');
-        $block['content'] = dpldev_report_khohang_chart_column_chi_tiet();
+        $block['subject'] = t('Khách hàng có doanh số tốt nhất miền Bắc!spantime', array('!spantime'=>$spantime), 'vi');
+        $block['content'] = dpldev_report_khohang_chart_topkhachhang(1);
         return $block;
+      case 6:
+        $block['subject'] = t('Khách hàng có doanh số tốt nhất miền Nam !spantime', array('!spantime'=>$spantime), 'vi');
+        $block['content'] = dpldev_report_khohang_chart_topkhachhang(2);
+        return $block;
+      case 7:
+        $block['subject'] = t('Thống kê doanh số theo tháng miền Bắc !spantime', array('!spantime'=>$spantime), 'vi');
+        $block['content'] = dpldev_report_khohang_chart_column('khohang_column_chart',null,1);
+        return $block;
+      case 8:
+        $block['subject'] = t('Thống kê doanh số theo tháng miền Nam!spantime', array('!spantime'=>$spantime), 'vi');
+        $block['content'] = dpldev_report_khohang_chart_column('khohang_column_chart',null,2);
+        return $block;
+
+
+      //block to add quicktable
+      case 9:
+        $block['subject'] = t('Quicktabs doanh số miền Bắc !spantime', array('!spantime'=>$spantime), 'vi');
+        $block['content'] = dpldev_report_khohang_chart_pie('khohang_pie_chart_mienbac',NULL,1);
+        return $block;
+      case 10:
+        $block['subject'] = t('Quicktabs doanh số miền Nam !spantime', array('!spantime'=>$spantime), 'vi');
+        $block['content'] = dpldev_report_khohang_chart_pie('khohang_pie_chart_vung_miennam', NULL,2);
+        return $block;
+      case 11:
+        $block['subject'] = t('Quicktabs có doanh số tốt nhất miền Bắc');
+        $block['content'] = dpldev_report_khohang_chart_topkhachhang(1);
+        return $block;
+      case 12:
+        $block['subject'] = t('Quicktabscó doanh số tốt nhất miền Nam');
+        $block['content'] = dpldev_report_khohang_chart_topkhachhang(2);
+        return $block;
+      case 13:
+        $block['subject'] = t('Quicktabsdoanh số theo tháng !spantime', array('!spantime'=>$spantime), 'vi');
+        $block['content'] = dpldev_report_khohang_chart_column('khohang_column_chart',null,1);
+        return $block;
+      case 14:
+        $block['subject'] = t('Quicktabs doanh số theo tháng !spantime', array('!spantime'=>$spantime), 'vi');
+        $block['content'] = dpldev_report_khohang_chart_column('khohang_column_chart',null,2);
+        return $block;
+
+
     }
   }
 }
 
-function dpldev_report_khohang_chart_pie($id = 'khohang_pie_chart', $chart_title = NULL) {
+function dpldev_report_khohang_chart_pie($id = 'khohang_pie_chart', $chart_title = NULL,$area = null) {
   $khohang_setting = variable_get('khohang_setting', array());
+
   $data = array();
   $data[] = "['khachhangcodoanhsototnhat', '0']";
   $colors = array();
   $labels = array();
-  $timenow = '1388444400';
+  $timenow = time();
   $year = date('Y', $timenow);
   $date_from = mktime(0, 0, 0, 1, 1, $year);
   $date_to = $timenow;
 
   foreach ($khohang_setting as $khohang_id=>$item) {
+
     if ($item['disable']) {
       continue;
     }
-    $sqlselect = 'SELECT SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso 
-      FROM content_type_donhang ctd 
-      INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid 
+    if($area ==1) {
+      if ($item['hanoi'] == 0) {
+        continue;
+      }
+    }
+    if($area == 2) {
+      if ($item['hanoi'] == 1) {
+        continue;
+      }
+    }
+
+    $sqlselect = 'SELECT SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso
+      FROM content_type_donhang ctd
+      INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid
       WHERE ctd.field_khohang_value=%d AND ctd.field_ngayban_value >=%d AND ctd.field_ngayban_value<=%d AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = "0")
     ';
     $obj = db_fetch_object(db_query_range($sqlselect, $khohang_id, $date_from, $date_to, 0, 1));
@@ -110,19 +181,20 @@ function dpldev_report_khohang_chart_pie($id = 'khohang_pie_chart', $chart_title
     $colors[] = '#' . $item['color'];
     $labels[] = '<span class="bg" style="background-color:#' . $item['color'] . ';"></span>' . $item['label'];
   }
+
   if (count($data)) {
     $output = '
       <script type="text/javascript">
-        google.load("visualization", "1", {packages:["corechart"]});
+        google.load("visualization", "1.0", {"packages":["corechart"], "callback": drawChart});
         google.setOnLoadCallback(drawChart);
         function drawChart() {
           var data = google.visualization.arrayToDataTable([
             ' . implode(',', $data). '
           ]);
-  
+
           var options = {
             title: \'' . $chart_title . '\',
-            backgroundColor: { 
+            backgroundColor: {
               //fill:\'transparent\',
             },
             //legend: {position: \'left\'},
@@ -130,21 +202,29 @@ function dpldev_report_khohang_chart_pie($id = 'khohang_pie_chart', $chart_title
             chartArea: {width:"75%",height:"85%"},
             colors: [\'' . implode("','", $colors) . '\']
           };
-  
+
           var chart = new google.visualization.PieChart(document.getElementById(\'' . $id . '\'));
           chart.draw(data, options);
         }
       </script>
-      <div id="' . $id . '"></div>
+      <div id="'. $id .'" style="width: 480px;height:400px;"></div>
     ';
   }
+
   $output = '<div class="khohang-chart-pie">' . theme('item_list', $labels) . $output . '</div>';
-  return $output;
+  $chitiet ='';
+  $m = arg(1);
+  if(isset($m))
+    $chitiet = dpldev_report_khohang_chart_pie_chi_tiet($area);
+  return $output.$chitiet;
+  die;
 }
 
-function dpldev_report_khohang_chart_pie_chi_tiet() {
+
+
+function dpldev_report_khohang_chart_pie_chi_tiet($area = null) {
   $khohang_setting = variable_get('khohang_setting', array());
-  $timenow = '1388444400';
+  $timenow = time();
   $year = date('Y', $timenow);
   $date_from = mktime(0, 0, 0, 1, 1, $year);
   $date_to = $timenow;
@@ -172,6 +252,15 @@ function dpldev_report_khohang_chart_pie_chi_tiet() {
     if ($khohang['disable']) {
       continue;
     }
+      if($area == 2 ) {
+        if($khohang['hanoi'])
+          continue;
+      }
+      if($area == 1) {
+        if($khohang['hanoi'] == 0)
+          continue;
+      }
+
     $row = $header;
 
     foreach ($row as $k=>$v) {
@@ -181,11 +270,11 @@ function dpldev_report_khohang_chart_pie_chi_tiet() {
     $row['stt'] = $i++;
     $row['kho'] = $khohang['label'];
 
-    $sqlselect = 'SELECT ctd.field_thuonghieu_value thuonghieu_id, SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso 
-      FROM content_type_donhang ctd 
-      INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid 
-      WHERE ctd.field_khohang_value=%d AND ctd.field_ngayban_value >=%d AND ctd.field_ngayban_value<=%d AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = "0") 
-      GROUP BY ctd.field_thuonghieu_value 
+    $sqlselect = 'SELECT ctd.field_thuonghieu_value thuonghieu_id, SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso
+      FROM content_type_donhang ctd
+      INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid
+      WHERE ctd.field_khohang_value=%d AND ctd.field_ngayban_value >=%d AND ctd.field_ngayban_value<=%d AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = "0")
+      GROUP BY ctd.field_thuonghieu_value
     ';
     //ctd.field_thuonghieu_value NOT IN ("5", "6") AND
     $result = db_query_range($sqlselect, $khohang_id, $date_from, $date_to, 0, count($thuonghieu) + 2);
@@ -211,13 +300,18 @@ function dpldev_report_khohang_chart_pie_chi_tiet() {
   if ($_GET['action'] == 'export') {
     dpldev_control_stream_download($output, 'doanh_so_theo_khu_vuc.xls');
   }
-
-  return $output;
+ $title = '<div class="block-title tit_khuvu"><h2>Doanh số chi tiết</h2></div>';
+  return $title.$output;
 }
 
-function dpldev_report_khohang_chart_column($id = 'khohang_column_chart', $chart_title = NULL) {
+function dpldev_report_khohang_chart_column($id = 'khohang_column_chart', $chart_title = NULL,$area = null) {
+  $vung ='';
+  if($area == 1)
+    $vung = 'AND ctk.field_area_value = 1';
+  if($area == 2)
+    $vung = 'AND ctk.field_area_value = 2';
   $data = array();
-  $timenow = '1388444400';
+  $timenow = time();
   $year1 = date('Y', $timenow);
   $month = date('m', $timenow);
   //$chart_title = t('Tháng', array(), 'vi');
@@ -234,11 +328,12 @@ function dpldev_report_khohang_chart_column($id = 'khohang_column_chart', $chart
     $date_from = mktime(0, 0, 0, $month1, 1, $year1);
     $date_to = mktime(0, 0, 0, $month2, 1, $year2);
 
-    $sqlselect = 'SELECT SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso 
-      FROM content_type_donhang ctd 
-      INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid 
-      WHERE ctd.field_ngayban_value >=%d AND ctd.field_ngayban_value<%d AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = "0")
-    ';
+    $sqlselect = 'SELECT SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso
+      FROM content_type_donhang ctd
+      INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid
+      WHERE ctd.field_ngayban_value >=%d AND ctd.field_ngayban_value<%d AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = "0") '.$vung
+    ;
+
     $obj = db_fetch_object(db_query_range($sqlselect, $date_from, $date_to, 0, 1));
     $doanhso = isset($obj->doanhso) ? $obj->doanhso : 0;
     $doanhso = round($doanhso/1000000, 2);
@@ -248,7 +343,7 @@ function dpldev_report_khohang_chart_column($id = 'khohang_column_chart', $chart
   if (count($data) || 1==1) {
     $output = '
       <script type="text/javascript">
-        google.load("visualization", "1", {packages:["corechart"]});
+         google.load("visualization", "1.0", {"packages":["corechart"], "callback": drawChart});
         google.setOnLoadCallback(drawChart);
         function drawChart() {
           var data = google.visualization.arrayToDataTable([
@@ -269,13 +364,16 @@ function dpldev_report_khohang_chart_column($id = 'khohang_column_chart', $chart
       <div id="' . $id . '" style="width: 100%;height:400px;"></div>
     ';
   }
-
-  return $output;
+  $chitiet ='';
+  $m = arg(1);
+  if(isset($m))
+    $chitiet = dpldev_report_khohang_chart_column_chi_tiet($area);
+  return $output.$chitiet;
 }
 
-function dpldev_report_khohang_chart_column_chi_tiet() {
+function dpldev_report_khohang_chart_column_chi_tiet($area = null) {
   $khohang_setting = variable_get('khohang_setting', array());
-  $timenow = '1388444400';
+  $timenow = time();
   $year1 = date('Y', $timenow);
   $month = date('m', $timenow);
   $header = array();
@@ -298,8 +396,12 @@ function dpldev_report_khohang_chart_column_chi_tiet() {
     if ($khohang['disable']) {
       continue;
     }
+    $vung ='';
+    if($area == 1)
+      $vung = 'AND ctk.field_area_value = 1';
+    if($area == 2)
+      $vung = 'AND ctk.field_area_value = 2';
     $row = $header;
-
     foreach ($row as $k=>$v) {
       $row[$k] = 0;
     }
@@ -319,10 +421,10 @@ function dpldev_report_khohang_chart_column_chi_tiet() {
       $date_to = mktime(0, 0, 0, $month2, 1, $year2);
 
       $sqlselect = 'SELECT SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso
-        FROM content_type_donhang ctd 
-        INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid 
+        FROM content_type_donhang ctd
+        INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid
         WHERE ctd.field_khohang_value=%d AND ctd.field_ngayban_value >=%d AND ctd.field_ngayban_value<%d AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = "0")
-      ';
+      '. $vung;
       $obj = db_fetch_object(db_query_range($sqlselect, $khohang_id, $date_from, $date_to, 0, 1));
 
       $doanhso = isset($obj->doanhso) ? $obj->doanhso : 0;
@@ -331,9 +433,7 @@ function dpldev_report_khohang_chart_column_chi_tiet() {
       $row['doanhso'] += $doanhso;
       $footers['doanhso'] += $doanhso;
       $footers[$month1] += $doanhso;
-
     }
-
     $rows[] = $row;
   }
 
@@ -345,12 +445,18 @@ function dpldev_report_khohang_chart_column_chi_tiet() {
   if ($_GET['action'] == 'export') {
     dpldev_control_stream_download($output, 'doanh_so_theo_thang.xls');
   }
-
+  $output ='<div class="full-viewer hide-div-label"> <div class="block-title"><h2>Doanh số chi tiết</h2></div>'.$output.'</div>';
   return $output;
 }
 
-function dpldev_report_khohang_chart_topkhachhang($limit = 10) {
-  $timenow = '1388444400';
+function dpldev_report_khohang_chart_topkhachhang($area = null) {
+
+  $vung ='';
+  if($area == 1)
+    $vung = 'AND ctk.field_area_value = 1';
+  if($area == 2)
+    $vung = 'AND ctk.field_area_value = 2';
+  $timenow = time();
   $year = date('Y', $timenow);
   $date_from = mktime(0, 0, 0, 1, 1, $year);
   $date_to = $timenow;
@@ -360,23 +466,23 @@ function dpldev_report_khohang_chart_topkhachhang($limit = 10) {
   unset($thuonghieus[5]);
   unset($thuonghieus[6]);
   $thuonghieus[0] = 'Khac';
-
-  $sqlselect = 'SELECT ctd.field_khachhang_nid_value nid, ctk.field_hovaten_value, SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso
-    FROM content_type_donhang ctd 
-    INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid 
-    WHERE  ctd.field_thuonghieu_value NOT IN ("5", "6") AND ctd.field_ngayban_value >=%d AND ctd.field_ngayban_value<=%d AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = "0") 
-    GROUP BY ctd.field_khachhang_nid_value 
-    ORDER BY doanhso DESC 
+  $sqlselect = 'SELECT * FROM (SELECT ctd.field_khachhang_nid_value nid, ctk.field_hovaten_value, SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso,ctk.field_hangthe_value,ctk.field_khoangoai_value
+    FROM content_type_donhang ctd
+    INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid
+    WHERE  ctd.field_thuonghieu_value NOT IN ("5", "6") AND ctd.field_ngayban_value >='.$date_from.' AND ctd.field_ngayban_value<='.$date_to.' AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = "0") '.$vung.'
+    GROUP BY ctd.field_khachhang_nid_value
+    ORDER BY ctk.field_hangthe_value DESC) as tb GROUP BY field_khoangoai_value ORDER BY doanhso DESC
   ';
-  $result = db_query_range($sqlselect, $date_from, $date_to, 0, 10);
+  $result = db_query_range($sqlselect, 0, 10);
 
   while ($obj = db_fetch_object($result)) {
+    $khoa = dpldev_group_get_khoangoai($obj->nid);
     foreach ($thuonghieus as $thuonghieu_id=>$thuonghieu_name) {
       $obj1 = db_fetch_object(db_query_range('
         SELECT SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso
-        FROM content_type_donhang ctd 
-        WHERE ctd.field_ngayban_value >=%d AND ctd.field_ngayban_value<=%d AND ctd.field_thuonghieu_value=%d AND ctd.field_khachhang_nid_value=%d 
-      ', $date_from, $date_to, $thuonghieu_id, $obj->nid, 0, 1));
+        FROM content_type_donhang ctd
+        WHERE ctd.field_ngayban_value >=%d AND ctd.field_ngayban_value<=%d AND ctd.field_thuonghieu_value=%d AND ctd.field_khachhang_nid_value IN ('.$khoa.')
+      ', $date_from, $date_to, $thuonghieu_id, 0, 1));
       $total = isset($obj1->doanhso) ? $obj1->doanhso : 0;
       $total = round($total/1000000, 2);
       $t = explode('-', $obj->field_hovaten_value);
@@ -398,12 +504,15 @@ function dpldev_report_khohang_chart_topkhachhang($limit = 10) {
       );
     }
   }
-
   if (count($items)) {
     $output = dpldev_report_khohang_chart_topkhachhang_data($items);
   }
+  $chitiet = '';
+  $m = arg(1);
+  if(isset($m))
+    $chitiet = dpldev_report_khohang_chart_topkhachhang_chi_tiet($area);
+  return $output.$chitiet;
 
-  return $output;
 }
 
 function dpldev_report_khohang_chart_topkhachhang_data($items = array()) {
@@ -467,7 +576,7 @@ function dpldev_report_khohang_chart_topkhachhang_data($items = array()) {
       $attributes['style'] .= 'width:' . $items[$nid]['percent'][$tid] . ';';
 
       if ($percent < 8) {
-        //$percent += 8;        
+        //$percent += 8;
       }
 
       $line .= '<span ' . drupal_attributes($attributes) . '">' . $items[$nid]['chart'][$tid] . '</span>';
@@ -496,34 +605,48 @@ function dpldev_report_khohang_chart_topkhachhang_data($items = array()) {
   return $output;
 }
 
-function dpldev_report_khohang_chart_topkhachhang_chi_tiet() {
-  $timenow = '1388444400';
+function dpldev_report_khohang_chart_topkhachhang_chi_tiet($area = null) {
+  $vung = '';
+  if($area == 1)
+    $vung = 'AND ctk.field_area_value = 1';
+  if($area == 2)
+    $vung = 'AND ctk.field_area_value = 2';
+
+  $timenow = time();
   $year = date('Y', $timenow);
   $date_from = mktime(0, 0, 0, 1, 1, $year);
   $date_to = $timenow;
   $output = 'ABC';
   $items = array();
 
-  $sqlselect = 'SELECT ctd.field_khachhang_nid_value nid, ctk.*, SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso 
-    FROM content_type_donhang ctd 
-    INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid 
-    WHERE  ctd.field_thuonghieu_value NOT IN ("5", "6") AND ctd.field_ngayban_value >=%d AND ctd.field_ngayban_value<=%d AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = "0") 
-    GROUP BY ctd.field_khachhang_nid_value 
-    ORDER BY doanhso DESC 
+ /* $sqlselect = 'SELECT ctd.field_khachhang_nid_value nid, ctk.*, SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso
+    FROM content_type_donhang ctd
+    INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid
+    WHERE  ctd.field_thuonghieu_value NOT IN ("5", "6") AND ctd.field_ngayban_value >=%d AND ctd.field_ngayban_value<=%d AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = "0")
+    GROUP BY ctd.field_khachhang_nid_value
+    ORDER BY doanhso DESC
+  '; */
+
+  $sqlselect = 'SELECT * FROM (SELECT ctd.field_khachhang_nid_value ,SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso,ctk.*
+    FROM content_type_donhang ctd
+    INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid
+    WHERE  ctd.field_thuonghieu_value NOT IN ("5", "6") AND ctd.field_ngayban_value >='.$date_from.' AND ctd.field_ngayban_value<='.$date_to.' AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = "0") '.$vung.'
+    GROUP BY ctd.field_khachhang_nid_value
+    ORDER BY ctk.field_hangthe_value DESC) as tb GROUP BY field_khoangoai_value ORDER BY doanhso DESC
   ';
-  $result = db_query_range($sqlselect, $date_from, $date_to, 0, 10);
+  $result = db_query_range($sqlselect, 0, 10);
   $header = array();
   //$header[] = theme('table_select_header_cell');
   $header[] = t('Stt', array(), 'vi');
   $header[] = t('Họ và tên', array(), 'vi');
   $header[] = t('Giới', array(), 'vi');
   $header[] = t('NS', array(), 'vi');
-  $header[] = t('SĐT', array(), 'vi');
+  $header[] = t('sốĐT', array(), 'vi');
   $header[] = t('Địa chỉ', array(), 'vi');
   $header[] = t('Email', array(), 'vi');
   $header[] = t('Hạng', array(), 'vi');
   $header[] = t('Quản lý', array(), 'vi');
-  $header[] = t('DS<br />(Tr đ)', array(), 'vi');
+  $header[] = t('DS<br />(Triệu)', array(), 'vi');
   $rows = array();
   $i = 1;
 
@@ -562,6 +685,6 @@ function dpldev_report_khohang_chart_topkhachhang_chi_tiet() {
     dpldev_control_stream_download($output, 'khach_hang_co_doanh_so_tot_nhat.xls');
   }
 
-  $output = '<div class="full-viewer hide-div-label">' . $output . '</div>';
+  $output = '<div class="full-viewer hide-div-label"> <div class="block-title"><h2>Doanh số chi tiết</h2></div>' . $output . '</div>';
   return $output;
 }

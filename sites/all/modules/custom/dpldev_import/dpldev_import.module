@@ -13,19 +13,74 @@ function dpldev_import_menu() {
     'access arguments' => array('administer nodes'),
     'weight' => 10,
   );
-  $items['admin/capnhap/khachhang'] = array(
-    'title' => t('4.Cập nhật dữ liệu khách hàng', array(), 'vi'),
-    'page callback' => 'dpldev_import_khachhang',
-    'page arguments' => array(1),
-    'access arguments' => array('administer nodes'),
-  );
+
   $items['admin/capnhap/pmkt'] = array(
     'title' => t('1.Cập nhật dữ sql->pmkt', array(), 'vi'),
     'page callback' => 'dpldev_import_mssql',
     'page arguments' => array(1),
     'access arguments' => array('administer nodes'),
   );
+
+  $items['admin/capnhap/pmkt_chuan'] = array(
+    'title' => t('2.Cập nhật dữ pmkt->pmkt_chuan', array(), 'vi'),
+    'page callback' => 'dpldev_import_pmkt_chuan',
+    'page arguments' => array(1),
+    'access arguments' => array('administer nodes'),
+  );
+
+  $items['admin/capnhap/tk_no'] = array(
+    'title' => t('3.Cập nhật dữ tk_no->pmkt_chuan', array(), 'vi'),
+    'page callback' => 'dpldev_import_tk_no',
+    'page arguments' => array(1),
+    'access arguments' => array('administer nodes'),
+  );
+
+  $items['admin/capnhap/khachhang'] = array(
+    'title' => t('4.Cập nhật dữ liệu khách hàng', array(), 'vi'),
+    'page callback' => 'dpldev_import_khachhang',
+    'page arguments' => array(1),
+    'access arguments' => array('administer nodes'),
+  );
+
+  $items['test1'] = array(
+    'title' => t('1.Cập nhật dữ sql->pmkt', array(), 'vi'),
+    'page callback' => 'dpldev_khachhang_delete_node',
+    'page arguments' => array(1),
+    'access arguments' => array('administer nodes'),
+  );
   return $items;
+}
+
+
+/**
+ * update tk_no= 131 toi pmkt_chuan
+ */
+function dpldev_import_pmkt_chuan() {
+  $query = db_query_range("SELECT * FROM {pmkt} WHERE LEFT(tk_no,3) = 131 AND status = 0 ORDER BY ngayban ASC",0,1000);
+  while($row = db_fetch_array($query)) {
+    $row['id_cv']= $row['id'];
+    $row['chietkhau'] = 0;
+    drupal_write_record('pmkt_chuan',$row);
+    db_query("UPDATE {pmkt} SET status = 1 WHERE id = '%s'", $row['id_cv']);
+  }
+   die(dpldev_control_fresh_page('reading...'));
+}
+
+/**
+ * update chiet khau
+ */
+function dpldev_import_tk_no() {
+  $query = db_query_range("SELECT * FROM {pmkt} WHERE status = 0 ORDER BY ngayban ASC",0,100);
+  while($row = db_fetch_array($query)) {
+      db_query("UPDATE {pmkt_chuan} SET chietkhau = '%s' WHERE id_cv = '%s'",$row['giatri'],$row['id']-1);
+      db_query("UPDATE {pmkt} SET status = 1 WHERE id = '%s'", $row['id']);
+  }
+  die(dpldev_control_fresh_page('reading...'));
+}
+
+function import_test() {
+  $data = array('hoten' => '1234');
+  drupal_write_record('pmkt',$data);
 }
 /**
  * Implementation of hook_cron().
@@ -188,7 +243,7 @@ function dpldev_import_khachhang() {
     $data->did = $donhang->nid;
     $data->pid = $obj->id;
     drupal_write_record('khachhang_pmkt', $data);
-    db_query('UPDATE {pmkt} SET status=1 WHERE id=%d', $obj->id);
+    db_query('UPDATE {pmkt_chuan} SET status = 1 WHERE id=%d', $obj->id);
     unset($khachhang, $donhang);
   }
 
@@ -200,11 +255,18 @@ function dpldev_import_khachhang() {
 
 // get latest date from table pmkt
 function dpldev_get_latest_record_from_pmkt($area) {
-	//$result = db_query("SELECT DISTINCT ngay_ban FROM pmkt WHERE ngayban = (SELECT MAX(ngayban) FROM pmkt WHERE area=" . $area .")");
-	$result = db_query("SELECT DISTINCT ngay_capnhat FROM pmkt WHERE ngay_capnhat = (SELECT MAX(ngay_capnhat) FROM pmkt WHERE area=" . $area .")");
-
-	if ($result)
-		$result = db_fetch_object($result);
-	return ($result ? $result->ngay_capnhat : "");
+	$result = db_query("SELECT DISTINCT ngay_ban FROM pmkt WHERE ngayban = (SELECT MAX(ngayban) FROM pmkt WHERE area=" . $area .")");
+	//$result = db_query("SELECT DISTINCT ngay_capnhat FROM pmkt WHERE ngay_capnhat = (SELECT MAX(ngay_capnhat) FROM pmkt WHERE area=" . $area .")");
+  while($row = db_fetch_object($result)) {
+	if ($row)
+	 return ($row ? $row->ngay_ban : "");
+  }
+}
+function dpldev_khachhang_delete_node() {
+  $query = db_query("SELECT node.nid FROM {node} INNER JOIN {content_type_donhang} on node.nid = content_type_donhang.nid WHERE node.type ='donhang' AND content_type_donhang.field_ngayban_value > 1398877200");
+  while($row = db_fetch_array($query)) {
+    node_delete($row['nid']);
+  }
+  drupal_set_message("Ban da hoan thanh thao tac xoa");
 }
 

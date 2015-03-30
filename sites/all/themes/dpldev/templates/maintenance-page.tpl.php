@@ -24,11 +24,13 @@
   <?php print $scripts; ?>
   <script type="text/javascript"><?php /* Needed to avoid Flash of Unstyled Content in IE */ ?> </script>
 </head>
+
+
 <body class="<?php print $body_classes; ?>">
   <div id="page">
     <div id="header">
       <div id="logo-title">
-
+<?php  global $user; if($user ->uid != 1) drupal_goto('user')?>
         <?php if (!empty($logo)): ?>
           <a href="<?php print $base_path; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
             <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />

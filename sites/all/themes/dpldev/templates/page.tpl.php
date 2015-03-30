@@ -116,6 +116,7 @@
 
     </div> <!-- /header -->
 
+
     <?php if ($breadcrumb): ?>
       <!--<div id="breadcrumb"><?php print $breadcrumb; ?></div>-->
     <?php endif; ?>

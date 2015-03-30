@@ -37,6 +37,11 @@ function dpldev_report_khohang_setting() {
       '#title' => NULL,  
       '#default_value' => isset($khohang_setting[$obj->id]['disable']) ? $khohang_setting[$obj->id]['disable'] : 0,
     );
+    $form['khohang_setting'][$obj->id]['hanoi'] = array(
+      '#type' => 'checkbox',
+      '#title' => NULL,
+      '#default_value' => isset($khohang_setting[$obj->id]['hanoi']) ? $khohang_setting[$obj->id]['hanoi'] : 0,
+    );
   }
   $form['#theme'] = array('khohang_setting');
   $form['submit'] = array(

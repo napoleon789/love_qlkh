@@ -64,7 +64,7 @@ Drupal.behaviors.groupKhachhang = function(context) {
             $("#co").attr("value","loading....").css("color","green");
             $("#customer-list .table tbody tr.selected").each(function() {
                 var m = $(this).find("input").attr("value");
-                var url = "http://localhost/qlkh_b1/delete/khachhang?nid="+m ;
+                var url = "delete/khachhang?nid="+m ;
                 $.ajax({
                     url : url,
                     type: "GET",
@@ -82,7 +82,7 @@ Drupal.behaviors.groupKhachhang = function(context) {
         });
         $("#update_kh").click(function() {
            var nid = $("#customer-list .table tbody tr.selected").find("input").attr("value");
-            window.location.href = "http://localhost/qlkh_b1/node/"+nid+'/edit';
+            window.location.href = "http://localhost:8181/qlkh_b1/node/"+nid+'/edit';
         });
 
         $("#customer-list").click(function(){
@@ -94,7 +94,8 @@ Drupal.behaviors.groupKhachhang = function(context) {
             $("#khoachinh").attr("value","loading....").css("color","green");
             $("#customer-list .table tbody tr.selected").each(function() {
                 var m = $(this).find("input").attr("value");
-                var url = "http://localhost/qlkh_b1/ajax/info?nid="+m ;
+                var url = "ajax/info?nid="+m ;
+                console.log(url);
                 $.ajax({
                     url : url,
                     type: "GET",
@@ -118,7 +119,7 @@ Drupal.behaviors.groupKhachhang = function(context) {
                 get = get + "/"+m
                 i++
             });
-            var url = "http://localhost/qlkh_b1/match/khachhang?"+get;
+            var url = "match/khachhang?"+get;
             $.ajax({
                 url : url,
                 type: "GET",

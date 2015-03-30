@@ -1,0 +1,6 @@
+name = DPLDEV import excel
+description = Import data from excel file
+core = 6.x
+package = DPLDEV
+version = 6.x
+dependencies[] = location

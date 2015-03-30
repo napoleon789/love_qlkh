@@ -12,23 +12,23 @@ function dpldev_import_install() {
 function dpldev_import_uninstall() {
   drupal_uninstall_schema('dpldev_import');
 }
-
-
 function dpldev_import_update_6100() {
-  $ret = array();
+ $ret = array();
   $spec = array(
-   'type' => 'int',
-   'not null' => TRUE,
-   'default' => 0
-  );
-  db_add_field($ret, 'pmkt', 'counter', $spec);
+  'type' => 'int',
+  'not null' => TRUE,
+  'default' => 0
+ );
+ db_add_field($ret, 'content_field_ghichu', 'date', $spec);
   return $ret;
 }
-
 /**
  * Implementation of hook_schema().
  */
 function dpldev_import_schema() {
+
+
+
   $schema['pmkt'] = array(
     'description' => 'Import du lieu tu phan mem ke toan.',
     'fields' => array(
@@ -37,7 +37,6 @@ function dpldev_import_schema() {
         'unsigned' => TRUE,
         'not null' => TRUE
       ),
-
       'makh' => array(
         'type' => 'varchar',
         'length' => 32,
@@ -145,16 +144,6 @@ function dpldev_import_schema() {
         'not null' => TRUE,
         'default' => 0
       ),
-      'ngay_capnhat' => array(
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0
-      ),
-      'counter' => array(
-              'type' => 'int',
-              'not null' => TRUE,
-              'default' => 0
-       ),
       'loaisan_pham' => array(
         'type' => 'varchar',
         'length' => 50,
@@ -379,6 +368,5 @@ function dpldev_import_schema() {
     ),
     'primary key' => array('id'),
   );
-
   return $schema;
 }

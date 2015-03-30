@@ -172,3 +172,4 @@ function dpldev_khachhang_vip_capnhat() {
   die(dpldev_control_fresh_page($message));
   return $message;
 }
+
