@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /**
  * Implements hook_menu().
@@ -211,21 +211,13 @@ function dpldev_khachhang_form_filter() {
   	'#default_value' => isset($_GET['khuvuc']) ? $_GET['khuvuc'] : '',
   	'#options' => $options
   );
-
   $options = array(
     'ALL' => t('Tất cả', array(), 'vi'),
     '2222' => t('Silver', array(), 'vi'),
     '4444' => t('Gold', array(), 'vi'),
     '6666' => t('Platinum', array(), 'vi'),
     '8888' => t('Diamond', array(), 'vi'),
-
   );
-  $opnguoi_ph =   dpldev_khachhang_get_nguoiph();
-
-
-
-  // $options += dpldev_content_get_id_names('tapkhachhang');
-if(!isset($user -> roles[4])) {
   $form['tapkhachhang'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Tập khách hàng', array(), 'vi'),
@@ -233,6 +225,8 @@ if(!isset($user -> roles[4])) {
     '#options' => $options,
     '#attributes' => array('class' => 'first-select-all'),
   );
+
+  $opnguoi_ph =   dpldev_khachhang_get_nguoiph();
   if(arg(1) == 'vip') {
   $form['nguoi_ph'] = array(
     '#type' => 'select',
@@ -253,7 +247,7 @@ if(!isset($user -> roles[4])) {
     '#default_value' => isset($_GET['thoi_han']) ? $_GET['thoi_han'] : '',
   );
 }
-}
+
 
   $options = dpldev_content_get_id_names('khohang');
   array_unshift($options, '');
@@ -288,8 +282,6 @@ if(!isset($user -> roles[4])) {
 
   $options = array();
   $options[] = '';
-
-
   $options[10] = 10 . ' ' . t('Triệu', array(), 'vi');
   $options[200] = 200 . ' ' . t('Triệu', array(), 'vi');
   $options[500] = 500 . ' ' . t('Triệu', array(), 'vi');
@@ -357,6 +349,16 @@ function dpldev_khachhang_form_search() {
     '#default_value' => isset($_GET['keyword']) && !empty($_GET['keyword']) ? $_GET['keyword'] : t('Nhập tên KH hoặc SĐT để tìm kiếm khách hàng', array(), 'vi'),
     '#attributes' => array(
       'class' => 'inputfocus',
+      'dplaceholder' => t('Nhập tên KH hoặc SĐT để tìm kiếm khách hàng', array(), 'vi'),
+    ),
+  );
+
+  $form['num'] = array(
+    '#type' => 'textfield',
+    '#title' => NULL,
+    '#default_value' => isset($_GET['num_show']) && !empty($_GET['num_show']) ? $_GET['num_show'] : 15,
+    '#attributes' => array(
+      'class' => 'num',
       'dplaceholder' => t('Nhập tên KH hoặc SĐT để tìm kiếm khách hàng', array(), 'vi'),
     ),
   );
@@ -517,8 +519,8 @@ function dpldev_khachhang_filter($op = '') {
   $month_start  = mktime(0, 0, 0, date('m'), 1, date('Y'));
   $month_end  = $timenow;
   $op = is_string($op) ? strtolower(trim($op)) : $op;
-
   $no_result_message = t('Hiện tại hệ thống chưa có khách hàng nào phù hợp với tiêu chí lọc của bạn.', array(), 'vi');
+
   $sqlselect = 'SELECT ctk.*
 , SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso,
 max(ctd.field_ngayban_value) ngayban
@@ -541,7 +543,6 @@ max(ctd.field_ngayban_value) ngayban
         'value' => "DATE_FORMAT(FROM_UNIXTIME($timenow), '%%m')",
       );
       break;
-
     case 'vip':
       $title = t('Khách VIP', array(), 'vi');
       $no_result_message = t('Hiện tại hệ thống chưa có khách hàng VIP nào phù hợp với tiêu chí lọc của bạn.', array(), 'vi');
@@ -624,16 +625,6 @@ max(ctd.field_ngayban_value) ngayban
     );
   }
   }
-  /*
-   if ($op == 'vip') {
-
-    $wheres[] = array(
-      'field' => "LOWER(ctk.field_hangthe_value)",
-      'operator' => 'IN',
-      'value' => "('" . implode("','", array(2222=>2222,4444=>4444,6666=>6666,8888=>8888)) . "')",
-    );
-  }
-*/
   // Loc theo kho hang
   if ($_GET['khohang'] && is_numeric($_GET['khohang'])) {
     $wheres[] = array(
@@ -738,16 +729,30 @@ max(ctd.field_ngayban_value) ngayban
 
     $where = ' WHERE ' . implode(' AND ', $items) . ' ';
   }
-  // Loc theo keyword
-  if (isset($_GET['keyword']) && !empty($_GET['keyword']) && $_GET['keyword'] != t('Nh?p tên KH ho?c S?T ?? tìm ki?m khách hàng', array(), 'vi')) {
+  // Loc theo keyword,phone,
+  if (isset($_GET['keyword']) && !empty($_GET['keyword']) && $_GET['keyword'] != t('Nhập tên KH hoặc SĐT để tìm kiếm khách hàng', array(), 'vi')) {
+    $phone_check = trim($_GET['keyword']);
+    if(is_numeric($phone_check)) {
+        if(strlen($phone_check) > 7) {
+            $query_phone = db_query("SELECT field_khoangoai_value FROM {content_type_khachhang} WHERE field_mobile_value = %d",$phone_check);
+            while($row = db_fetch_array($query_phone)) {
+                $id = $row['field_khoangoai_value'];
+            }
+            $where .= ' AND ctk.nid = '.$id .' ';
+        }
+        else {
+            $where .= ' AND (ctk.field_sothe_value = '.trim($_GET['keyword']) .') ';
+        }
 
-    $where .= 'and (ctk.field_hovaten_value like '."'". '%%' . strtolower(trim($_GET['keyword'])) . '%'."'" .' or ctk.field_mobile_value like '."'". '%%' . strtolower(trim($_GET['keyword'])) . '%'."'".')' ;
-
+    }
+    else {
+      $where .= ' AND (ctk.field_hovaten_value like '."'". '%%' . strtolower(trim($_GET['keyword'])) . '%'."' )"  ;
+    }
   }
   //Chi loc khach hang comkhoa chinh hoac null - tri
 
   if($op != 'vip' && arg(0) != 'marketing')
-     $where .= 'and (ctk.field_khoangoai_value is NULL or ctk.field_khoangoai_value = ctk.nid)';
+     $where .= 'and ctk.field_khoangoai_value = ctk.nid ';
 
   if($op == 'vip' || arg(0) =='marketing') {
 
@@ -786,7 +791,7 @@ max(ctd.field_ngayban_value) ngayban
 
 
  $data = array();
-  $header = array();
+ $header = array();
     $header['header_cell'] = theme('table_select_header_cell');
     $header['hovaten'] = array('data' => t('Họ và tên', array(), 'vi'),  'field' => 'field_hovaten_value');
     $header['gioi'] =  array('data' => t('Giới tính', array(), 'vi'),  'field' => 'field_gioitinh_value');
@@ -870,16 +875,12 @@ max(ctd.field_ngayban_value) ngayban
 
   $text_align = 'right';
 
-
-
-
   $sqlselect .= '
     ' . $join . '
     ' . $where . '
     ' . $group . '
     ' . $having . '
     ' . tablesort_sql($header);
-
   $sqlcount .= '
     ' . $join . '
     ' . $where;
@@ -899,7 +900,6 @@ max(ctd.field_ngayban_value) ngayban
            $dk .= 'field_area_value = 2 ';
            break;
        }
-
      }
     //loc doanh so
     $having = '';
@@ -932,7 +932,6 @@ max(ctd.field_ngayban_value) ngayban
     if(isset($timetren) && !empty($timetren))
       $dk .= ' AND doanhso1 >0';
 
-
     if(isset($_GET['doanhs']))
       $dk .= 'ORDER BY doanhso1 '.$_GET['doanhs'];
 
@@ -943,14 +942,16 @@ max(ctd.field_ngayban_value) ngayban
   }
 
 
-
   $limit = (int)$_GET['limit'];
   if (!$limit) {
-    $limit = 15;
+   $num = isset($_GET['num'])?trim($_GET['num']):15;
+    $limit = $num;
   }
+
   if($_GET['action'] == 'export') {
     $result = db_query($sqlselect);
   }
+
   else
   {
     $result = pager_query($sqlselect, $limit, 0, $sqlcount);
@@ -969,10 +970,8 @@ max(ctd.field_ngayban_value) ngayban
         $goitinh = '-';
     }
     $doanhso = $obj->doanhso;
-      $dsid = $obj->nid;
-
-    //$tongdoanhso = !$ds_flag ? $doanhso : dpldev_donhang_content_tong_doanh_so($dsid);
-     $khoa = dpldev_group_get_khoangoai($dsid);
+    $dsid = $obj->nid;
+    $khoa = dpldev_group_get_khoangoai($dsid);
     $tongdoanhso = db_result(db_query('SELECT SUM(ctd.field_giaban_value- ctd.field_giamgia_value) FROM content_type_donhang as ctd WHERE ctd.field_khachhang_nid_value in ('.$khoa.")"));
     $yNow = date('Y',time());
     $dsnam = db_result(db_query('SELECT SUM(ctd.field_giaban_value- ctd.field_giamgia_value) FROM content_type_donhang as ctd WHERE ctd.field_khachhang_nid_value  in ('.$khoa . ') and  DATE_FORMAT(FROM_UNIXTIME(ctd.field_ngayban_value),"%Y")  = %d',$yNow) );
@@ -981,11 +980,10 @@ max(ctd.field_ngayban_value) ngayban
     $row = array();
     $row_export = array();
 
-
     $row['header_cell'] = '<div class="form-item"><label class="option"><input type="checkbox" class="form-checkbox" value="' . $obj->nid . '"  name="nids[' . $obj->nid . ']"> </label></div>';
     $key ='';
 
-    if(isset($obj->field_hangthe_value) && $obj-> doanhso1 >10 )
+    if(isset($obj->field_sum_dso_value) )
     { $key .= '<span id="key"></span>';}
      $row['hovaten'] = $key.l(ucwords(drupal_strtolower($obj->field_hovaten_value)), 'khachhang/' . $obj->nid . '/view', array('html' => TRUE));
     if(isset($_GET['action']))
@@ -1001,13 +999,16 @@ max(ctd.field_ngayban_value) ngayban
      // $row['ns'] = isset($obj->field_ngaysinh_value) && !empty($obj->field_ngaysinh_value) ? format_date($obj->field_ngaysinh_value, 'custom', 'd/m/Y') : '-';
       //$row['ns'] = dpldev_text_view($row['ns'], array('length'=>$text_length['ns'], 'align'=>$text_align, 'tooltip'=>TRUE));
     }
-
+      $doanhso_the = number_format(round($tongdoanhso/1000000, 2), 2, '.', ',');
+      $hang_chek = dpldev_khachhang_tapkh($obj->field_hangthe_value);
+      if($hang_chek == '0')
+        $hang_chek = dpldev_group_type_the($doanhso_the);
       $row['sdt'] = isset($obj->field_mobile_value)?$obj->field_mobile_value : '-';
       $row_export['sdt'] = $row['sdt'];
       $row['diachi'] = isset($obj->field_diachi_value)?$obj->field_diachi_value : '-';
-      $row['hangthe'] = dpldev_khachhang_tapkh($obj->field_hangthe_value);
+      $row['hangthe'] = $hang_chek;
       $row_export['email'] = $row['email'];
-    $row['tongds'] = number_format(round($tongdoanhso/1000000, 2), 2, '.', ',');
+      $row['tongds'] = $doanhso_the;
 
     if(arg(1) =='vip' || arg(0) =='marketing')
     $row['dsnam'] = isset($dsnam)? number_format(round($dsnam/1000000, 2), 2, '.', ','):'-';
@@ -1062,13 +1063,10 @@ max(ctd.field_ngayban_value) ngayban
        $row['quay'] = '-';
      }
       else{
-
         $sql = "SELECT MIN(field_ngayban_value) as ngay_min FROM content_type_donhang  WHERE field_khachhang_nid_value IN (".$kha.") AND field_ngayban_value IS NOT NULL";
           $firtYear = db_result(db_query($sql));
-
           $lasYear = db_result(db_query("SELECT max(ctd.field_ngayban_value) FROM content_type_donhang ctd WHERE ctd.field_khachhang_nid_value IN (".$kha.")"));
           $dsxp = db_result(db_query("SELECT SUM(field_giaban_value-field_giamgia_value) FROM {content_type_donhang} WHERE field_khachhang_nid_value IN (".$kha.')'));
-
           $tk = round((time() - $firtYear)/(365*24*60*60),2);
           $row['tb_dh'] =  number_format(round($dsxp/($sdh-1),2),2);
           $row['tb_nam'] =  number_format(round($dsxp/$tk,2),2);
@@ -1086,7 +1084,11 @@ max(ctd.field_ngayban_value) ngayban
       $row['ngay_cap'] = $obj -> field_ngaycap_value;
       $row['thoi_han'] = $obj -> field_thoihan_value;
     }
-    $rows[] = $row;
+    if($obj ->field_sum_dso_value ==1)
+      $id_key = 'key_g';
+    else
+      $id_key ='';
+    $rows[] = array('data' => $row,'class' => $id_key);
     $row_exports[] = $row;
   }
 
@@ -1117,12 +1119,13 @@ max(ctd.field_ngayban_value) ngayban
       ';
     }
 
-  $ouput_mnu_top = '<div id="block-menu-menu-mnusms" class="order_vip">'.$mn_top.'</div>';
-  $input_key = '<input type="button" value="Khóa chính" id ="khoachinh">';
-  $connect = '<input type="button" value="Group khách hàng" id ="ketnoi">';
-  $delete = '<input type="button" value="Xóa" id ="delete_kh">';
-  $update = '<input type="button" value="Sửa" id ="update_kh">';
-  $selected = 'Đã chon: <span id = "dachon">0</span>';
+    $ouput_mnu_top = '<div id="block-menu-menu-mnusms" class="order_vip">'.$mn_top.'</div>';
+    $input_key = '<input type="button" value="Khóa chính" id ="khoachinh">';
+    $connect = '<input type="button" value="Group khách hàng" id ="ketnoi">';
+    $connect .= '<input style="float:right;margin-right: 20%;" type="button" value="Hủy Khóa" id = "huy_khoa">';
+    $delete = '<input type="button" value="Xóa" id ="delete_kh">';
+    $update = '<input type="button" value="Sửa" id ="update_kh">';
+    $selected = 'Đã chon: <span id = "dachon">0</span>';
   }
   $output = $ouput_mnu_top;
   $output .= '<div id ="top_kh">'.$input_key.$connect.'</div>';
@@ -1158,7 +1161,6 @@ max(ctd.field_ngayban_value) ngayban
     $output .= theme('table', $header, $row_exports, array('class' => 'table'));
     dpldev_control_stream_download($output, 'Danh_sach_khach_hang.xls');
   }
-
   $textDelete = '<div id ="sure">Bạn có chắc muốn xóa không? <input type="button" id = "co" value="Có"> <input type="button" id ="khong" value="không"></div>';
   $number_kh = '<span id ="kq_kh">Có: '.$number. ' kết quả</span>';
 
@@ -1194,13 +1196,15 @@ function dpldev_khachhang_match_nid() {
   $arr = explode('/',$nid);
   array_shift($arr);
   $num = count($arr);
-  for($i =0; $i< $num; $i ++)
-
-  $prime = db_result(db_query('SELECT nid FROM {content_type_khachhang} WHERE field_khoangoai_value = 1'));
-  foreach($arr as $m => $n) {
-   db_query("UPDATE {content_type_khachhang} SET field_khoangoai_value ='%s' where nid = '%s'",$prime,$n);
+  for($i =0; $i< $num; $i++) {
+    $query = db_query('SELECT nid FROM {content_type_khachhang} WHERE field_sum_dso_value = 1');
+    while($row = db_fetch_array($query)) {
+      $prime = $row['nid'];
+    }
   }
-  db_query('UPDATE {content_type_khachhang} SET field_sum_dso_value = NULL');
+  foreach($arr as $m => $n) {
+    db_query("UPDATE {content_type_khachhang} SET field_khoangoai_value = %d WHERE field_khoangoai_value = %d ",$prime,$n);
+  }
 }
 
 function dpldev_khachhang_delete() {
@@ -1494,7 +1498,7 @@ function dpldev_khachhang_tapkh($val) {
     case 8888:
       return 'Diamond';
     default:
-      return '-';
+      return '0';
   }
 }
 
@@ -1550,7 +1554,6 @@ function dpldev_khachhang_add_ghichu() {
   $row['date'] = time();
   //drupal_write_record('content_field_ghichu',$row);
   db_query("INSERT INTO {content_field_ghichu}  (vid,nid,delta,field_ghichu_value,uid,date) VALUES (%d,%d,%d,'%s',%d,%d)",$row['vid'],$row['nid'], $row['delta'],$row['field_ghichu_value'],$row['uid'],$row['date']);
-
 }
 
 function dpldev_khachhang_get_nguoiph() {

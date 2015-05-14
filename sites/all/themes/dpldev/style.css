@@ -1093,7 +1093,7 @@ body.sidebar-right #sidebar-right {
 #main-menu ul li a:hover, #main-menu ul li a.active {
   background: transparent url(images/mnu-active-bg.png) no-repeat scroll right 0;
   color: #929292;
-  margin-right: -4px;
+  /*margin-right: -4px;*/
   padding-left: 9px;
   padding-right: 13px;
   text-decoration: none;
@@ -2903,3 +2903,24 @@ body.two-sidebars #sidebar-right {
 .page-khachhang #inner-page-title #block-dpldev_khachhang-export {right: 0; top: -22px; float: none;} 
 .page-khachhang #inner-page-title #block-dpldev_khachhang-search {position: relative;  left: 0;top: 0; height: 40px;float: none;} 
 .page-khachhang #inner-page-title #block-dpldev_khachhang-search .btop {width: 741px;position: relative;right: 0;float: right;}
+
+#main-menu ul {margin: 0;padding: 0;}
+#main-menu li ul {position: absolute;}
+#main-menu ul li ul li.first a {
+    background: none;
+    width: auto;
+    text-align: left;
+    text-indent:0;
+}
+#main-menu ul li ul li.first a:hover, #main-menu ul li ul li.first a.active {
+    background: none;
+}
+#main-menu ul li ul
+{
+    display: none;
+    background: transparent url(images/menu-bg.png) no-repeat scroll 0 0;
+}
+#main-menu ul li.active-trail ul {
+    display: inline-block;
+}
+.sex_cho {width: 64px;}

@@ -1,0 +1,4 @@
+name = dpldev_card
+description = The cho cap
+core = 6.x
+package = DPLDEV

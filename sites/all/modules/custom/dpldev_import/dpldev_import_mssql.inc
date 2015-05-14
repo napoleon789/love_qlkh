@@ -63,13 +63,10 @@ function dpldev_import_getData($db, $latestDate) {
        or ktdu_lieu.makho_hang=900019
        or ktdu_lieu.makho_hang=900025)"; */
   if ($latestDate != "")
-    $query .= " AND ktdu_lieu.ngay_ctu > convert(datetime, '01/05/2014', 103) ";
- // $query .= " AND ktdu_lieu.ngay_gio > convert(datetime, '" . $latestDate . "', 103) ";
-
+  $query .= " AND ktdu_lieu.ngay_ctu > convert(datetime, '" . $latestDate . "', 103) ";
   $query .= " ORDER BY ktdu_lieu.ngay_ctu DESC";
 
   $result = sqlsrv_query($dbConnection, $query);
-
   $area = AREA_HN;
   if ($db == SVR_DB_HN)
     $area = AREA_HN;
@@ -82,7 +79,6 @@ function dpldev_import_getData($db, $latestDate) {
     $data = serialize($row);
     $row['data'] = $data;
     drupal_write_record('pmkt', $row);
-
   }
   sqlsrv_free_stmt($result);
   sqlsrv_close($dbConnection);

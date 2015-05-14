@@ -283,7 +283,7 @@ function theme_donhang_node_form($form) {
   $revision = drupal_render($form['revision_information']);
   $menu = drupal_render($form['menu']);
   $buttons = drupal_render($form['buttons']);
-  $form_content .= theme('clearfix', '<div class="row">' . drupal_render($form['field_donhang_khachhang_code']) . '</div>');
+  $form_content = theme('clearfix', '<div class="row">' . drupal_render($form['field_donhang_khachhang_code']) . '</div>');
   $form_content .= theme('clearfix', '<div class="row">' . drupal_render($form['field_sohoadon']) . '</div>');
   $form_content .= theme('clearfix', '<div class="row">' . drupal_render($form['field_masanpham']) . '</div>');
   $form_content .= theme('clearfix', '<div class="row">' . drupal_render($form['field_loaisanpham']) . '</div>');

@@ -98,7 +98,11 @@
       <div id="navigation" class="menu <?php if (!empty($primary_links)) { print "withprimary"; } if (!empty($secondary_links)) { print " withsecondary"; } ?> ">
         <?php if (!empty($primary_links)): ?>
           <div id="main-menu" class="clear-block">
-            <?php print theme('links', $primary_links, array('class' => 'links primary-links')); ?>
+            <?php
+            $menu_name = variable_get('menu_primary_links_source', 'primary-links');
+            print menu_tree($menu_name);
+            //print theme('links', $primary_links, array('class' => 'links primary-links'));
+            ?>
           </div>
         <?php endif; ?>
       

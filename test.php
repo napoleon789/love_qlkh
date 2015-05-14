@@ -1,3 +1,6 @@
 <?php
-echo date('d/m/Y',-1862118380);
+$m  = "123444";
+echo strlen($m);
+
+
 ?>

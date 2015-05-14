@@ -1,16 +1,31 @@
 <?php
 //implement hook_menu
 function dpldev_group_menu() {
-$items = array();
-$items['khachhang/khoangoai'] = array(
-  'title' => t('Khách hàng', array(), 'vi'),
-  'page callback' => 'dpldev_group_get_khoangoai',
-  'page arguments' => array(1),
-  'access arguments' => array('access content'),
-  'type' => MENU_CALLBACK,
+
+  $items = array();
+  $items['khachhang/khoangoai'] = array(
+    'title' => t('Khách hàng', array(), 'vi'),
+    'page callback' => 'dpldev_group_get_khoangoai',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+    );
+
+  $items['khachhang/huykhoa/%'] = array(
+    'title' => t('Khách hàng', array(), 'vi'),
+    'page callback' => 'dpldev_group_huykhoa',
+    'page arguments' => array(2),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
   );
-return $items;
+  return $items;
 }
+
+function dpldev_group_huykhoa() {
+ $id = arg(2);
+ db_query("UPDATE {content_type_khachhang} SET field_sum_dso_value = NULL WHERE nid = %d",$id);
+}
+
 
 //get field_khoangoai_value from arg(1)
 function dpldev_group_get_khoangoai($nid) {
@@ -32,4 +47,26 @@ while($row = db_fetch_object($result)) {
 }
  $nidAl .= '';
   return $nidAl;
+}
+
+function dpldev_group_type_the($value) {
+  $hang = ' - ';
+  if($value>50) {
+    $hang = '<span style="color: rosybrown;float: left;width: 62px;">- Diamond</span>';
+  }
+  else {
+    if($value >= 40)
+      $hang = '<span style="color: rosybrown;float: left;width: 62px;">- Platinum</span>';
+    else {
+      if($value >=30)
+        $hang = '<span style="color: rosybrown;float: left;width: 62px;">- Gold</span>';
+      else {
+        if($value >= 20)
+          $hang = '<span style="color: rosybrown;float: left;width: 62px;">- Silver</span>';
+        else
+          $hang = ' - ';
+      }
+    }
+  }
+  return $hang;
 }

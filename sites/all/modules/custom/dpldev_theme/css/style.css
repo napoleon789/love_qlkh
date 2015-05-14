@@ -197,17 +197,30 @@
   float: left;
   margin: 0;
 }
-#dpldev-khachhang-form-search .form-item .form-text {
+#dpldev-khachhang-form-search .form-item #edit-keyword-1 {
   font-size: 13px;
-  height: 30px;
+  height: 31px;
   margin-right: 5px;
-  width: 645px;
+  float: left;
+  width: 590px;
 }
+#dpldev-khachhang-form-search .form-item #edit-num {
+    font-size: 13px;
+    height: 31px;
+    margin-right: 5px;
+    width: 30px;
+}
+#edit-keyword {
+  font-size: 13px;
+  height: 31px;
+  width: 590px;
+  margin-right: 5px;
+}
+
 #dpldev-khachhang-form-search .form-submit {
   background: transparent url(images/btn-search.png) no-repeat scroll 0 0;
   border: medium none;
   cursor: pointer;
-
   height: 30px;
   text-align: left;
   text-indent: -9999px;
