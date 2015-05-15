@@ -1070,6 +1070,7 @@ body.sidebar-right #sidebar-right {
   line-height: 1;
   margin: 0;
   padding: 0;
+  background-size: 2px 37px;
 }
 #main-menu ul li span {
   display: block;
@@ -1117,6 +1118,10 @@ body.sidebar-right #sidebar-right {
 #main-menu ul li.menu-500, #main-menu ul li.last {
   clear: none;
   float: right;
+
+}
+#main-menu ul li.last{
+    background: none;
 }
 #main-menu ul li.menu-500 {
   background: transparent none;
@@ -2899,7 +2904,7 @@ body.two-sidebars #sidebar-right {
 .tit_khuvu {clear: both;}
  table {font-size: 13px;}
 /*css viet boi taole :D*/ 
-.page-khachhang #inner-page-title{float: none; margin-top:-40px;position: relative;} 
+.page-khachhang #inner-page-title{float: none; margin-top:-33px;position: relative;}
 .page-khachhang #inner-page-title #block-dpldev_khachhang-export {right: 0; top: -22px; float: none;} 
 .page-khachhang #inner-page-title #block-dpldev_khachhang-search {position: relative;  left: 0;top: 0; height: 40px;float: none;} 
 .page-khachhang #inner-page-title #block-dpldev_khachhang-search .btop {width: 741px;position: relative;right: 0;float: right;}
@@ -2924,3 +2929,10 @@ body.two-sidebars #sidebar-right {
     display: inline-block;
 }
 .sex_cho {width: 64px;}
+
+/* custom by duyenpt */
+#main-menu ul li a:hover, #main-menu ul li a.active{
+    padding: 14px 15px 13px 11px;
+}
+.page-khachhang #content-content{min-height: 300px;}
+/* e: custom by duyenpt */
