@@ -2927,6 +2927,7 @@ body.two-sidebars #sidebar-right {
 }
 #main-menu ul li.active-trail ul {
     display: inline-block;
+    background-position: center -1px;
 }
 .sex_cho {width: 64px;}
 
