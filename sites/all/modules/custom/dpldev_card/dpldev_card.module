@@ -74,7 +74,6 @@
      $header['hangthe'] =   array('data' => 'Hạng thẻ', 'class' => 'sex_cho');
      $header['doanhso'] =  array('data' => 'Doanh số', 'class' => 'ds_cho');
 
-
      $output = theme('table', $header, $rows, array('class' => 'table'));
      $output .= theme('pager');
      return $output;
@@ -83,13 +82,12 @@
 function dpldev_card_type($value) {
   $hang = '-';
   if($value >= 1000000000 && $value < 2000000000)
-    $hang = 'Sliver';
+    $hang = 'Silver...';
   if($value >= 2000000000 && $value < 4000000000)
-    $hang = 'Gold';
+    $hang = 'Gold...';
   if($value >= 4000000000 && $value < 6000000000)
-    $hang = 'Platinum';
+    $hang = 'Platinum...';
   if($value >= 6000000000)
-    $hang = 'Diamond';
+    $hang = 'Diamond...';
   return $hang;
-
 }
