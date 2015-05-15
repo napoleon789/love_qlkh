@@ -1188,7 +1188,7 @@ max(ctd.field_ngayban_value) ngayban
     return 'Vui lòng đánh vào ô tìm kiếm';
    }
     else {
-        return "Vui lòng gõ vào ô search để tìm kiếm khách hàng";
+        return '<div class="empty_kq">Vui lòng gõ vào ô search để tìm kiếm khách hàng</div>';
     }
 }
 
