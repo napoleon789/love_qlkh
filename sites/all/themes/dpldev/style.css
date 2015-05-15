@@ -2936,4 +2936,12 @@ body.two-sidebars #sidebar-right {
     padding: 14px 15px 13px 11px;
 }
 .page-khachhang #content-content{min-height: 300px;}
+.page-khachhang.sidebar-left #content-content{min-height: 968px;}
+.page-khachhang .empty_kq{
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 65px;
+    text-align: center;
+}
 
+/* e: custom by duyenpt */
