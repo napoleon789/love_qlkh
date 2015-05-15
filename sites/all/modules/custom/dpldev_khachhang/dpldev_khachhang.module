@@ -502,6 +502,8 @@ function dpldev_khachhang_block($op = 'list', $delta = 0) {
 
 
 function dpldev_khachhang_filter($op = '') {
+   if(isset($_GET['keyword'])) {
+
   $joins = array();
   $wheres = array();
   $orders = array();
@@ -969,8 +971,8 @@ max(ctd.field_ngayban_value) ngayban
       default:
         $goitinh = '-';
     }
-    $doanhso = $obj->doanhso;
-    $dsid = $obj->nid;
+    $doanhso = $obj-> doanhso;
+    $dsid = $obj-> nid;
     $khoa = dpldev_group_get_khoangoai($dsid);
     $tongdoanhso = db_result(db_query('SELECT SUM(ctd.field_giaban_value- ctd.field_giamgia_value) FROM content_type_donhang as ctd WHERE ctd.field_khachhang_nid_value in ('.$khoa.")"));
     $yNow = date('Y',time());
@@ -1184,8 +1186,12 @@ max(ctd.field_ngayban_value) ngayban
   }
   else
     return 'Vui lòng đánh vào ô tìm kiếm';
-
+   }
+    else {
+        return '<div class="empty_kq">Vui lòng gõ vào ô search để tìm kiếm khách hàng</div>';
+    }
 }
+
 function dpldev_khachhang_set_primekey() {
   $nid = $_GET['nid'];
   db_query("UPDATE {content_type_khachhang} SET field_sum_dso_value = 1 WHERE nid = %d",$nid);
@@ -1399,6 +1405,7 @@ LEFT JOIN content_type_khachhang AS ctk ON ctd.field_khachhang_nid_value = ctk.n
   $output .= theme('pager',array('class' =>'hanoi'));
   $output .= '</div>';
   return $output;
+
 }
 
 function dpldev_khachhang_lichsu($khachang_id) {

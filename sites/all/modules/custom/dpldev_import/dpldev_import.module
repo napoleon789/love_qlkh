@@ -188,6 +188,9 @@ function dpldev_import_khachhang() {
   
   while ($obj = db_fetch_object($result)) {
     //Khach hang
+    $phone = trim($obj ->mobile);
+    $phone = str_replace(" ","",$phone);
+    $phone = str_replace(".","",$phone);
     $khachhang = new stdClass;
     $khachhang->type = 'khachhang';
     $khachhang->title = 'kh';
@@ -198,11 +201,11 @@ function dpldev_import_khachhang() {
     $khachhang->field_hovaten[0]['value'] = $obj->hoten;
     $khachhang->field_gioitinh[0]['value'] = dpldev_khachhang_content_get_gioitinh($obj->hoten);
     $khachhang->field_diachi[0]['value'] = $obj->diachi;
-    $khachhang->field_mobile[0]['value'] = $obj->mobile;
+    $khachhang->field_mobile[0]['value'] = $phone;
     $khachhang->field_phone[0]['value'] = $obj->phone;
     $khachhang->field_email[0]['email'] = $obj->email;
 	$khachhang->field_area[0]['value'] = $obj->area;
-	
+
     if ($obj->cuahang && !empty($obj->cuahang)) {
       $khachhang->field_quan_ly[0]['value'] = dpldev_content_get_id('cuahang', array('name'=>$obj->cuahang));
     }
