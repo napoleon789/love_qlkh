@@ -434,13 +434,17 @@ function dpldev_report_khohang_chart_column_chi_tiet($area = null) {
       }
       $date_from = mktime(0, 0, 0, $month1, 1, $year1);
       $date_to = mktime(0, 0, 0, $month2, 1, $year2);
-      $sqlselect = 'SELECT SUM(ctd.field_giaban_value - ctd.field_giamgia_value) doanhso
+   /*   $sqlselect = 'SELECT SUM(ctd.field_giaban_value - ctd.field_giamgia_value) doanhso
         FROM content_type_donhang ctd
         INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid
         WHERE ctd.field_khohang_value = %d AND ctd.field_ngayban_value >= %d AND ctd.field_ngayban_value < %d AND ctk.field_khachhang_buon_value IS NULL
+      '. $vung*/;
+
+        $sqlselect = 'SELECT SUM(ctd.field_giaban_value - ctd.field_giamgia_value) doanhso
+        FROM content_type_donhang ctd
+
+        WHERE ctd.field_khohang_value = %d AND ctd.field_ngayban_value >= %d AND ctd.field_ngayban_value < %d
       '. $vung;
-
-
       $obj = db_fetch_object(db_query_range($sqlselect, $khohang_id, $date_from, $date_to, 0, 1));
       $doanhso = isset($obj->doanhso) ? round($obj->doanhso/1000000,2) : 0;
       $row[$month1] = $doanhso;
