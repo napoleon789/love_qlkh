@@ -20,7 +20,20 @@ function dpldev_report_menu() {
     'file' => 'dpldev_report.setting.inc',
     'type' => MENU_LOCAL_TASK,
   );
+  $items['thongke/khohang/api'] = array(
+    'title' => t('Thống kê', array(), 'vi'),
+    'page callback' => 'dpldev_report_khohang_chart_column_chi_tiet',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+   );
   return $items;
+}
+
+/**
+ * Implement hook_init
+ */
+function dpldev_report_init() {
+    drupal_add_js(drupal_get_path('module', 'dpldev_report') . '/js/script.js');
 }
 
 /**
@@ -90,7 +103,6 @@ function dpldev_report_block($op = 'list', $delta = 0) {
         $block['content'] = dpldev_report_khohang_chart_pie('khohang_pie_chart_vung_miennam', NULL,2);
         return $block;
 
-
       case 5:
         $block['subject'] = t('Khách hàng có doanh số tốt nhất miền Bắc!spantime', array('!spantime'=>$spantime), 'vi');
         $block['content'] = dpldev_report_khohang_chart_topkhachhang(1);
@@ -141,8 +153,8 @@ function dpldev_report_block($op = 'list', $delta = 0) {
 }
 
 function dpldev_report_khohang_chart_pie($id = 'khohang_pie_chart', $chart_title = NULL,$area = null) {
-  $khohang_setting = variable_get('khohang_setting', array());
 
+  $khohang_setting = variable_get('khohang_setting', array());
   $data = array();
   $data[] = "['khachhangcodoanhsototnhat', '0']";
   $colors = array();
@@ -305,6 +317,8 @@ function dpldev_report_khohang_chart_pie_chi_tiet($area = null) {
 }
 
 function dpldev_report_khohang_chart_column($id = 'khohang_column_chart', $chart_title = NULL,$area = null) {
+
+
   $vung ='';
   if($area == 1)
     $vung = 'AND ctk.field_area_value = 1';
@@ -316,7 +330,7 @@ function dpldev_report_khohang_chart_column($id = 'khohang_column_chart', $chart
   $month = date('m', $timenow);
   //$chart_title = t('Tháng', array(), 'vi');
 
-  for ($month1=1; $month1<=$month; $month1++) {
+  for ($month1 = 1; $month1 <= $month; $month1++) {
     $year2 = $year1;
     $month2 = $month1 + 1;
 
@@ -327,17 +341,14 @@ function dpldev_report_khohang_chart_column($id = 'khohang_column_chart', $chart
 
     $date_from = mktime(0, 0, 0, $month1, 1, $year1);
     $date_to = mktime(0, 0, 0, $month2, 1, $year2);
-
     $sqlselect = 'SELECT SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso
       FROM content_type_donhang ctd
       INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid
-      WHERE ctd.field_ngayban_value >=%d AND ctd.field_ngayban_value<%d AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = "0") '.$vung
+      WHERE ctd.field_ngayban_value >=%d AND ctd.field_ngayban_value < %d AND ctk.field_khachhang_buon_value IS NULL '.$vung
     ;
 
     $obj = db_fetch_object(db_query_range($sqlselect, $date_from, $date_to, 0, 1));
-    $doanhso = isset($obj->doanhso) ? $obj->doanhso : 0;
-    $doanhso = round($doanhso/1000000, 2);
-
+    $doanhso = isset($obj->doanhso) ? round($obj->doanhso/1000000,2) : 0;
     $data[] = "['Th.$month1', $doanhso]";
   }
   if (count($data) || 1==1) {
@@ -364,10 +375,13 @@ function dpldev_report_khohang_chart_column($id = 'khohang_column_chart', $chart
       <div id="' . $id . '" style="width: 100%;height:400px;"></div>
     ';
   }
-  $chitiet ='';
-  $m = arg(1);
-  if(isset($m))
-    $chitiet = dpldev_report_khohang_chart_column_chi_tiet($area);
+
+  $chitiet ='<div id="readmore">Detail</div><div id="content_render"></div>';
+ // $m = arg(1);
+
+  //if(isset($m))
+    //$chitiet = dpldev_report_khohang_chart_column_chi_tiet($area);
+
   return $output.$chitiet;
 }
 
@@ -396,6 +410,7 @@ function dpldev_report_khohang_chart_column_chi_tiet($area = null) {
     if ($khohang['disable']) {
       continue;
     }
+
     $vung ='';
     if($area == 1)
       $vung = 'AND ctk.field_area_value = 1';
@@ -419,24 +434,23 @@ function dpldev_report_khohang_chart_column_chi_tiet($area = null) {
       }
       $date_from = mktime(0, 0, 0, $month1, 1, $year1);
       $date_to = mktime(0, 0, 0, $month2, 1, $year2);
-
-      $sqlselect = 'SELECT SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso
+      $sqlselect = 'SELECT SUM(ctd.field_giaban_value - ctd.field_giamgia_value) doanhso
         FROM content_type_donhang ctd
         INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid
-        WHERE ctd.field_khohang_value=%d AND ctd.field_ngayban_value >=%d AND ctd.field_ngayban_value<%d AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = "0")
+        WHERE ctd.field_khohang_value = %d AND ctd.field_ngayban_value >= %d AND ctd.field_ngayban_value < %d AND ctk.field_khachhang_buon_value IS NULL
       '. $vung;
-      $obj = db_fetch_object(db_query_range($sqlselect, $khohang_id, $date_from, $date_to, 0, 1));
 
-      $doanhso = isset($obj->doanhso) ? $obj->doanhso : 0;
-      $doanhso = round($doanhso/1000000, 2);
+
+      $obj = db_fetch_object(db_query_range($sqlselect, $khohang_id, $date_from, $date_to, 0, 1));
+      $doanhso = isset($obj->doanhso) ? round($obj->doanhso/1000000,2) : 0;
       $row[$month1] = $doanhso;
       $row['doanhso'] += $doanhso;
       $footers['doanhso'] += $doanhso;
       $footers[$month1] += $doanhso;
+
     }
     $rows[] = $row;
   }
-
   if (count($rows)) {
     $rows['footer'] = array('data'=>$footers, 'class'=>'tbl-footer');
   }
@@ -446,11 +460,11 @@ function dpldev_report_khohang_chart_column_chi_tiet($area = null) {
     dpldev_control_stream_download($output, 'doanh_so_theo_thang.xls');
   }
   $output ='<div class="full-viewer hide-div-label"> <div class="block-title"><h2>Doanh số chi tiết</h2></div>'.$output.'</div>';
-  return $output;
+   drupal_json($output) ;
+    die;
 }
 
 function dpldev_report_khohang_chart_topkhachhang($area = null) {
-
   $vung ='';
   if($area == 1)
     $vung = 'AND ctk.field_area_value = 1';
@@ -466,17 +480,20 @@ function dpldev_report_khohang_chart_topkhachhang($area = null) {
   unset($thuonghieus[5]);
   unset($thuonghieus[6]);
   $thuonghieus[0] = 'Khac';
-  $sqlselect = 'SELECT * FROM (SELECT ctd.field_khachhang_nid_value nid, ctk.field_hovaten_value, SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso,ctk.field_hangthe_value,ctk.field_khoangoai_value
-    FROM content_type_donhang ctd
-    INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid
-    WHERE  ctd.field_thuonghieu_value NOT IN ("5", "6") AND ctd.field_ngayban_value >='.$date_from.' AND ctd.field_ngayban_value<='.$date_to.' AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = "0") '.$vung.'
-    GROUP BY ctd.field_khachhang_nid_value
-    ORDER BY ctk.field_hangthe_value DESC) as tb GROUP BY field_khoangoai_value ORDER BY doanhso DESC
+  $sqlselect = 'SELECT
+        ctd.field_khachhang_nid_value nid,
+        ctk.field_hovaten_value,
+        SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso,
+        ctk.field_hangthe_value,ctk.field_khoangoai_value
+        FROM content_type_donhang ctd
+        INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid
+        WHERE  ctd.field_thuonghieu_value NOT IN ("5", "6") AND ctd.field_ngayban_value >='.$date_from.' AND ctd.field_ngayban_value<='.$date_to.' AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = "0") '.$vung.' GROUP BY field_khachhang_nid_value ORDER BY doanhso DESC
   ';
   $result = db_query_range($sqlselect, 0, 10);
 
   while ($obj = db_fetch_object($result)) {
     $khoa = dpldev_group_get_khoangoai($obj->nid);
+
     foreach ($thuonghieus as $thuonghieu_id=>$thuonghieu_name) {
       $obj1 = db_fetch_object(db_query_range('
         SELECT SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso
@@ -627,12 +644,20 @@ function dpldev_report_khohang_chart_topkhachhang_chi_tiet($area = null) {
     ORDER BY doanhso DESC
   '; */
 
-  $sqlselect = 'SELECT * FROM (SELECT ctd.field_khachhang_nid_value ,SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso,ctk.*
-    FROM content_type_donhang ctd
-    INNER JOIN content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid
-    WHERE  ctd.field_thuonghieu_value NOT IN ("5", "6") AND ctd.field_ngayban_value >='.$date_from.' AND ctd.field_ngayban_value<='.$date_to.' AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = "0") '.$vung.'
-    GROUP BY ctd.field_khachhang_nid_value
-    ORDER BY ctk.field_hangthe_value DESC) as tb GROUP BY field_khoangoai_value ORDER BY doanhso DESC
+  $sqlselect = 'SELECT
+                    ctd.field_khachhang_nid_value ,
+                    SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso,
+                    ctk.*
+                FROM
+                    content_type_donhang ctd
+                INNER JOIN
+                    content_type_khachhang ctk ON ctd.field_khachhang_nid_value = ctk.vid
+                WHERE
+                    ctd.field_thuonghieu_value NOT IN ("5", "6") AND ctd.field_ngayban_value >='.$date_from.'
+                    AND ctd.field_ngayban_value<='.$date_to.'
+                    AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = "0") '.$vung.'
+                GROUP BY
+                    ctd.field_khachhang_nid_value ORDER BY doanhso DESC
   ';
   $result = db_query_range($sqlselect, 0, 10);
   $header = array();

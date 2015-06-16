@@ -11,7 +11,6 @@ define("AREA_HCM", 2);
 
 function dpldev_import_getData($db, $latestDate) {
 
-
   /* Connect to ms sql server */
   $connectionInfo = array("Database" => $db,
     "UID" => SVR_USERNAME,
@@ -50,7 +49,8 @@ function dpldev_import_getData($db, $latestDate) {
 							  INNER JOIN dmdai_ly ON ktdu_lieu.madai_ly=dmdai_ly.madai_ly
 							  INNER JOIN dmkho_hang ON ktdu_lieu.makho_hang=dmkho_hang.makho_hang ";
   $query .= "WHERE ktdu_lieu.machung_tu=46
-			 AND ktdu_lieu.mahang_hoa<>0";
+			 AND ktdu_lieu.mahang_hoa<>0
+			 AND (left(ktdu_lieu.tk_no,3) = 131 OR left(ktdu_lieu.tk_no,3) = 521)";
   /*AND (ktdu_lieu.makho_hang=900001
        or ktdu_lieu.makho_hang=900002
        or ktdu_lieu.makho_hang=900003
@@ -62,6 +62,7 @@ function dpldev_import_getData($db, $latestDate) {
        or ktdu_lieu.makho_hang=900018
        or ktdu_lieu.makho_hang=900019
        or ktdu_lieu.makho_hang=900025)"; */
+
   if ($latestDate != "")
   $query .= " AND ktdu_lieu.ngay_ctu > convert(datetime, '" . $latestDate . "', 103) ";
   $query .= " ORDER BY ktdu_lieu.ngay_ctu DESC";

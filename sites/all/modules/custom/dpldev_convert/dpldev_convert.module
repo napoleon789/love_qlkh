@@ -4,18 +4,8 @@
  */
 function dpldev_convert_menu() {
   $items = array();
-  $items['admin/capnhap/convert_data_chuan'] = array(
-    'title' => t('2.Cập nhật dữ sang chuẩn', array(), 'vi'),
-    'page callback' => 'dpldev_import_convert_data',
-    'page arguments' => array(1),
-    'access arguments' => array('administer nodes'),
-  );
-  $items['admin/capnhap/convert_data_update'] = array(
-    'title' => t('3.Update chiết khấu', array(), 'vi'),
-    'page callback' => 'dpldev_import_convert_update',
-    'page arguments' => array(1),
-    'access arguments' => array('administer nodes'),
-  );
+
+
   $items['testa'] = array(
     'title' => t('3.Update chiết khấu', array(), 'vi'),
     'page callback' => 'doji_chart_get_array',

@@ -125,6 +125,12 @@ Drupal.behaviors.groupKhachhang = function(context) {
                 success : function(data) {
                     $("#ketnoi").attr("value","Group khách hàng").css("color","#202020");
                     $("#customer-list .table tbody tr.selected:not(.eme)").css("display","none");
+                    $("#customer-list .table tbody tr.selected").each(function() {
+                       var key = $(this).find("span").attr('id') ;
+                       if((key) && key == 'key' ) {
+                           $(this).show();
+                       }
+                    });
                     $(".key_g").show();
                 }
             })
@@ -144,7 +150,7 @@ Drupal.behaviors.groupKhachhang = function(context) {
             type: "GET",
             success : function(data) {
                 $("#huy_khoa").attr("value","Hủy khóa").css("color","#1A0CE7");
-                $("#customer-list .table tbody tr.selected td span").css("display","none");
+                $("#customer-list .table tbody tr.selected td span").remove();
                 $("#customer-list .table tbody tr.selected").removeClass("key_g");
 
             }

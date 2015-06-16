@@ -35,28 +35,28 @@ function dpldev_khachhang_menu() {
     'type' => MENU_CALLBACK,
   );
   $items['ajax/info'] = array(
-    'title' => t('Thiết lập khóa chính', array(), 'vi'),
+    'title' => t('Thi?t l?p khóa chính', array(), 'vi'),
     'page callback' => 'dpldev_khachhang_set_primekey',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
   $items['match/khachhang'] = array(
-    'title' => t('Thông tin chi tiết đơn hàng', array(), 'vi'),
+    'title' => t('Thông tin chi ti?t ??n hàng', array(), 'vi'),
     'page callback' => 'dpldev_khachhang_match_nid',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
   $items['delete/khachhang'] = array(
-    'title' => t('Thông tin chi tiết đơn hàng', array(), 'vi'),
+    'title' => t('Thông tin chi ti?t ??n hàng', array(), 'vi'),
     'page callback' => 'dpldev_khachhang_delete',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
   $items['huy/khachhang'] = array(
-    'title' => t('Thông tin chi tiết đơn hàng', array(), 'vi'),
+    'title' => t('Thông tin chi ti?t ??n hàng', array(), 'vi'),
     'page callback' => 'dpldev_khachhang_huy',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
@@ -754,7 +754,7 @@ max(ctd.field_ngayban_value) ngayban
   //Chi loc khach hang comkhoa chinh hoac null - tri
 
   if($op != 'vip' && arg(0) != 'marketing')
-     $where .= 'and ctk.field_khoangoai_value = ctk.nid ';
+     $where .= 'and ( ctk.field_khoangoai_value = ctk.nid OR ctk.field_khoangoai_value IS NULL) ';
 
   if($op == 'vip' || arg(0) =='marketing') {
 
@@ -914,7 +914,7 @@ max(ctd.field_ngayban_value) ngayban
       $ds_flag = TRUE;
     }
     if(isset($_GET['doanhso_duoi']) && !empty($_GET['doanhso_duoi']) or isset($_GET['doanhso_tren'])&&!empty($_GET['doanhso_tren'])) {
-      $having .= 'and ' . implode(' AND ', $havings) . ' ';
+      $having .= ' AND ' . implode(' AND ', $havings) . ' ';
       $dk .= $having;
     }
 
@@ -938,11 +938,9 @@ max(ctd.field_ngayban_value) ngayban
       $dk .= 'ORDER BY doanhso1 '.$_GET['doanhs'];
 
       $kcu = isset($_GET['khachh'])?'ORDER BY ngay_bh '.$_GET['khachh'] :'';
-
     $sqlselect = 'SELECT *,sum(doanhso) as doanhso1,max(ngayban) as ngay_bh FROM ('.$sqlselect.' ORDER BY ctk.field_hangthe_value DESC) as a  GROUP BY field_khoangoai_value '.$kcu;
     $sqlselect = 'SELECT * FROM ('.$sqlselect.') as b '.$dk;
   }
-
 
   $limit = (int)$_GET['limit'];
   if (!$limit) {
@@ -976,7 +974,7 @@ max(ctd.field_ngayban_value) ngayban
     $khoa = dpldev_group_get_khoangoai($dsid);
     $tongdoanhso = db_result(db_query('SELECT SUM(ctd.field_giaban_value- ctd.field_giamgia_value) FROM content_type_donhang as ctd WHERE ctd.field_khachhang_nid_value in ('.$khoa.")"));
     $yNow = date('Y',time());
-    $dsnam = db_result(db_query('SELECT SUM(ctd.field_giaban_value- ctd.field_giamgia_value) FROM content_type_donhang as ctd WHERE ctd.field_khachhang_nid_value  in ('.$khoa . ') and  DATE_FORMAT(FROM_UNIXTIME(ctd.field_ngayban_value),"%Y")  = %d',$yNow) );
+    $dsnam = db_result(db_query('SELECT SUM(ctd.field_giaban_value- ctd.field_giamgia_value) FROM content_type_donhang as ctd WHERE ctd.field_khachhang_nid_value  in ('.$khoa . ') AND  DATE_FORMAT(FROM_UNIXTIME(ctd.field_ngayban_value),"%Y")  = %d',$yNow) );
 
     $data[] = $obj;
     $row = array();
@@ -985,7 +983,7 @@ max(ctd.field_ngayban_value) ngayban
     $row['header_cell'] = '<div class="form-item"><label class="option"><input type="checkbox" class="form-checkbox" value="' . $obj->nid . '"  name="nids[' . $obj->nid . ']"> </label></div>';
     $key ='';
 
-    if(isset($obj->field_sum_dso_value) )
+    if(isset($obj->field_khoangoai_value) )
     { $key .= '<span id="key"></span>';}
      $row['hovaten'] = $key.l(ucwords(drupal_strtolower($obj->field_hovaten_value)), 'khachhang/' . $obj->nid . '/view', array('html' => TRUE));
     if(isset($_GET['action']))
@@ -1003,15 +1001,14 @@ max(ctd.field_ngayban_value) ngayban
     }
       $doanhso_the = number_format(round($tongdoanhso/1000000, 2), 2, '.', ',');
       $hang_chek = dpldev_khachhang_tapkh($obj->field_hangthe_value);
-      if($hang_chek == '0')
-        $hang_chek = dpldev_group_type_the($doanhso_the);
+     // if($hang_chek == '0')
+       // $hang_chek = dpldev_group_type_the($doanhso_the);
       $row['sdt'] = isset($obj->field_mobile_value)?$obj->field_mobile_value : '-';
       $row_export['sdt'] = $row['sdt'];
       $row['diachi'] = isset($obj->field_diachi_value)?$obj->field_diachi_value : '-';
       $row['hangthe'] = $hang_chek;
       $row_export['email'] = $row['email'];
       $row['tongds'] = $doanhso_the;
-
     if(arg(1) =='vip' || arg(0) =='marketing')
     $row['dsnam'] = isset($dsnam)? number_format(round($dsnam/1000000, 2), 2, '.', ','):'-';
 
@@ -1194,7 +1191,7 @@ max(ctd.field_ngayban_value) ngayban
 
 function dpldev_khachhang_set_primekey() {
   $nid = $_GET['nid'];
-  db_query("UPDATE {content_type_khachhang} SET field_sum_dso_value = 1 WHERE nid = %d",$nid);
+  db_query("UPDATE {content_type_khachhang} SET field_khoangoai_value  = %d WHERE nid = %d",$nid,$nid);
 }
 
 function dpldev_khachhang_match_nid() {
@@ -1203,13 +1200,13 @@ function dpldev_khachhang_match_nid() {
   array_shift($arr);
   $num = count($arr);
   for($i =0; $i< $num; $i++) {
-    $query = db_query('SELECT nid FROM {content_type_khachhang} WHERE field_sum_dso_value = 1');
+    $query = db_query('SELECT nid FROM {content_type_khachhang} WHERE field_khoangoai_value = nid');
     while($row = db_fetch_array($query)) {
       $prime = $row['nid'];
     }
   }
   foreach($arr as $m => $n) {
-    db_query("UPDATE {content_type_khachhang} SET field_khoangoai_value = %d WHERE field_khoangoai_value = %d ",$prime,$n);
+    db_query("UPDATE {content_type_khachhang} SET field_khoangoai_value = %d WHERE nid = %d OR field_khoangoai_value = %d",$prime,$n,$n);
   }
 }
 
@@ -1229,7 +1226,7 @@ function dpldev_khachhang_update() {
 // Huy group khach hang
 function dpldev_khachhang_huy() {
   $nid = $_GET['nid'];
-  db_query("UPDATE {content_type_khachhang} SET field_khoangoai_value = NULL and field_sum_dso_value = NULL WHERE field_khoangoai_value = '%s'",$nid);
+  db_query("UPDATE {content_type_khachhang} SET field_khoangoai_value = NULL  WHERE field_khoangoai_value = '%s'",$nid);
 }
 function dpldev_khachhang_donhang($khachang_id) {
   $timeYear = time();
@@ -1245,7 +1242,7 @@ function dpldev_khachhang_donhang($khachang_id) {
   }
   else {
     $id_khachhang = '('.arg(1).')';}
-  $result = pager_query('SELECT * FROM content_type_donhang ctd WHERE ctd.field_khachhang_nid_value in (' . $id_khachhang . ') ORDER BY ctd.field_ngayban_value DESC', $limit);
+  $result = pager_query('SELECT * FROM content_type_donhang ctd WHERE ctd.field_khachhang_nid_value IN (' . $id_khachhang . ') ORDER BY ctd.field_ngayban_value DESC', $limit);
   //show table1 thongtinmua hàng
 
   $header1 = array();
@@ -1316,14 +1313,15 @@ function dpldev_khachhang_donhang($khachang_id) {
     $firt = db_result(db_query("SELECT ctd.field_ngayban_value FROM content_type_donhang as ctd INNER JOIN content_type_khachhang as ctk ON ctd.field_khachhang_nid_value = ctk.nid WHERE ctk.nid ='%d'",arg(1)));
 
     $khohang = db_result(db_query("SELECT kh.name
-FROM khohang AS kh
-LEFT JOIN content_type_donhang AS ctd ON kh.id = ctd.field_khohang_value
-LEFT JOIN content_type_khachhang AS ctk ON ctd.field_khachhang_nid_value = ctk.nid WHERE ctk.nid = '%s'",arg(1)));
+                                   FROM khohang AS kh
+                                   LEFT JOIN content_type_donhang AS ctd ON kh.id = ctd.field_khohang_value
+                                   LEFT JOIN content_type_khachhang AS ctk ON ctd.field_khachhang_nid_value = ctk.nid
+                                   WHERE ctk.nid = '%s'",arg(1)));
 
     //thong ke khach hang trong nam
     $dsYear = db_result(db_query("SELECT SUM(ctd.field_giaban_value-ctd.field_giamgia_value) FROM content_type_donhang AS ctd WHERE ctd.field_khachhang_nid_value  in (".$khoa12.") AND DATE_FORMAT(FROM_UNIXTIME(ctd.field_ngayban_value), '%Y') = '%d'",$year));
 
-    $numberDhYear = db_affected_rows(db_query("SELECT ctd.field_giaban_value FROM content_type_donhang as ctd INNER JOIN content_type_khachhang as ctk ON ctd.field_khachhang_nid_value = ctk.nid WHERE ctk.nid ='%s' and FROM_UNIXTIME(ctd.field_ngayban_value, '%Y') = '%d'",arg(1)),$year);
+    $numberDhYear = db_affected_rows(db_query("SELECT ctd.field_giaban_value FROM content_type_donhang as ctd INNER JOIN content_type_khachhang as ctk ON ctd.field_khachhang_nid_value = ctk.nid WHERE ctk.nid ='%s' AND FROM_UNIXTIME(ctd.field_ngayban_value, '%Y') = '%d'",arg(1)),$year);
 
     $firtYear = db_result(db_query("SELECT ctd.field_ngayban_value FROM content_type_donhang AS ctd INNER JOIN content_type_khachhang AS ctk ON ctd.field_khachhang_nid_value = ctk.nid WHERE ctk.nid ='%d' ORDER BY ctd.field_ngayban_value DESC",arg(1)),$year);
 
@@ -1346,10 +1344,9 @@ LEFT JOIN content_type_khachhang AS ctk ON ctd.field_khachhang_nid_value = ctk.n
 
     //thong ke doanh so nam
 
+    $dsYear = db_result(db_query('SELECT SUM(ctd.field_giaban_value - ctd.field_giamgia_value) FROM content_type_donhang as ctd WHERE ctd.field_khachhang_nid_value  in ('.$khoa12 . ') AND  DATE_FORMAT(FROM_UNIXTIME(ctd.field_ngayban_value),"%Y")  = %d',$year) );
 
-    $dsYear = db_result(db_query('SELECT SUM(ctd.field_giaban_value - ctd.field_giamgia_value) FROM content_type_donhang as ctd WHERE ctd.field_khachhang_nid_value  in ('.$khoa12 . ') and  DATE_FORMAT(FROM_UNIXTIME(ctd.field_ngayban_value),"%Y")  = %d',$year) );
-
-    $numberDhYear = db_affected_rows(db_query("SELECT ctd.field_giaban_value FROM content_type_donhang as ctd INNER JOIN content_type_khachhang as ctk ON ctd.field_khachhang_nid_value = ctk.nid WHERE ctk.nid ='%s' and FROM_UNIXTIME(ctd.field_ngayban_value, '%Y') = '%d'",arg(1)),$year);
+    $numberDhYear = db_affected_rows(db_query("SELECT ctd.field_giaban_value FROM content_type_donhang as ctd INNER JOIN content_type_khachhang as ctk ON ctd.field_khachhang_nid_value = ctk.nid WHERE ctk.nid ='%s' AND FROM_UNIXTIME(ctd.field_ngayban_value, '%Y') = '%d'",arg(1)),$year);
 
     $firtYear = db_result(db_query("SELECT ctd.field_ngayban_value FROM content_type_donhang AS ctd INNER JOIN content_type_khachhang AS ctk ON ctd.field_khachhang_nid_value = ctk.nid WHERE ctk.field_khoangoai_value ='%d' ORDER BY ctd.field_ngayban_value DESC",arg(1)),$year);
 
@@ -1471,7 +1468,7 @@ function dpldev_khachhang_node_relate($nid) {
 }
 
 function dpldev_khachhang_info_khachhang() {
-  $khAll = dpldev_khachhang_node_relate(arg(1)) ;
+  $khAll = dpldev_khachhang_node_relate(arg(1));
   $row = array();
   foreach($khAll as $khAlls) {
     $row['name'] = $khAlls->field_hovaten_value;

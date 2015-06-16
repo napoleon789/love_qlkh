@@ -14,11 +14,10 @@ function dpldev_convert_schema() {
         'not null' => TRUE
       ),
       'id_cv' => array(
-                    'type' => 'varchar',
-                    'length' => 32,
-                    'not null' => TRUE,
-                    'default' => ''
-                  ),
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0
+         ),
       'makh' => array(
         'type' => 'varchar',
         'length' => 32,
@@ -157,155 +156,6 @@ function dpldev_convert_schema() {
     ),
     'primary key' => array('id'),
   );
-
- //bang luu tam
-
-  $schema['pmkt_tam'] = array(
-     'description' => 'Lưu tạm dữ liệu.',
-     'fields' => array(
-       'id' => array(
-         'type' => 'serial',
-         'unsigned' => TRUE,
-         'not null' => TRUE
-       ),
-       'makh' => array(
-         'type' => 'varchar',
-         'length' => 32,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'hoten' => array(
-         'type' => 'varchar',
-         'length' => 100,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'diachi' => array(
-         'type' => 'varchar',
-         'length' => 150,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'mobile' => array(
-         'type' => 'varchar',
-         'length' => 20,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'phone' => array(
-         'type' => 'varchar',
-         'length' => 20,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'email' => array(
-         'type' => 'varchar',
-         'length' => 50,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'sanpham' => array(
-         'type' => 'varchar',
-         'length' => 50,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'masp' => array(
-         'type' => 'varchar',
-         'length' => 20,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'sohd' => array(
-         'type' => 'varchar',
-         'length' => 20,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'donvi' => array(
-         'type' => 'varchar',
-         'length' => 20,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'soluong' => array(
-         'type' => 'varchar',
-         'length' => 10,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'giatri' => array(
-         'type' => 'varchar',
-         'length' => 20,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'chietkhau' => array(
-         'type' => 'varchar',
-         'length' => 20,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'cuahang' => array(
-         'type' => 'varchar',
-         'length' => 100,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'manv' => array(
-         'type' => 'varchar',
-         'length' => 20,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'nhanvien' => array(
-         'type' => 'varchar',
-         'length' => 50,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'ngay_ban' => array(
-         'type' => 'varchar',
-         'length' => 20,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'ngayban' => array(
-         'type' => 'int',
-         'not null' => TRUE,
-         'default' => 0
-       ),
-       'loaisan_pham' => array(
-         'type' => 'varchar',
-         'length' => 50,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'ten_kho' => array(
-         'type' => 'varchar',
-         'length' => 100,
-         'not null' => TRUE,
-         'default' => ''
-       ),
-       'area' => array(
-         'type' => 'int',
-         'not null' => TRUE,
-         'default' => 1
-       ),
-       'data' => array(
-         'type' => 'text',
-         'not null' => TRUE,
-         'size' => 'big'
-       ),
-       'status' => array(
-         'description' => '0 = Mac dinh chua import du lieu vao khach hang content type.',
-         'type' => 'int',
-         'not null' => TRUE,
-         'default' => 0
-       ),
-     ),
-     'primary key' => array('id'),
-   );
     return $schema;
 }
 

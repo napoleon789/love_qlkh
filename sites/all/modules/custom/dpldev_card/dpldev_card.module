@@ -37,21 +37,38 @@
 }
 
  function dpldev_card_wait($type = null) {
-    if(!isset($type))
-        $having = ' HAVING doanhso >= 1000000000';
-     if($type == 'bac') {
-         $having = ' HAVING doanhso >= 1000000000 AND doanhso < 2000000000';
+    if(!isset($type)) {
+        $having = ' HAVING doanhso >= 10000000';
+        $dk  = '';
+    }
+    if($type == 'bac') {
+        $having = ' HAVING doanhso >= 10000000 AND doanhso < 200000000';
+        $dk  = ' AND (hangthe < 2222 OR hangthe IS NULL) ';
+
      }
-     if($type == 'vang')
-         $having = ' HAVING doanhso >= 2000000000 AND doanhso < 4000000000';
-     if($type == 'bachkim')
-         $having = ' HAVING doanhso >= 4000000000 AND doanhso < 6000000000';
-     if($type == 'kimcuong')
-         $having = ' HAVING doanhso >= 6000000000';
+     if($type == 'vang') {
+        $having = ' HAVING doanhso >= 200000000 AND doanhso < 500000000';
+        $dk  = ' AND (hangthe < 4444 OR hangthe IS NULL)';
+     }
+     if($type == 'bachkim') {
+         $having = ' HAVING doanhso >= 500000000 AND doanhso < 1000000000';
+         $dk  = ' AND (hangthe < 6666 OR hangthe IS NULL)';
+     }
+     if($type == 'kimcuong') {
+         $having = ' HAVING doanhso >= 1000000000';
+         $dk  = ' AND (hangthe < 8888 OR hangthe IS NULL)';
+     }
 
-    $sqlcount = "SELECT COUNT(DISTINCT ctd.field_khachhang_nid_value) FROM {content_type_donhang} ctd INNER JOIN content_type_khachhang ctk ON ctk.vid = ctd.field_khachhang_nid_value and ctk.field_khoangoai_value = ctk.nid AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = '0')  ";
+    $sqlcount = "SELECT COUNT(DISTINCT ctd.field_khachhang_nid_value) FROM {content_type_donhang} ctd INNER JOIN content_type_khachhang ctk ON ctk.nid = ctd.field_khachhang_nid_value  ";
 
-    $sqlselect = "SELECT ctk.* , SUM(ctd.field_giaban_value*ctd.field_soluong_value - ctd.field_giamgia_value) doanhso, max(ctd.field_ngayban_value) ngayban FROM {content_type_donhang ctd} INNER JOIN content_type_khachhang ctk ON ctk.vid = ctd.field_khachhang_nid_value and ctk.field_khoangoai_value = ctk.nid AND (ctk.field_khachhang_buon_value IS NULL OR ctk.field_khachhang_buon_value = '0') GROUP BY ctd.field_khachhang_nid_value ". $having;
+    $sqlselect = "SELECT ctk.nid,
+                         ctk.field_hovaten_value,
+                         MAX(ctk.field_hangthe_value) as hangthe,
+                         ctk.field_gioitinh_value,
+                         ctk.field_mobile_value,
+                         ctk.field_diachi_value,
+                         SUM(ctd.field_giaban_value - ctd.field_giamgia_value) doanhso
+                   FROM {content_type_donhang} ctd INNER JOIN content_type_khachhang ctk ON ctk.nid = ctd.field_khachhang_nid_value  GROUP BY ctd.field_khachhang_nid_value ".$having . $dk;
      $result = pager_query($sqlselect, 15, 0, $sqlcount);
      $i = 1;
      while($obj = db_fetch_object($result)) {
@@ -81,13 +98,13 @@
 
 function dpldev_card_type($value) {
   $hang = '-';
-  if($value >= 1000000000 && $value < 2000000000)
+  if($value >= 10000000 && $value < 200000000)
     $hang = 'Silver...';
-  if($value >= 2000000000 && $value < 4000000000)
+  if($value >= 200000000 && $value < 500000000)
     $hang = 'Gold...';
-  if($value >= 4000000000 && $value < 6000000000)
+  if($value >= 500000000 && $value < 1000000000)
     $hang = 'Platinum...';
-  if($value >= 6000000000)
+  if($value >= 1000000000)
     $hang = 'Diamond...';
   return $hang;
 }

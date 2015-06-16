@@ -56,12 +56,12 @@ function dpldev_import_menu() {
  * update tk_no= 131 toi pmkt_chuan
  */
 function dpldev_import_pmkt_chuan() {
-  $query = db_query_range("SELECT * FROM {pmkt} WHERE LEFT(tk_no,3) = 131 AND status = 0 ORDER BY ngayban ASC",0,1000);
+  $query = db_query_range("SELECT * FROM {pmkt} WHERE LEFT(tk_no,3) = 131 AND status = 0 ORDER BY id ASC",0,1000);
   while($row = db_fetch_array($query)) {
     $row['id_cv']= $row['id'];
     $row['chietkhau'] = 0;
     drupal_write_record('pmkt_chuan',$row);
-    db_query("UPDATE {pmkt} SET status = 1 WHERE id = '%s'", $row['id_cv']);
+    db_query("UPDATE {pmkt} SET status = 1 WHERE LEFT(tk_no,3) = 131 AND id = '%s'", $row['id_cv']);
   }
    die(dpldev_control_fresh_page('reading...'));
 }
@@ -70,11 +70,11 @@ function dpldev_import_pmkt_chuan() {
  * update chiet khau
  */
 function dpldev_import_tk_no() {
-  $query = db_query_range("SELECT * FROM {pmkt} WHERE status = 0 ORDER BY ngayban ASC",0,100);
+  $query = db_query_range("SELECT id,giatri FROM {pmkt} WHERE LEFT(tk_no,3) = 521 AND status = 0 ORDER BY id ASC",0,100);
   while($row = db_fetch_array($query)) {
-      db_query("UPDATE {pmkt_chuan} SET chietkhau = '%s' WHERE id_cv = '%s'",$row['giatri'],$row['id']-1);
-      db_query("UPDATE {pmkt} SET status = 1 WHERE id = '%s'", $row['id']);
-  }
+      db_query("UPDATE {pmkt_chuan} SET chietkhau = %d WHERE id_cv = %d ",$row['giatri'],$row['id']-1);
+      db_query("UPDATE {pmkt} SET status = 1 WHERE left(tk_no,3) = 521 AND id = %d  ", $row['id']);
+  };
   die(dpldev_control_fresh_page('reading...'));
 }
 
@@ -152,8 +152,9 @@ function dpldev_import_pmkt() {
 function dpldev_import_mssql() {
 	// HCM
     dpldev_khachhang_delete_node(AREA_HCM);
-	$latestDate = dpldev_get_latest_record_from_pmkt(AREA_HCM);
+	$latestDate = dpldev_get_latest_record_from_pmkt(AREA_HCM);//22/5/2015
     $latestDate = dpldev_convert_time($latestDate);
+
     $latestDate = strtotime($latestDate);
     $latestDate = $latestDate - 5616000;
     $latestDate = date('d/m/Y',$latestDate);
@@ -184,7 +185,7 @@ function dpldev_import_khachhang() {
   dpldev_content_get_table_values('thuonghieu');
   dpldev_content_get_table_values('nhanvien');
 
-  $result = db_query_range('SElECT * FROM {pmkt_chuan} WHERE status != 1 ORDER BY ngayban ASC', 0, 100);
+  $result = db_query_range('SElECT * FROM {pmkt_chuan} WHERE status = 0 ORDER BY id ASC', 0, 100);
   
   while ($obj = db_fetch_object($result)) {
     //Khach hang
@@ -257,12 +258,13 @@ function dpldev_import_khachhang() {
     $data->pid = $obj->id;
     drupal_write_record('khachhang_pmkt', $data);
     db_query('UPDATE {pmkt_chuan} SET status = 1 WHERE id=%d', $obj->id);
-    db_query('UPDATE {content_type_khachhang} SET field_khoangoai_value = %d WHERE id=%d', $khachhang_nid,$obj->id);
+  //  db_query('UPDATE {content_type_khachhang} SET field_khoangoai_value = %d WHERE id=%d', $khachhang_nid,$obj->id);
     unset($khachhang, $donhang);
   }
 
   $message = t('Cập nhập dữ liệu khách hàng từ phần mềm kế toán thành công!', array(), 'vi');
   watchdog('import_khachhang', $message);
+
   die(dpldev_control_fresh_page($message));
   return $message;
 }

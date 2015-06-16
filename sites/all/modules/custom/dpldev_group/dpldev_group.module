@@ -29,9 +29,9 @@ function dpldev_group_huykhoa() {
 
 //get field_khoangoai_value from arg(1)
 function dpldev_group_get_khoangoai($nid) {
-   $result = db_query("SELECT nid FROM {content_type_khachhang} WHERE  field_khoangoai_value = '%s'",$nid);
+   $result = db_query("SELECT nid FROM {content_type_khachhang} WHERE  field_khoangoai_value = %d ",$nid);
   if(db_affected_rows($result) == 0)
-    $result = db_query("SELECT nid FROM {content_type_khachhang} WHERE  nid = '%s'",$nid);
+    $result = db_query("SELECT nid FROM {content_type_khachhang} WHERE  nid = %d ",$nid);
   $nidAl = '';
   $i = 0;
 while($row = db_fetch_object($result)) {
@@ -70,3 +70,4 @@ function dpldev_group_type_the($value) {
   }
   return $hang;
 }
+
