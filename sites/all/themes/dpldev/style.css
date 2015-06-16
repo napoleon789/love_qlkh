@@ -2968,4 +2968,7 @@ body.two-sidebars #sidebar-right {
     text-align: center;
     margin: 40px 0 50px;
 }
+.page-khachhang #block-dpldev_khachhang-search{
+    margin-top: 0;
+}
 /* e: custom by duyenpt */
