@@ -1,6 +1,6 @@
 jQuery(document).ready(function() {
     $("#readmore").click(function () {
-        $("#content_render").html("loading....").css("color","red");
+        $("#content_render").html("<div class='loading'><img src='../sites/all/themes/dpldev/images/bx_loader.gif' width='48px'/></div>");
         var url = "khohang/api";
         $.ajax({
             url : url,

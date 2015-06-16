@@ -2944,4 +2944,28 @@ body.two-sidebars #sidebar-right {
     text-align: center;
 }
 
+.page-thongke #readmore{
+    background: transparent url("images/button-bg.png") repeat-x scroll 0 0;
+    color: #202020;
+    cursor: pointer;
+    display: block;
+    font-size: 13px;
+    height: 30px;
+    line-height: 30px;
+    width: 177px;
+    text-align: center;
+    margin: auto;
+}
+
+.page-thongke .full-viewer.hide-div-label{
+    margin-top: 20px;
+}
+
+.page-thongke .full-viewer .table thead th{
+    padding: 5px 0 5px 5px;
+}
+.page-thongke .loading{
+    text-align: center;
+    margin: 40px 0 50px;
+}
 /* e: custom by duyenpt */
